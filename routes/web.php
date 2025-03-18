@@ -10,12 +10,35 @@ use App\Http\Livewire\HomePage;
 use App\Http\Livewire\NewsPage;
 use App\Http\Livewire\ProfilePage;
 
-Route::get('/about', AboutPage::class);
-Route::get('/achievement', AchievementPage::class);
-Route::get('/announcement', AnnouncementPage::class);
-Route::get('/contact', ContactPage::class);
-Route::get('/gallery', GalleryPage::class);
-Route::get('/home', HomePage::class);
-Route::get('/news', NewsPage::class);
-Route::get('/profile', ProfilePage::class);
+Route::get('/about', function () {
+    return Livewire::mount(AboutPage::class);
+});
+
+Route::get('/achievement', function () {
+    return Livewire::mount(AchievementPage::class);
+});
+
+Route::get('/announcement', function () {
+    return Livewire::mount(AnnouncementPage::class);
+});
+
+Route::get('/contact', function () {
+    return Livewire::mount(ContactPage::class);
+});
+
+Route::get('/gallery', function () {
+    return Livewire::mount(GalleryPage::class);
+});
+
+Route::get('/home', function () {
+    return Livewire::mount(HomePage::class);
+});
+
+Route::get('/news', function () {
+    return Livewire::mount(NewsPage::class);
+});
+
+Route::get('/profile', function () {
+    return Livewire::mount(ProfilePage::class);
+});
 
