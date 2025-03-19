@@ -4,7 +4,7 @@
             {{-- Logo --}}
             <a href="/" class="text-lg font-semibold flex items-center">
                 <img src="/storage/images/logo.png" alt="Logo" class="h-8 w-8 mr-2">
-                SDN Padangsari
+                SDN 01 Padangsari
             </a>
 
             {{-- Menu Navigasi --}}
