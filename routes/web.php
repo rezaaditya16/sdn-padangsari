@@ -1,7 +1,7 @@
 <?php
+// filepath: d:\sdn-padangsari\routes\web.php
 
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Livewire\HomePage;
 use App\Http\Livewire\AboutPage;
 use App\Http\Livewire\AchievementPage;

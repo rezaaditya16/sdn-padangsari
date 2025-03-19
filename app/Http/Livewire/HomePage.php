@@ -11,7 +11,7 @@ class HomePage extends Component
 
     public function mount()
     {
-        $this->latestPosts = Post::latest()->take(3)->get();
+       
     }
 
     public function render()
