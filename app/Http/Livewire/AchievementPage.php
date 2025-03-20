@@ -8,6 +8,6 @@ class AchievementPage extends Component
 {
     public function render()
     {
-        return view('livewire.livewire.achievement-page');
+        return view('livewire.achievement-page');
     }
 }
