@@ -10,6 +10,9 @@ use App\Http\Livewire\ContactPage;
 use App\Http\Livewire\GalleryPage;
 use App\Http\Livewire\NewsPage;
 use App\Http\Livewire\ProfilePage;
+use App\Livewire\VisimisiPage;
+use App\Livewire\KontakPage;
+use App\Livewire\PengumumanPage;
 
 Route::get('/', HomePage::class)->name('home');
 Route::get('/about', AboutPage::class)->name('about');
@@ -19,3 +22,6 @@ Route::get('/contact', ContactPage::class)->name('contact');
 Route::get('/gallery', GalleryPage::class)->name('gallery');
 Route::get('/news', NewsPage::class)->name('news');
 Route::get('/profile', ProfilePage::class)->name('profile');
+route::get('/visimisi', VisimisiPage::class)->name('visimisi');
+route::get('/kontak', KontakPage::class)->name('kontak');
+route::get('/pengumuman', PengumumanPage::class)->name('pengumuman');

@@ -13,7 +13,7 @@
     @include('components.navbar')
 
     {{-- Konten Utama --}}
-    <div class="flex-1 ml-64 p-6">
+    <div class="flex-1 p-6">
         {{ $slot }}
     </div>
 
