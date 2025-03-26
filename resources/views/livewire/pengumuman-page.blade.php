@@ -1,6 +1,6 @@
 <div>
     <li>
-        <h1 class="text-2xl font-bold">Pengumuman</h1>
+        <h1 class="flex pt-10 font-bold">Pengumuman</h1>
         <p>Informasi terbaru dari SDN 01 Padangsari.</p>
         <ul class="list-disc list-inside">
             <li>Informasi tentang kegiatan belajar mengajar.</li>
