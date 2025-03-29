@@ -7,7 +7,7 @@
     @livewireStyles
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="flex bg-gray-100">
+<body class="flex ">
 
     {{-- Sidebar (Navbar Vertikal) --}}
     @include('components.navbar')
