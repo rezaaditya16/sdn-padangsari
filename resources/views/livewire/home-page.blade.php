@@ -1,26 +1,38 @@
-<div class="min-h-screen flex flex-col items-center bg-white">
-    <!-- Image Slider Section -->
-    <div class="w-full max-w-5xl mx-auto mt-10 px-4">
-        <div x-data="{ currentSlide: 0, totalSlides: 2 }" class="relative overflow-hidden rounded-lg">
-            <!-- Slider Images -->
-            <div class="flex transition-transform duration-500 ease-in-out" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
-                <div class="min-w-full">
-                    <img src="{{ asset('images/img1.jpeg') }}" alt="Slide 1" class="w-full h-auto max-h-96 object-cover">
-                </div>
-                <div class="min-w-full">
-                    <img src="{{ asset('images/img2.jpg') }}" alt="Slide 2" class="w-full h-auto max-h-96 object-cover">
-                </div>
+    <div class="min-h-screen flex flex-col items-center bg-white">
+        <!-- Image Slider Section -->
+        <div class="w-full max-w-5xl mx-auto mt-10 px-4">
+            <div x-data="{ currentSlide: 0, totalSlides: 2 }" class="relative overflow-hidden rounded-lg">
+            <div x-data="{ currentSlide: 0, totalSlides: 3 }" class="relative overflow-hidden">
+        <!-- Slider Images -->
+        <div class="flex transition-transform duration-500 ease-in-out whitespace-nowrap" 
+             :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
+            <div class="min-w-full">
+                <img src="{{ asset('images/img1.jpeg') }}" alt="Slide 1" class="w-full h-auto max-h-96 object-cover">
             </div>
-         
-            <!-- Navigation Buttons -->
+            <div class="min-w-full">
+                <img src="{{ asset('images/img2.jpg') }}" alt="Slide 2" class="w-full h-auto max-h-96 object-cover">
+            </div>
+            <div class="min-w-full">
+                <img src="{{ asset('images/UcapanSelamat.jpg') }}" alt="Slide 3" class="w-full h-auto max-h-96 object-cover">
+            </div>
+            <div class="min-w-full">
+                <img src="{{ asset('images/ramadhan.jpg') }}" alt="Slide 3" class="w-full h-auto max-h-96 object-cover">
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="absolute inset-0 flex justify-between items-center px-4">
             <button @click="currentSlide = (currentSlide === 0 ? totalSlides - 1 : currentSlide - 1)" 
-                    class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white px-4 py-2 rounded-full hover:bg-opacity-75 focus:outline-none">
+                    class="bg-black bg-opacity-50 text-white px-4 py-2 rounded-full hover:bg-opacity-75 focus:outline-none">
                 &#10094;
             </button>
             <button @click="currentSlide = (currentSlide === totalSlides - 1 ? 0 : currentSlide + 1)" 
-                    class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white px-4 py-2 rounded-full hover:bg-opacity-75 focus:outline-none">
+                    class="bg-black bg-opacity-50 text-white px-4 py-2 rounded-full hover:bg-opacity-75 focus:outline-none">
                 &#10095;
             </button>
+        </div>
+    </div>
+
             
             <!-- Indicators -->
             <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
