@@ -14,7 +14,7 @@
         <div class="flex justify-between items-center py-4">
             <!-- Logo -->
             <a wire:navigate href="/" class="text-lg font-semibold flex items-center">
-                <img src="/storage/images/logo.png" alt="Logo" class="h-8 w-8 mr-2">
+                <img src="/images/logo.png" alt="Logo" class="h-22 w-28 mr-2">
                 SDN 01 Padangsari
             </a>
 
