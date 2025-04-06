@@ -13,6 +13,7 @@ use App\Http\Livewire\ProfilePage;
 use App\Livewire\VisimisiPage;
 use App\Livewire\KontakPage;
 use App\Livewire\PengumumanPage;
+use App\Livewire\PengaduanPage;
 
 Route::get('/', HomePage::class)->name('home');
 Route::get('/about', AboutPage::class)->name('about');
@@ -25,3 +26,4 @@ Route::get('/profile', ProfilePage::class)->name('profile');
 route::get('/visimisi', VisimisiPage::class)->name('visimisi');
 route::get('/kontak', KontakPage::class)->name('kontak');
 route::get('/pengumuman', PengumumanPage::class)->name('pengumuman');
+route::get('/pengaduan', PengaduanPage::class)->name('pengaduan');
