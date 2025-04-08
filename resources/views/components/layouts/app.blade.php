@@ -3,17 +3,17 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Laravel')</title>
+    <title>SDNPadangsari01</title>
     @livewireStyles
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="flex ">
+<body class="flex flex-col min-h-screen font-roboto">
 
     {{-- Sidebar (Navbar Vertikal) --}}
     @include('components.navbar')
 
     {{-- Konten Utama --}}
-    <div class="flex-1 p-6">
+    <div class="flex-grow">
         {{ $slot }}
     </div>
 

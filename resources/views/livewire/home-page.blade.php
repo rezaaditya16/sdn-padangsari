@@ -1,4 +1,14 @@
-    <div class="min-h-screen flex flex-col items-center bg-white">
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+    <div class="site-wrap" id="home-section">
+        <div class="site-mobile-menu site-navbar-target">
+            <div class="site-mobile-menu-header">
+                <div class="site-mobile-menu-close mt-3">
+                    <span class="icon-close2 js-menu-toggle"></span>
+                </div>
+            </div>
+            <div class="site-mobile-menu-body"></div>
+        </div>
+<div class="min-h-screen flex flex-col items-center bg-white">
         <!-- Image Slider Section -->
         <div class="w-full max-w-5xl mx-auto mt-10 px-4">
             <div x-data="{ currentSlide: 0, totalSlides: 2 }" class="relative overflow-hidden rounded-lg">
@@ -33,18 +43,7 @@
         </div>
     </div>
 
-            
-            <!-- Indicators -->
-            <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
-                <template x-for="(slide, index) in totalSlides" :key="index">
-                    <button 
-                        @click="currentSlide = index" 
-                        class="w-3 h-3 rounded-full transition-colors duration-300 focus:outline-none"
-                        :class="index === currentSlide ? 'bg-blue-600' : 'bg-gray-300'"
-                        aria-label="Go to slide"
-                    ></button>
-                </template>
-            </div>
+           
         </div>
     </div>
 
