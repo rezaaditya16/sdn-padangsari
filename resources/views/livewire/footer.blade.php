@@ -4,8 +4,8 @@
         <div>
             <h4 class="font-bold mb-2">Tautan</h4>
             <ul class="space-y-1">
-                <li><a href="#" class="hover:underline">› Kemdikbud</a></li>
-                <li><a href="#" class="hover:underline">› Dinas Pendidikan</a></li>
+                <li><a href="https://kemdiktisaintek.go.id/" class="hover:underline">› Kemdikbud</a></li>
+                <li><a href="https://disdiksmg.semarangkota.go.id/" class="hover:underline">› Dinas Pendidikan</a></li>
             </ul>
         </div>
 
