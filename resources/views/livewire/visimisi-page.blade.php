@@ -3,7 +3,7 @@
     <div class="relative h-[400px] bg-cover bg-center" style="background-image: url('{{ asset('images/sekolah.png') }}');">
         <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
             <div class="text-center text-white px-4">
-                <h1 class="text-4xl md:text-5xl font-bold mb-2">Profil Sekolah</h1>
+                <h1 class="text-4xl md:text-5xl font-bold mb-2">PROFIL SEKOLAH</h1>
                 <p class="text-xl md:text-2xl">SDN PEDURUNGAN KIDUL 04</p>
             </div>
         </div>

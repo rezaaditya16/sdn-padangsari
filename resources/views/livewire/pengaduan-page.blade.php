@@ -1,3 +1,13 @@
+<div>
+    <!-- Hero Section -->
+    <div class="relative h-[400px] bg-cover bg-center" style="background-image: url('{{ asset('images/sekolah.png') }}');">
+        <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+            <div class="text-center text-white px-4">
+                <h1 class="text-4xl md:text-5xl font-bold mb-2">PENGADUAN SEKOLAH</h1>
+                <p class="text-xl md:text-2xl">SDN PEDURUNGAN KIDUL 04</p>
+            </div>
+        </div>
+    </div>
 <div class="max-w-2xl mx-auto pt-24 p-6 bg-white shadow rounded-xl">
     @if (session()->has('message'))
         <div class="mb-4 text-green-600">{{ session('message') }}</div>
@@ -30,4 +40,6 @@
 
         <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Submit</button>
     </form>
+</div>
+
 </div>

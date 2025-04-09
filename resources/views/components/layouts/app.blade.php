@@ -9,7 +9,8 @@
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
 
 </head>
-<body class="flex flex-col min-h-screen font-roboto">
+<body class="flex flex-col min-h-screen font-roboto overflow-x-hidden">
+    {{-- Header --}}
 
     {{-- Sidebar (Navbar Vertikal) --}}
     @include('components.navbar')
