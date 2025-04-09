@@ -7,6 +7,8 @@
     @livewireStyles
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+
 
 </head>
 <body class="flex flex-col min-h-screen font-roboto overflow-x-hidden">
