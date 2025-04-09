@@ -6,6 +6,8 @@
     <title>SDNPadangsari01</title>
     @livewireStyles
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+
 </head>
 <body class="flex flex-col min-h-screen font-roboto">
 
@@ -16,6 +18,9 @@
     <div class="flex-grow">
         {{ $slot }}
     </div>
+
+    {{-- Footer --}}
+    @livewire('footer')
 
     @livewireScripts
 </body>

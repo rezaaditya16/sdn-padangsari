@@ -8,7 +8,7 @@
             </div>
             <div class="site-mobile-menu-body"></div>
         </div>
-<div class="min-h-screen flex flex-col items-center bg-white">
+<div class="min-h-screen flex flex-col items-center bg-white mt-32">
         <!-- Image Slider Section -->
         <div class="w-full max-w-5xl mx-auto mt-10 px-4">
             <div x-data="{ currentSlide: 0, totalSlides: 2 }" class="relative overflow-hidden rounded-lg">
