@@ -20,7 +20,8 @@
     </div>
 
     {{-- Footer --}}
-    @livewire('footer')
+    @include('components.footer')
+
 
     @livewireScripts
 </body>
