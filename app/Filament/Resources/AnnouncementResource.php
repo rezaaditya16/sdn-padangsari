@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AnnouncementResource extends Resource
 {
+    protected static ?string $navigationGroup = 'Settings';
     protected static ?string $model = Announcement::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
