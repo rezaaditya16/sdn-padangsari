@@ -9,8 +9,10 @@
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    
-
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <script src="https://kit.fontawesome.com/your_kit_code.js" crossorigin="anonymous"></script>
     
 
 
@@ -22,14 +24,20 @@
     @include('components.navbar')
 
     {{-- Konten Utama --}}
-    <div class="flex-grow">
+    <div class="flex-grow mt-[-45px]">
+        {{-- Hero Section --}}
         {{ $slot }}
     </div>
+    
 
     {{-- Footer --}}
     @include('components.footer')
 
 
     @livewireScripts
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
 </body>
 </html>

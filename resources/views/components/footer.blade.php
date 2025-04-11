@@ -1,37 +1,76 @@
-<footer class="bg-gray-800 text-white pt-10 pb-4 mt-24">
-    <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
-        <!-- Kolom 1: Tautan -->
-        <div>
-            <h4 class="font-bold mb-2">Tautan</h4>
-            <ul class="space-y-1">
-                <li><a href="https://kemdiktisaintek.go.id/" class="hover:underline">› Kemdikbud</a></li>
-                <li><a href="https://disdiksmg.semarangkota.go.id/" class="hover:underline">› Dinas Pendidikan</a></li>
-            </ul>
-        </div>
-
-        <!-- Kolom 2: Ikuti Kami -->
-        <div>
-            <h4 class="font-bold mb-2">Ikuti kami</h4>
-            <div class="flex space-x-4 mt-2">
-                <a href="#" class="hover:text-gray-300 text-2xl"><i class="fab fa-facebook-square"></i></a>
-                <a href="#" class="hover:text-gray-300 text-2xl"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="hover:text-gray-300 text-2xl"><i class="fab fa-youtube"></i></a>
-            </div>
-        </div>
-
-        <!-- Kolom 3: Kontak -->
-        <div>
-            <h4 class="font-bold mb-2">Kontak</h4>
-            <ul class="space-y-1">
-                <li><i class="fas fa-envelope mr-2"></i> padangsari01sdnegeri@gmail.com</li>
-                <li><i class="fas fa-phone mr-2"></i> (024) 7472048</li>
-                <li><i class="fas fa-map-marker-alt mr-2"></i> Jalan Damar Raya No 80 A</li>
-            </ul>
-        </div>
+<footer class="bg-[#7D0A0A] text-white pt-16 pb-8 mt-24 font-bebas text-base" data-aos="fade-up" data-aos-duration="1000">
+  <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10">
+    
+    <!-- Kolom 1: Tautan -->
+    <div data-aos="fade-right" data-aos-delay="200">
+      <h4 class="text-xl font-semibold mb-4 border-b border-white/30 pb-2">Tautan Penting</h4>
+      <ul class="space-y-3">
+        <li>
+          <a href="https://kemdiktisaintek.go.id/" target="_blank"
+             class="flex items-center hover:text-blue-300 transition-all duration-300">
+            <i class="fas fa-arrow-circle-right text-blue-300 mr-3 text-lg"></i>
+            Kemdikbud
+          </a>
+        </li>
+        <li>
+          <a href="https://disdiksmg.semarangkota.go.id/" target="_blank"
+             class="flex items-center hover:text-blue-300 transition-all duration-300">
+            <i class="fas fa-arrow-circle-right text-blue-300 mr-3 text-lg"></i>
+            Dinas Pendidikan
+          </a>
+        </li>
+      </ul>
     </div>
 
-    <!-- Garis dan Copyright -->
-    <div class="mt-8 border-t border-white text-center pt-4 text-sm">
-        SDN PADANGSARI 01
+    <!-- Sosial Media -->
+<div data-aos="fade-up" data-aos-delay="400">
+  <h4 class="text-xl font-semibold mb-4 border-b border-white/30 pb-2">Ikuti Kami</h4>
+  <div class="flex space-x-6 mt-3 text-3xl">
+    
+    <!-- Instagram -->
+    <a href="https://instagram.com" target="_blank" aria-label="Instagram"
+       class="text-pink-500 hover:text-pink-400 transform hover:scale-125 transition-transform duration-300 ease-in-out">
+      <i class="fab fa-instagram"></i>
+    </a>
+
+    <!-- YouTube -->
+    <a href="https://youtube.com" target="_blank" aria-label="YouTube"
+       class="text-red-600 hover:text-red-400 transform hover:scale-125 transition-transform duration-300 ease-in-out">
+      <i class="fab fa-youtube"></i>
+    </a>
+
+    <!-- WhatsApp -->
+    <a href="https://wa.me/6281234567890" target="_blank" aria-label="WhatsApp"
+       class="text-green-500 hover:text-green-400 transform hover:scale-125 transition-transform duration-300 ease-in-out">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+
+  </div>
+</div>
+
+
+    <!-- Kolom 3: Kontak -->
+    <div data-aos="fade-left" data-aos-delay="600">
+      <h4 class="text-xl font-semibold mb-4 border-b border-white/30 pb-2">Kontak Kami</h4>
+      <ul class="space-y-4 mt-3 leading-relaxed">
+        <li class="flex items-start">
+          <i class="fas fa-envelope text-yellow-300 mr-3 text-lg mt-1"></i>
+          <span>padangsari01sdnegeri@gmail.com</span>
+        </li>
+        <li class="flex items-start">
+          <i class="fas fa-phone-alt text-green-300 mr-3 text-lg mt-1"></i>
+          <span>(024) 7472048</span>
+        </li>
+        <li class="flex items-start">
+          <i class="fas fa-map-marker-alt text-red-400 mr-3 text-lg mt-1"></i>
+          <span>Jalan Damar Raya No. 80 A, Semarang</span>
+        </li>
+      </ul>
     </div>
+  </div>
+
+  <!-- Copyright -->
+  <div class="mt-12 border-t border-white/20 text-center pt-4 text-sm text-white">
+    &copy; {{ date('Y') }} SDN Padangsari 01. All rights reserved.
+  </div>
 </footer>
