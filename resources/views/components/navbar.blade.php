@@ -24,8 +24,7 @@
       <!-- Hamburger (Mobile) -->
       <button @click="open = !open" class="md:hidden focus:outline-none">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M4 6h16M4 12h16m-7 6h7" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
         </svg>
       </button>
 
@@ -34,9 +33,11 @@
         <a href="/" class="hover:text-blue-300">BERANDA</a>
 
         <!-- Dropdown PROFIL -->
-        <div class="relative group">
+        <div class="relative" x-data="{ open: false, timeout: null }"
+             @mouseenter="clearTimeout(timeout); open = true"
+             @mouseleave="timeout = setTimeout(() => open = false, 300)">
           <button class="hover:text-blue-300">PROFIL ▾</button>
-          <ul class="absolute bg-gray-700 text-white mt-2 rounded shadow-lg hidden group-hover:block w-40 z-10">
+          <ul x-show="open" x-transition.origin.top class="absolute bg-gray-700 text-white mt-2 rounded shadow-lg w-40 z-10">
             <li><a href="/visimisi" class="block px-4 py-2 hover:bg-gray-600 hover:text-blue-300">Profil Sekolah</a></li>
             <li><a href="/guru" class="block px-4 py-2 hover:bg-gray-600 hover:text-blue-300">Profil Guru</a></li>
             <li><a href="/struktur" class="block px-4 py-2 hover:bg-gray-600 hover:text-blue-300">Profil Siswa</a></li>
@@ -44,9 +45,11 @@
         </div>
 
         <!-- Dropdown GALERI -->
-        <div class="relative group">
+        <div class="relative" x-data="{ open: false, timeout: null }"
+             @mouseenter="clearTimeout(timeout); open = true"
+             @mouseleave="timeout = setTimeout(() => open = false, 300)">
           <button class="hover:text-blue-300">GALERI ▾</button>
-          <ul class="absolute bg-gray-700 text-white mt-2 rounded shadow-lg hidden group-hover:block w-40 z-10">
+          <ul x-show="open" x-transition.origin.top class="absolute bg-gray-700 text-white mt-2 rounded shadow-lg w-40 z-10">
             <li><a href="/foto" class="block px-4 py-2 hover:bg-gray-600 hover:text-blue-300">Foto</a></li>
             <li><a href="/video" class="block px-4 py-2 hover:bg-gray-600 hover:text-blue-300">Video</a></li>
           </ul>
