@@ -56,7 +56,6 @@
         <a href="/ppdb" class="hover:text-blue-300">PPDB</a>
         <a href="/kontak" class="hover:text-blue-300">KONTAK</a>
         <a href="/pengaduan" class="hover:text-blue-300">PENGADUAN</a>
-        <a href="/tentang" class="hover:text-blue-300">TENTANG</a>
 
         <!-- Sosmed -->
         <div class="flex space-x-2">
