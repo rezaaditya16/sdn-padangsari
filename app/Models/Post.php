@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Teacher extends Model
+class Post extends Model
 {
     use HasFactory;
 
@@ -15,14 +15,10 @@ class Teacher extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'position',
-        'photo',
-        'classroom_id',
+        'title', 
+        'content',    
+        'image',    
+        'link',      
+        'published_at', 
     ];
-
-    public function classroom()
-    {
-        return $this->belongsTo(Classroom::class, 'classroom_id');
-    }
 }
