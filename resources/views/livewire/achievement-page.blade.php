@@ -1,3 +1,11 @@
+<div>
+    <div class="relative h-[400px] bg-cover bg-center mt-3" style="background-image: url('{{ asset('images/sekolah.png') }}'); background-attachment: fixed;">
+    <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+        <div class="text-center text-white px-4">
+            <h1 class="text-4xl md:text-5xl font-bold mb-2">SDN PADANGSARI 01</h1>
+        </div>
+    </div>
+</div>
 <section class="bg-white py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold text-center text-gray-800 mb-10" data-aos="fade-down">SANG JUARA</h2>
@@ -41,3 +49,4 @@
         </div>
     </div>
 </section>
+</div>
