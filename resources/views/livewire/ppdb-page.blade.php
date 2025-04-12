@@ -5,7 +5,6 @@
             <span class="text-red-600">Tahun Ajaran 2025/2026</span>
         </h1>
 
-        <!-- Info Umum -->
         <div class="mb-12" data-aos="fade-up">
             <h2 class="text-2xl font-semibold mb-3">Informasi Umum</h2>
             <p>
@@ -13,7 +12,6 @@
             </p>
         </div>
 
-        <!-- Syarat Pendaftaran -->
         <div class="mb-12" data-aos="fade-up" data-aos-delay="100">
             <h2 class="text-2xl font-semibold mb-3">Syarat Pendaftaran</h2>
             <ul class="list-disc pl-6 space-y-2">
@@ -25,7 +23,6 @@
             </ul>
         </div>
 
-        <!-- Alur Pendaftaran -->
         <div class="mb-12" data-aos="fade-up" data-aos-delay="200">
             <h2 class="text-2xl font-semibold mb-3">Alur Pendaftaran</h2>
             <ol class="list-decimal pl-6 space-y-2">
@@ -37,7 +34,6 @@
             </ol>
         </div>
 
-        <!-- Timeline -->
         <div class="mb-12" data-aos="fade-up" data-aos-delay="300">
             <h2 class="text-2xl font-semibold mb-3">Jadwal PPDB</h2>
             <div class="grid md:grid-cols-2 gap-4">
@@ -52,7 +48,6 @@
             </div>
         </div>
 
-        <!-- CTA -->
         <div class="text-center mt-10" data-aos="fade-up" data-aos-delay="600">
             <a href="https://forms.gle/ppdb2025" target="_blank" class="inline-block bg-red-600 text-white px-6 py-3 rounded-lg text-lg hover:bg-red-700 transition">
                 Daftar Sekarang
