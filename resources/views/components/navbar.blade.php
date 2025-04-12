@@ -107,7 +107,6 @@
       <a href="/ppdb" class="px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">PPDB</a>
       <a href="/kontak" class="px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">Kontak</a>
       <a href="/pengaduan" class="px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">Pengaduan</a>
-      <a href="/tentang" class="px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">Tentang</a>
     </div>
   </div>
 

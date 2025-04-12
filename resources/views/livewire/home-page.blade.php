@@ -15,7 +15,7 @@
             <!-- Background Blur -->
             <div 
                 class="absolute inset-0 bg-cover bg-center scale-110 blur-sm brightness-75"
-                style="background-image: url('{{ asset('images/sekolah.png') }}'); z-index: 0;"
+                style="background-image: url('{{ asset('images/sekolah.png') }}'); z-index: 0; background-attachment: fixed;"
             ></div>
 
             <!-- Lapisan gelap transparan -->
