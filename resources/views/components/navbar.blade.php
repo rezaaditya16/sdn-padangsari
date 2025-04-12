@@ -102,7 +102,7 @@
         </ul>
       </div>
 
-      <a href="/juara" class="px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">Sang Juara</a>
+      <a href="/achievement" class="px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">Sang Juara</a>
       <a href="/pengumuman" class="px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">Pengumuman</a>
       <a href="/ppdb" class="px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">PPDB</a>
       <a href="/kontak" class="px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">Kontak</a>
@@ -156,12 +156,11 @@
     </div>
 
     <!-- Menu lainnya -->
-    <a href="/juara" class="block py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300">Sang Juara</a>
+    <a href="/achievement" class="block py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300">Sang Juara</a>
     <a href="/pengumuman" class="block py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300">Pengumuman</a>
     <a href="/ppdb" class="block py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300">PPDB</a>
     <a href="/kontak" class="block py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300">Kontak</a>
     <a href="/pengaduan" class="block py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300">Pengaduan</a>
-    <a href="/tentang" class="block py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300">Tentang</a>
   </div>
 </nav>
 
