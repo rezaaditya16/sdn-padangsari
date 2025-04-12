@@ -14,7 +14,16 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
     <script src="https://kit.fontawesome.com/your_kit_code.js" crossorigin="anonymous"></script>
     
+    <style>
+  @keyframes marquee {
+    0%   { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
 
+  .animate-marquee {
+    animation: marquee 15s linear infinite;
+  }
+</style>
 
 </head>
 <body class="flex flex-col min-h-screen font-roboto overflow-x-hidden">

@@ -64,13 +64,13 @@
         </div>
 
         <!-- HEADER -->
-        <div class="w-full bg-[#BF3131]">
-            <div class="max-w-5xl mx-auto px-4 py-4">
-                <h1 class="text-yellow-400 text-2xl font-bold uppercase text-center">
-                    SELAMAT DATANG DI WEBSITE SD NEGERI PADANGSARI 01
-                </h1>
-            </div>
-        </div>
+        <div class="w-full bg-[#BF3131] overflow-hidden">
+  <div class="max-w-5xl mx-auto px-4 py-4">
+    <h1 class="text-yellow-400 text-2xl font-bold uppercase whitespace-nowrap animate-marquee">
+      SELAMAT DATANG DI WEBSITE SD NEGERI PADANGSARI 01
+    </h1>
+  </div>
+</div>
 
         <!-- SAMBUTAN KEPALA SEKOLAH -->
         <div class="w-full max-w-6xl mx-auto mt-10 p-6 bg-gray-100 shadow-md rounded-lg flex flex-col md:flex-row items-start gap-10 px-4">
