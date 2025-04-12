@@ -15,6 +15,7 @@ use App\Livewire\KontakPage;
 use App\Livewire\PengumumanPage;
 use App\Livewire\PengaduanPage;
 use App\Livewire\GuruPage;
+use App\Livewire\PpdbPage;
 
 Route::get('/', HomePage::class)->name('home');
 Route::get('/about', AboutPage::class)->name('about');
@@ -29,3 +30,4 @@ route::get('/kontak', KontakPage::class)->name('kontak');
 route::get('/pengumuman', PengumumanPage::class)->name('pengumuman');
 route::get('/pengaduan', PengaduanPage::class)->name('pengaduan');
 route::get('/guru', GuruPage::class)->name('guru');
+route::get('/ppdb', PpdbPage::class)->name('ppdb');
