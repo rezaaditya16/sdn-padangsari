@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SDNPadangsari01</title>
+    <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/png">
+
     @livewireStyles
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
