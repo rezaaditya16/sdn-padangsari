@@ -69,7 +69,7 @@
             </a>
           </li>
           <li>
-            <a href="/profil-siswa" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFAB5B] rounded-xl">
+            <a href="/siswa" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFAB5B] rounded-xl">
               <i class="fas fa-user-graduate"></i> Profil Siswa
             </a>
           </li>
@@ -102,7 +102,6 @@
         </ul>
       </div>
 
-      <a href="/achievement" class="px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">Sang Juara</a>
       <a href="/pengumuman" class="px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">Pengumuman</a>
       <a href="/ppdb" class="px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">PPDB</a>
       <a href="/kontak" class="px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">Kontak</a>
@@ -135,7 +134,7 @@
       <div x-show="openProfil" x-transition class="pl-4 font-normal capitalize space-y-1">
         <a href="/visimisi" class="block py-1 px-3 rounded hover:bg-[#F6DC43] hover:text-black transition duration-200">Profil Sekolah</a>
         <a href="/guru" class="block py-1 px-3 rounded hover:bg-[#F6DC43] hover:text-black transition duration-200">Profil Guru</a>
-        <a href="/profil-siswa" class="block py-1 px-3 rounded hover:bg-[#F6DC43] hover:text-black transition duration-200">Profil Siswa</a>
+        <a href="/siswa" class="block py-1 px-3 rounded hover:bg-[#F6DC43] hover:text-black transition duration-200">Profil Siswa</a>
       </div>
     </div>
 
@@ -156,7 +155,6 @@
     </div>
 
     <!-- Menu lainnya -->
-    <a href="/achievement" class="block py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300">Sang Juara</a>
     <a href="/pengumuman" class="block py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300">Pengumuman</a>
     <a href="/ppdb" class="block py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300">PPDB</a>
     <a href="/kontak" class="block py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300">Kontak</a>
