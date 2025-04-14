@@ -9,17 +9,8 @@ class Student extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'class',
-        'photo',
-        'classroom_id',
-    ];
+    // Tentukan kolom yang dapat diisi (mass assignable)
+    protected $fillable = ['name', 'class', 'photo'];
 
     public function classroom()
     {
