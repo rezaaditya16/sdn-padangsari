@@ -91,75 +91,75 @@
     </section>
 
 
-    <!-- PHOTO GALLERY + LIGHTBOX -->
-    <section x-data="{ showLightbox: false, selectedImage: '' }" class="max-w-6xl mx-auto mt-16 px-4 mb-20">
-      <h2 class="text-center text-3xl font-bold italic mb-2">GALERI FOTO</h2>
-      <h3 class="text-center text-xl font-semibold uppercase text-gray-700 mb-8">Serba Serbi SDN Padangsari 01</h3>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        <template x-for="(image, index) in ['galeri1.jpg', 'galeri2.jpg', 'galeri3.jpg', 'galeri4.jpg', 'galeri5.jpg', 'galeri6.jpg']" :key="index">
-          <div class="overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300 cursor-pointer">
-            <img 
-              :src="`{{ asset('images/') }}/${image}`" 
-              :alt="`Galeri ${index + 1}`" 
-              class="w-full h-60 object-cover hover:scale-105 transition duration-300"
-              @click="selectedImage = `{{ asset('images/') }}/${image}`; showLightbox = true">
-          </div>
-        </template>
-      </div>
-      <div class="flex justify-center mt-10">
-        <a href="{{ url('/galeri') }}" class="bg-[#F6DC43] text-black px-6 py-2 rounded-lg hover:bg-[#FFA725] transition">
-          Lihat Semua Galeri
-        </a>
-      </div>
-      <div 
-        x-show="showLightbox"
-        x-transition
-        class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
-        @click.away="showLightbox = false">
-        <div class="relative max-w-4xl mx-auto">
-          <button @click="showLightbox = false" class="absolute top-2 right-2 text-white text-2xl z-50">&times;</button>
-          <img :src="selectedImage" class="max-w-full max-h-screen rounded shadow-lg">
-        </div>
-      </div>
-    </section>
+    <!-- TENTANG SDN PADANGSARI 01 -->
+<section class="max-w-6xl mx-auto mt-16 px-4 mb-20">
+  <h2 class="text-center text-3xl font-bold italic mb-2">TENTANG KAMI</h2>
+  <h3 class="text-center text-xl font-semibold uppercase text-gray-700 mb-8">SD Negeri Padangsari 01</h3>
 
-    <section class="w-full px-6 py-12">
-      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+  <div class="flex flex-col md:flex-row gap-10 items-center bg-white rounded-lg shadow-lg p-6" data-aos="fade-up" data-aos-duration="1000">
+    <!-- Gambar Sekolah -->
+    <div class="md:w-1/2 w-full overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300" data-aos="fade-right" data-aos-duration="1000">
+      <img 
+        src="{{ asset('images/sekolh.jpg') }}" 
+        alt="Foto Sekolah" 
+        class="w-full h-full object-cover rounded-lg transform hover:scale-105 transition duration-500 ease-in-out"
+      >
+    </div>
+
+    <!-- Deskripsi Sekolah -->
+    <div class="md:w-1/2 w-full text-justify text-gray-800 space-y-4" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+      <p>
+        <span class="ml-4 font-semibold">SD NEGERI PADANGSARI 01</span> merupakan salah satu sekolah jenjang SD berstatus Negeri yang berada di wilayah <strong>Kecamatan Banyumanik, Kota Semarang, Jawa Tengah</strong>. 
+      </p>
+      <p>
+        Sekolah ini didirikan pada <strong>tanggal 1 Januari 1970</strong> dengan Nomor SK Pendirian di bawah naungan <strong>Kementerian Pendidikan dan Kebudayaan</strong>.
+      </p>
+      <p>
+        Dalam kegiatan pembelajarannya, sekolah yang memiliki <strong>198 siswa</strong> ini dibimbing oleh <strong>10 guru profesional</strong> yang berkompeten di bidangnya untuk mencetak generasi penerus bangsa yang unggul dan berkarakter.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+    <section class="w-full px-6 py-20">
+      <div class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
         <!-- Kartu Acara Sekolah -->
-        <div class="bg-white p-8 rounded-lg flex flex-col md:flex-row items-center gap-6 shadow-2xl">
+        <div class="bg-white p-12 rounded-lg flex flex-col md:flex-row items-center gap-8 shadow-2xl">
           <!-- Gambar -->
-          <div class="w-40 h-40">
+          <div class="w-52 h-52">
             <img src="{{ asset('images/calendar.gif') }}" alt="Acara Sekolah" class="w-full h-full object-contain">
           </div>
     
           <!-- Konten -->
           <div>
-            <h3 class="text-2xl font-extrabold text-gray-800 border-b-4 border-gray-700 inline-block mb-2">Acara Sekolah</h3>
-            <p class="text-gray-800 mb-4">Lihat kegiatan-kegiatan tahunan SDS Kupu-Kupu yang menarik di sini.</p>
-            <a href="{{ url('/galeri') }}" class="inline-block bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-all duration-200">
+            <h3 class="text-3xl font-extrabold text-gray-800 border-b-4 border-gray-700 inline-block mb-4">Acara Sekolah</h3>
+            <p class="text-gray-800 text-lg mb-6">Lihat kegiatan-kegiatan tahunan SDN Padangsari 01 yang menarik di sini.</p>
+            <a href="{{ url('/galeri') }}" class="inline-block bg-red-600 text-white px-6 py-3 rounded hover:bg-red-700 transition-all duration-200">
               Lihat galeri
             </a>
           </div>
         </div>
     
         <!-- Kartu Pengumuman -->
-        <div class="bg-white p-8 rounded-lg flex flex-col md:flex-row items-center gap-6 shadow-2xl">
+        <div class="bg-white p-12 rounded-lg flex flex-col md:flex-row items-center gap-8 shadow-2xl">
           <!-- Gambar -->
-          <div class="w-40 h-40">
+          <div class="w-52 h-52">
             <img src="{{ asset('images/megaphone.gif') }}" alt="Pengumuman" class="w-full h-full object-contain">
           </div>
     
           <!-- Konten -->
           <div>
-            <h3 class="text-2xl font-extrabold text-gray-800 border-b-4 border-gray-700 inline-block mb-2">Pengumuman</h3>
-            <p class="text-gray-800 mb-4">Baca pengumuman terbaru seputar kegiatan di SDS Kupu-Kupu di sini.</p>
-            <a href="{{ url('/pengumuman') }}" class="inline-block bg-yellow-300 text-gray-900 font-semibold px-4 py-2 rounded hover:bg-yellow-400 transition-all duration-200">
+            <h3 class="text-3xl font-extrabold text-gray-800 border-b-4 border-gray-700 inline-block mb-4">Pengumuman</h3>
+            <p class="text-gray-800 text-lg mb-6">Baca pengumuman terbaru seputar kegiatan di SDN Padangsari 01</p>
+            <a href="{{ url('/pengumuman') }}" class="inline-block bg-yellow-300 text-gray-900 font-semibold px-6 py-3 rounded hover:bg-yellow-400 transition-all duration-200">
               Lihat Pengumuman
             </a>
           </div>
         </div>
       </div>
     </section>
+    
     
   </div>
 </body>

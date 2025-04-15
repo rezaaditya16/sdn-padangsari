@@ -22,9 +22,9 @@ class TeacherSeeder extends Seeder
             ['name' => 'Doni', 'position' => 'Guru Kelas 4', 'classroom_id' => 4, 'photo' => ''],
             ['name' => 'Arga', 'position' => 'Guru Kelas 5', 'classroom_id' => 5, 'photo' => ''],
             ['name' => 'Lala', 'position' => 'Guru Kelas 6', 'classroom_id' => 6, 'photo' => ''],
-            ['name' => 'michella', 'position' => 'Guru Bahasa Inggris', 'classroom_id' => null, 'photo' => ''],
-            ['name' => 'kitty', 'position' => 'Guru seni Rupa', 'classroom_id' => null, 'photo' => ''],
-            ['name' => 'Denis', 'position' => 'Guru Pendidikan Jasmani', 'classroom_id' => null, 'photo' => ''],
+            ['name' => 'michella', 'position' => 'Guru Bahasa Inggris', 'classroom_id' => 7, 'photo' => ''],
+            ['name' => 'kitty', 'position' => 'Guru seni Rupa', 'classroom_id' => 8, 'photo' => ''],
+            ['name' => 'Denis', 'position' => 'Guru Pendidikan Jasmani', 'classroom_id' => 9, 'photo' => ''],
         ];
 
         foreach ($teachers as $teacherData) {
