@@ -122,5 +122,44 @@
         </div>
       </div>
     </section>
+
+    <section class="w-full px-6 py-12">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Kartu Acara Sekolah -->
+        <div class="bg-white p-8 rounded-lg flex flex-col md:flex-row items-center gap-6 shadow-2xl">
+          <!-- Gambar -->
+          <div class="w-40 h-40">
+            <img src="{{ asset('images/calendar.gif') }}" alt="Acara Sekolah" class="w-full h-full object-contain">
+          </div>
+    
+          <!-- Konten -->
+          <div>
+            <h3 class="text-2xl font-extrabold text-gray-800 border-b-4 border-gray-700 inline-block mb-2">Acara Sekolah</h3>
+            <p class="text-gray-800 mb-4">Lihat kegiatan-kegiatan tahunan SDS Kupu-Kupu yang menarik di sini.</p>
+            <a href="{{ url('/galeri') }}" class="inline-block bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-all duration-200">
+              Lihat galeri
+            </a>
+          </div>
+        </div>
+    
+        <!-- Kartu Pengumuman -->
+        <div class="bg-white p-8 rounded-lg flex flex-col md:flex-row items-center gap-6 shadow-2xl">
+          <!-- Gambar -->
+          <div class="w-40 h-40">
+            <img src="{{ asset('images/megaphone.gif') }}" alt="Pengumuman" class="w-full h-full object-contain">
+          </div>
+    
+          <!-- Konten -->
+          <div>
+            <h3 class="text-2xl font-extrabold text-gray-800 border-b-4 border-gray-700 inline-block mb-2">Pengumuman</h3>
+            <p class="text-gray-800 mb-4">Baca pengumuman terbaru seputar kegiatan di SDS Kupu-Kupu di sini.</p>
+            <a href="{{ url('/pengumuman') }}" class="inline-block bg-yellow-300 text-gray-900 font-semibold px-4 py-2 rounded hover:bg-yellow-400 transition-all duration-200">
+              Lihat Pengumuman
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    
   </div>
 </body>
