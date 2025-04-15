@@ -47,6 +47,12 @@ class GalleryResource extends Resource
                     ->sortable(),
                 TextColumn::make('description')
                     ->limit(50),
+                ImageColumn::make('images')
+                    ->label('Gambar')
+                    ->size(100)
+                    ->disk('public')
+                    ->getStateUsing(fn($record) => $record->images ? asset('storage/' . $record->images[0]) : null)
+                    ->square(),
                 TextColumn::make('created_at')
                     ->label('Created At')
                     ->dateTime(),

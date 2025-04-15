@@ -10,50 +10,77 @@
     </div>
 
     <!-- Form Pengaduan -->
-    <div class="max-w-2xl mx-auto pt-24 px-6 pb-12">
-        <div class="bg-white shadow-xl rounded-2xl p-8">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6">Form Pengaduan</h2>
+    <div class="max-w-3xl mx-auto pt-24 px-6 pb-20">
+        <div class="bg-white shadow-2xl border border-red-800 rounded-3xl p-10">
+            <h2 class="text-3xl font-bold text-red-700 mb-8 flex items-center gap-3">
+                <svg class="w-7 h-7 text-red-700" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M12 18.5a6.5 6.5 0 100-13 6.5 6.5 0 000 13z" />
+                </svg>
+                Form Pengaduan
+            </h2>
 
             <!-- Flash Message -->
             @if (session()->has('message'))
-                <div class="mb-4 p-4 bg-green-100 text-green-700 rounded">
+                <div class="mb-6 p-4 bg-green-100 text-green-700 rounded-lg shadow-md">
                     {{ session('message') }}
                 </div>
             @endif
 
-            <form wire:submit.prevent="submit" class="space-y-5">
-                <!-- Nama -->
-                <div>
-                    <label class="block font-medium mb-1 text-gray-700">Nama</label>
-                    <input type="text" wire:model="nama" class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Masukkan nama Anda">
-                    @error('nama') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+            <form action="mailto:aufa.fadholi@gmail.com" method="post" enctype="text/plain" class="space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Nama Depan -->
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-1">Nama Depan</label>
+                        <div class="relative">
+                            <input type="text" name="first_name" class="w-full border border-gray-300 rounded-xl py-3 pl-12 pr-4 shadow-sm focus:ring-2 focus:ring-yellow-400 focus:outline-none transition" placeholder="Masukkan nama depan">
+                            <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-yellow-500">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A9 9 0 1112 21"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nama Belakang -->
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-1">Nama Belakang</label>
+                        <div class="relative">
+                            <input type="text" name="last_name" class="w-full border border-gray-300 rounded-xl py-3 pl-12 pr-4 shadow-sm focus:ring-2 focus:ring-yellow-400 focus:outline-none transition" placeholder="Masukkan nama belakang">
+                            <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-yellow-500">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A9 9 0 1112 21"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Surel -->
+                <!-- Email -->
                 <div>
-                    <label class="block font-medium mb-1 text-gray-700">Surel</label>
-                    <input type="email" wire:model="surel" class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Masukkan alamat surel Anda">
-                    @error('surel') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    <label class="block text-gray-700 font-semibold mb-1">Alamat Email</label>
+                    <div class="relative">
+                        <input type="email" name="email" class="w-full border border-gray-300 rounded-xl py-3 pl-12 pr-4 shadow-sm focus:ring-2 focus:ring-yellow-400 focus:outline-none transition" placeholder="Masukkan email aktif">
+                        <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-yellow-500">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16 12l-4 4m0 0l-4-4m4 4V8"></path>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Nomor Kontak -->
+                <!-- Pesan -->
                 <div>
-                    <label class="block font-medium mb-1 text-gray-700">Nomor Kontak</label>
-                    <input type="text" wire:model="nomor_kontak" class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Masukkan nomor telepon Anda">
-                    @error('nomor_kontak') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                </div>
-
-                <!-- Deskripsi -->
-                <div>
-                    <label class="block font-medium mb-1 text-gray-700">Deskripsi</label>
-                    <textarea wire:model="deskripsi" rows="5" class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Masukkan deskripsi pengaduan Anda"></textarea>
-                    @error('deskripsi') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    <label class="block text-gray-700 font-semibold mb-1">Pesan</label>
+                    <textarea name="message" rows="6" class="w-full border border-gray-300 rounded-xl py-3 px-4 shadow-sm focus:ring-2 focus:ring-yellow-400 focus:outline-none transition" placeholder="Tulis pesan atau keluhan Anda di sini..."></textarea>
                 </div>
 
                 <!-- Tombol Submit -->
-                <div>
-                    <button type="submit" class="bg-[#FFB200] hover:bg-[#FF9D23] transition duration-200 text-white font-semibold px-6 py-3 rounded-lg shadow-md">
-                        Kirim Pengaduan
+                <div class="text-right">
+                    <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 transition text-white font-bold px-6 py-3 rounded-xl shadow-md inline-flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        Kirim Pesan
                     </button>
                 </div>
             </form>

@@ -9,5 +9,10 @@ class Pengaduan extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama', 'surel', 'nomor_kontak', 'deskripsi'];
+    protected $fillable = [
+        'name',    
+        'email',   
+        'phone',    
+        'message',   
+    ];
 }
