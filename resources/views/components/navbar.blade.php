@@ -23,7 +23,7 @@
 <body class="bg-gray-100 pt-24 overflow-x-hidden overflow-y-auto font-poppins">
 
 <!-- Navbar -->
-<nav class="bg-[#7D0A0A] text-white fixed top-0 left-0 w-full z-50 shadow-md" x-data="{ open: false, openProfil: false, openGaleri: false }">
+<nav class="bg-[#ED9455] text-white fixed top-0 left-0 w-full z-50 shadow-md" x-data="{ open: false, openProfil: false, openGaleri: false }">
   <div class="flex items-center justify-between">
     <!-- Logo dan Judul -->
     <div class="flex items-center clip-diagonal bg-white h-24 pl-4 pr-10 w-full md:w-auto">
@@ -43,7 +43,7 @@
 
     <!-- Menu Desktop -->
     <div class="hidden md:flex space-x-6 px-6 text-white py-4 font-bebas text-lg tracking-wide uppercase">
-      <a href="/" class="flex items-center gap-2 px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">
+      <a href="/" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFFBDA] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">
         <i class="fas fa-home"></i> Beranda
       </a>
 
@@ -51,16 +51,16 @@
       <div class="relative" x-data="{ open: false, timeout: null }"
            @mouseenter="clearTimeout(timeout); open = true"
            @mouseleave="timeout = setTimeout(() => open = false, 300)">
-        <button class="flex items-center px-3 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition gap-2">
+        <button class="flex items-center px-3 py-2 hover:bg-[#FFFBDA] hover:text-black rounded-xl transition gap-2">
           <i class="fas fa-user"></i> Profil
           <svg class="h-4 w-4 transition-transform duration-200" :class="{ 'rotate-180': open }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
           </svg>
         </button>
-        <ul x-show="open" x-transition class="absolute bg-[#F6DC43] text-black mt-2 rounded-xl shadow-lg w-52 z-10 font-normal capitalize text-sm">
-          <li><a href="/visimisi" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFAB5B] rounded-xl"><i class="fas fa-school"></i> Profil Sekolah</a></li>
-          <li><a href="/guru" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFAB5B] rounded-xl"><i class="fas fa-chalkboard-teacher"></i> Profil Guru</a></li>
-          <li><a href="/siswa" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFAB5B] rounded-xl"><i class="fas fa-user-graduate"></i> Profil Siswa</a></li>
+        <ul x-show="open" x-transition class="absolute bg-[#FFFBDA] text-black mt-2 rounded-xl shadow-lg w-52 z-10 font-normal capitalize text-sm">
+          <li><a href="/visimisi" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFEC9E] rounded-xl"><i class="fas fa-school"></i> Profil Sekolah</a></li>
+          <li><a href="/guru" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFEC9E] rounded-xl"><i class="fas fa-chalkboard-teacher"></i> Profil Guru</a></li>
+          <li><a href="/siswa" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFEC9E] rounded-xl"><i class="fas fa-user-graduate"></i> Profil Siswa</a></li>
         </ul>
       </div>
 
@@ -68,66 +68,66 @@
       <div class="relative" x-data="{ open: false, timeout: null }"
            @mouseenter="clearTimeout(timeout); open = true"
            @mouseleave="timeout = setTimeout(() => open = false, 300)">
-        <button class="flex items-center px-3 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition gap-2">
+        <button class="flex items-center px-3 py-2 hover:bg-[#FFFBDA] hover:text-black rounded-xl transition gap-2">
           <i class="fas fa-images"></i> Galeri
           <svg class="h-4 w-4 transition-transform duration-200" :class="{ 'rotate-180': open }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
           </svg>
         </button>
-        <ul x-show="open" x-transition class="absolute bg-[#F6DC43] text-black mt-2 rounded-xl shadow-lg w-48 z-10 font-normal capitalize text-sm">
-          <li><a href="/foto" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFAB5B] rounded-xl"><i class="fas fa-image"></i> Foto</a></li>
-          <li><a href="/video" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFAB5B] rounded-xl"><i class="fas fa-video"></i> Video</a></li>
+        <ul x-show="open" x-transition class="absolute bg-[#FFFBDA] text-black mt-2 rounded-xl shadow-lg w-48 z-10 font-normal capitalize text-sm">
+          <li><a href="/foto" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFEC9E] rounded-xl"><i class="fas fa-image"></i> Foto</a></li>
+          <li><a href="/video" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFEC9E] rounded-xl"><i class="fas fa-video"></i> Video</a></li>
         </ul>
       </div>
 
-      <a href="/pengumuman" class="flex items-center gap-2 px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">
+      <a href="/pengumuman" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFFBDA] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">
         <i class="fas fa-bullhorn"></i> Pengumuman
       </a>
-      <a href="/ppdb" class="flex items-center gap-2 px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">
+      <a href="/ppdb" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFFBDA] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">
         <i class="fas fa-user-plus"></i> PPDB
       </a>
-      <a href="/kontak" class="flex items-center gap-2 px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">
+      <a href="/kontak" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFFBDA] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">
         <i class="fas fa-phone"></i> Kontak
       </a>
-      <a href="/pengaduan" class="flex items-center gap-2 px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">
+      <a href="/pengaduan" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFFBDA] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">
         <i class="fas fa-comment-dots"></i> Pengaduan
       </a>
     </div>
   </div>
 
   <!-- Menu Mobile -->
-  <div x-show="open" x-transition:enter="transition ease-out duration-300" x-transition:leave="transition ease-in duration-200" class="md:hidden px-6 pb-6 space-y-2 font-bebas uppercase tracking-wide text-base bg-[#BF3131] transform origin-top">
-    <a href="/" class="flex items-center gap-2 py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300"><i class="fas fa-home"></i> Beranda</a>
+  <div x-show="open" x-transition:enter="transition ease-out duration-300" x-transition:leave="transition ease-in duration-200" class="md:hidden px-6 pb-6 space-y-2 font-bebas uppercase tracking-wide text-base bg-[#ED9455] transform origin-top">
+    <a href="/" class="flex items-center gap-2 py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition duration-300"><i class="fas fa-home"></i> Beranda</a>
 
     <!-- Profil -->
     <div>
-      <button @click="openProfil = !openProfil" class="w-full flex items-center justify-between py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300">
+      <button @click="openProfil = !openProfil" class="w-full flex items-center justify-between py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition duration-300">
         <span class="flex items-center gap-2"><i class="fas fa-user"></i> Profil</span>
         <svg class="h-4 w-4 transition-transform duration-200" :class="{ 'rotate-180': openProfil }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
       </button>
       <div x-show="openProfil" x-transition class="pl-4 font-normal capitalize space-y-1">
-        <a href="/visimisi" class="flex items-center gap-2 py-1 px-3 rounded hover:bg-[#F6DC43] hover:text-black transition duration-200"><i class="fas fa-school"></i> Profil Sekolah</a>
-        <a href="/guru" class="flex items-center gap-2 py-1 px-3 rounded hover:bg-[#F6DC43] hover:text-black transition duration-200"><i class="fas fa-chalkboard-teacher"></i> Profil Guru</a>
-        <a href="/siswa" class="flex items-center gap-2 py-1 px-3 rounded hover:bg-[#F6DC43] hover:text-black transition duration-200"><i class="fas fa-user-graduate"></i> Profil Siswa</a>
+        <a href="/visimisi" class="flex items-center gap-2 py-1 px-3 rounded hover:bg-[#FFFBDA] hover:text-black transition duration-200"><i class="fas fa-school"></i> Profil Sekolah</a>
+        <a href="/guru" class="flex items-center gap-2 py-1 px-3 rounded hover:bg-[#FFFBDA] hover:text-black transition duration-200"><i class="fas fa-chalkboard-teacher"></i> Profil Guru</a>
+        <a href="/siswa" class="flex items-center gap-2 py-1 px-3 rounded hover:bg-[#FFFBDA] hover:text-black transition duration-200"><i class="fas fa-user-graduate"></i> Profil Siswa</a>
       </div>
     </div>
 
     <!-- Galeri -->
     <div>
-      <button @click="openGaleri = !openGaleri" class="w-full flex items-center justify-between py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300">
+      <button @click="openGaleri = !openGaleri" class="w-full flex items-center justify-between py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition duration-300">
         <span class="flex items-center gap-2"><i class="fas fa-images"></i> Galeri</span>
         <svg class="h-4 w-4 transition-transform duration-200" :class="{ 'rotate-180': openGaleri }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
       </button>
       <div x-show="openGaleri" x-transition class="pl-4 font-normal capitalize space-y-1">
-        <a href="/foto" class="flex items-center gap-2 py-1 px-3 rounded hover:bg-[#F6DC43] hover:text-black transition duration-200"><i class="fas fa-image"></i> Foto</a>
-        <a href="/video" class="flex items-center gap-2 py-1 px-3 rounded hover:bg-[#F6DC43] hover:text-black transition duration-200"><i class="fas fa-video"></i> Video</a>
+        <a href="/foto" class="flex items-center gap-2 py-1 px-3 rounded hover:bg-[#FFFBDA] hover:text-black transition duration-200"><i class="fas fa-image"></i> Foto</a>
+        <a href="/video" class="flex items-center gap-2 py-1 px-3 rounded hover:bg-[#FFFBDA] hover:text-black transition duration-200"><i class="fas fa-video"></i> Video</a>
       </div>
     </div>
 
-    <a href="/pengumuman" class="flex items-center gap-2 py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300"><i class="fas fa-bullhorn"></i> Pengumuman</a>
-    <a href="/ppdb" class="flex items-center gap-2 py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300"><i class="fas fa-user-plus"></i> PPDB</a>
-    <a href="/kontak" class="flex items-center gap-2 py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300"><i class="fas fa-phone"></i> Kontak</a>
-    <a href="/pengaduan" class="flex items-center gap-2 py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300"><i class="fas fa-comment-dots"></i> Pengaduan</a>
+    <a href="/pengumuman" class="flex items-center gap-2 py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition duration-300"><i class="fas fa-bullhorn"></i> Pengumuman</a>
+    <a href="/ppdb" class="flex items-center gap-2 py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition duration-300"><i class="fas fa-user-plus"></i> PPDB</a>
+    <a href="/kontak" class="flex items-center gap-2 py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition duration-300"><i class="fas fa-phone"></i> Kontak</a>
+    <a href="/pengaduan" class="flex items-center gap-2 py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition duration-300"><i class="fas fa-comment-dots"></i> Pengaduan</a>
   </div>
 </nav>
 
