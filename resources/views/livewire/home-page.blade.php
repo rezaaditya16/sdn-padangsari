@@ -19,7 +19,7 @@
       <div class="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
       <div class="relative z-20 flex items-center justify-center h-full">
         <div 
-          x-data="{ currentSlide: 0, totalSlides: 4 }"
+          x-data="{ currentSlide: 0, totalSlides: 3 }"
           x-init="setInterval(() => currentSlide = (currentSlide + 1) % totalSlides, 5000)"
           class="relative w-full max-w-6xl h-[300px] md:h-[400px] overflow-hidden rounded-lg">
           <div 

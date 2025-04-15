@@ -3,11 +3,16 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use App\Models\Teacher;
 
 class GuruPage extends Component
 {
     public function render()
     {
-        return view('livewire.guru-page');
+        $teachers = Teacher::all();
+
+        return view('livewire.guru-page', [
+            'teachers' => $teachers,
+        ]);
     }
 }

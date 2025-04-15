@@ -16,7 +16,7 @@
         <div class="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-8">
 
             <!-- VISI -->
-            <div class="bg-[#FBF3B9] p-6 rounded-lg shadow-lg w-full md:w-96 text-center transform transition duration-300 hover:scale-105 hover:shadow-xl">
+            <div class="bg-[#FFFBDA] p-6 rounded-lg shadow-lg w-full md:w-96 text-center transform transition duration-300 hover:scale-105 hover:shadow-xl">
                 <h2 class="text-lg font-bold text-gray-800">VISI SEKOLAH</h2>
                 <p class="mt-2 text-gray-700 italic">
                     "Terwujudnya lulusan yang berprestasi berlandaskan iman dan takwa, berbudi luhur dan berwawasan lingkungan"
