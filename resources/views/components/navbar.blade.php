@@ -23,7 +23,7 @@
 <body class="bg-gray-100 pt-24 overflow-x-hidden overflow-y-auto font-poppins">
 
 <!-- Navbar -->
-<nav class="bg-[#7D0A0A] text-white fixed top-0 left-0 w-full z-50 shadow-md" x-data="{ open: false, openProfil: false }">
+<nav class="bg-[#7D0A0A]  text-white fixed top-0 left-0 w-full z-50 shadow-md" x-data="{ open: false, openProfil: false }">
   <div class="flex items-center justify-between">
     <!-- Logo -->
     <div class="flex items-center clip-diagonal bg-white h-24 pl-4 pr-10 w-full md:w-auto">
@@ -116,7 +116,7 @@
 </nav>
 
 <!-- Sub-navbar Sosial Media -->
-<div class="bg-[#BF3131] mt-[90px] px-4 md:px-6 py-2 mb-8">
+<div class="bg-[#BF3131] mt-[95px] px-4 md:px-6 py-2 mb-8">
   <div class="max-w-screen-xl mx-auto flex items-center space-x-4">
     <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram" class="w-9 h-9 flex items-center justify-center rounded-full bg-white hover:bg-gray-100 transition-all duration-300 ease-in-out transform hover:scale-110 hover:rotate-3 shadow">
       <i class="fab fa-instagram text-[#C13584] text-lg"></i>

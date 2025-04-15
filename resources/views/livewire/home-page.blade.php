@@ -26,14 +26,14 @@
       x-init="setInterval(() => currentSlide = (currentSlide + 1) % totalSlides, 5000)"
       class="relative w-full h-full max-w-full overflow-hidden rounded-lg">
       <div 
-        class="flex transition-transform duration-500 ease-in-out w-full h-full"
+        class="flex transition-transform duration-500 ease-in-out  h-full"
         :style="{ transform: 'translateX(-' + (currentSlide * 100) + '%)' }">
-        <template x-for="(image, index) in ['UcapanSelamat.jpg', 'UcapanSelamat.jpg', 'UcapanSelamat.jpg']" :key="index">
+        <template x-for="(image, index) in ['img1.jpeg', 'UcapanSelamat.jpg', 'img2.jpg']" :key="index">
           <div class="min-w-full h-full">
             <img 
               :src="'{{ asset('images') }}/' + image"
               :alt="'Slide ' + (index + 1)"
-              class="w-full h-full object-cover"> <!-- Full Coverage Image -->
+              class="w-4/5 h-full px-20 mx-auto object-cover"> <!-- Full Coverage Image -->
           </div>
         </template>
       </div>
