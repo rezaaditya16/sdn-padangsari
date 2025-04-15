@@ -43,36 +43,24 @@
 
     <!-- Menu Desktop -->
     <div class="hidden md:flex space-x-6 px-6 text-white py-4 font-bebas text-lg tracking-wide uppercase">
-      <a href="/" class="px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">Beranda</a>
+      <a href="/" class="flex items-center gap-2 px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">
+        <i class="fas fa-home"></i> Beranda
+      </a>
 
       <!-- Dropdown Profil -->
       <div class="relative" x-data="{ open: false, timeout: null }"
            @mouseenter="clearTimeout(timeout); open = true"
            @mouseleave="timeout = setTimeout(() => open = false, 300)">
-        <button class="flex items-center px-3 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition">
-          Profil
-          <svg class="ml-1 h-4 w-4 transition-transform duration-200" :class="{ 'rotate-180': open }"
-               xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <button class="flex items-center px-3 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition gap-2">
+          <i class="fas fa-user"></i> Profil
+          <svg class="h-4 w-4 transition-transform duration-200" :class="{ 'rotate-180': open }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
           </svg>
         </button>
-        <ul x-show="open" x-transition
-            class="absolute bg-[#F6DC43] text-black mt-2 rounded-xl shadow-lg w-52 z-10 font-normal capitalize text-sm">
-          <li>
-            <a href="/visimisi" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFAB5B] rounded-xl">
-              <i class="fas fa-school"></i> Profil Sekolah
-            </a>
-          </li>
-          <li>
-            <a href="/guru" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFAB5B] rounded-xl">
-              <i class="fas fa-chalkboard-teacher"></i> Profil Guru
-            </a>
-          </li>
-          <li>
-            <a href="/siswa" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFAB5B] rounded-xl">
-              <i class="fas fa-user-graduate"></i> Profil Siswa
-            </a>
-          </li>
+        <ul x-show="open" x-transition class="absolute bg-[#F6DC43] text-black mt-2 rounded-xl shadow-lg w-52 z-10 font-normal capitalize text-sm">
+          <li><a href="/visimisi" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFAB5B] rounded-xl"><i class="fas fa-school"></i> Profil Sekolah</a></li>
+          <li><a href="/guru" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFAB5B] rounded-xl"><i class="fas fa-chalkboard-teacher"></i> Profil Guru</a></li>
+          <li><a href="/siswa" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFAB5B] rounded-xl"><i class="fas fa-user-graduate"></i> Profil Siswa</a></li>
         </ul>
       </div>
 
@@ -80,104 +68,79 @@
       <div class="relative" x-data="{ open: false, timeout: null }"
            @mouseenter="clearTimeout(timeout); open = true"
            @mouseleave="timeout = setTimeout(() => open = false, 300)">
-        <button class="flex items-center px-3 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition">
-          Galeri
-          <svg class="ml-1 h-4 w-4 transition-transform duration-200" :class="{ 'rotate-180': open }"
-               xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <button class="flex items-center px-3 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition gap-2">
+          <i class="fas fa-images"></i> Galeri
+          <svg class="h-4 w-4 transition-transform duration-200" :class="{ 'rotate-180': open }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
           </svg>
         </button>
-        <ul x-show="open" x-transition
-            class="absolute bg-[#F6DC43] text-black mt-2 rounded-xl shadow-lg w-48 z-10 font-normal capitalize text-sm">
-          <li>
-            <a href="/foto" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFAB5B] rounded-xl">
-              <i class="fas fa-image"></i> Foto
-            </a>
-          </li>
-          <li>
-            <a href="/video" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFAB5B] rounded-xl">
-              <i class="fas fa-video"></i> Video
-            </a>
-          </li>
+        <ul x-show="open" x-transition class="absolute bg-[#F6DC43] text-black mt-2 rounded-xl shadow-lg w-48 z-10 font-normal capitalize text-sm">
+          <li><a href="/foto" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFAB5B] rounded-xl"><i class="fas fa-image"></i> Foto</a></li>
+          <li><a href="/video" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFAB5B] rounded-xl"><i class="fas fa-video"></i> Video</a></li>
         </ul>
       </div>
 
-      <a href="/pengumuman" class="px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">Pengumuman</a>
-      <a href="/ppdb" class="px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">PPDB</a>
-      <a href="/kontak" class="px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">Kontak</a>
-      <a href="/pengaduan" class="px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">Pengaduan</a>
+      <a href="/pengumuman" class="flex items-center gap-2 px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">
+        <i class="fas fa-bullhorn"></i> Pengumuman
+      </a>
+      <a href="/ppdb" class="flex items-center gap-2 px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">
+        <i class="fas fa-user-plus"></i> PPDB
+      </a>
+      <a href="/kontak" class="flex items-center gap-2 px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">
+        <i class="fas fa-phone"></i> Kontak
+      </a>
+      <a href="/pengaduan" class="flex items-center gap-2 px-4 py-2 hover:bg-[#F6DC43] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">
+        <i class="fas fa-comment-dots"></i> Pengaduan
+      </a>
     </div>
   </div>
 
-  <!-- Menu Mobile dengan animasi menurun -->
-  <div x-show="open"
-       x-transition:enter="transition ease-out duration-300"
-       x-transition:enter-start="opacity-0 -translate-y-4"
-       x-transition:enter-end="opacity-100 translate-y-0"
-       x-transition:leave="transition ease-in duration-200"
-       x-transition:leave-start="opacity-100 translate-y-0"
-       x-transition:leave-end="opacity-0 -translate-y-4"
-       class="md:hidden px-6 pb-6 space-y-2 font-bebas uppercase tracking-wide text-base bg-[#BF3131] transform origin-top">
+  <!-- Menu Mobile -->
+  <div x-show="open" x-transition:enter="transition ease-out duration-300" x-transition:leave="transition ease-in duration-200" class="md:hidden px-6 pb-6 space-y-2 font-bebas uppercase tracking-wide text-base bg-[#BF3131] transform origin-top">
+    <a href="/" class="flex items-center gap-2 py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300"><i class="fas fa-home"></i> Beranda</a>
 
-    <a href="/" class="block py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300">Beranda</a>
-
-    <!-- Profil Mobile -->
+    <!-- Profil -->
     <div>
-      <button @click="openProfil = !openProfil"
-              class="w-full flex items-center justify-between py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300">
-        <span>Profil</span>
-        <svg class="h-4 w-4 transition-transform duration-200" :class="{ 'rotate-180': openProfil }"
-             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-        </svg>
+      <button @click="openProfil = !openProfil" class="w-full flex items-center justify-between py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300">
+        <span class="flex items-center gap-2"><i class="fas fa-user"></i> Profil</span>
+        <svg class="h-4 w-4 transition-transform duration-200" :class="{ 'rotate-180': openProfil }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
       </button>
       <div x-show="openProfil" x-transition class="pl-4 font-normal capitalize space-y-1">
-        <a href="/visimisi" class="block py-1 px-3 rounded hover:bg-[#F6DC43] hover:text-black transition duration-200">Profil Sekolah</a>
-        <a href="/guru" class="block py-1 px-3 rounded hover:bg-[#F6DC43] hover:text-black transition duration-200">Profil Guru</a>
-        <a href="/siswa" class="block py-1 px-3 rounded hover:bg-[#F6DC43] hover:text-black transition duration-200">Profil Siswa</a>
+        <a href="/visimisi" class="flex items-center gap-2 py-1 px-3 rounded hover:bg-[#F6DC43] hover:text-black transition duration-200"><i class="fas fa-school"></i> Profil Sekolah</a>
+        <a href="/guru" class="flex items-center gap-2 py-1 px-3 rounded hover:bg-[#F6DC43] hover:text-black transition duration-200"><i class="fas fa-chalkboard-teacher"></i> Profil Guru</a>
+        <a href="/siswa" class="flex items-center gap-2 py-1 px-3 rounded hover:bg-[#F6DC43] hover:text-black transition duration-200"><i class="fas fa-user-graduate"></i> Profil Siswa</a>
       </div>
     </div>
 
-    <!-- Galeri Mobile -->
+    <!-- Galeri -->
     <div>
-      <button @click="openGaleri = !openGaleri"
-              class="w-full flex items-center justify-between py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300">
-        <span>Galeri</span>
-        <svg class="h-4 w-4 transition-transform duration-200" :class="{ 'rotate-180': openGaleri }"
-             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-        </svg>
+      <button @click="openGaleri = !openGaleri" class="w-full flex items-center justify-between py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300">
+        <span class="flex items-center gap-2"><i class="fas fa-images"></i> Galeri</span>
+        <svg class="h-4 w-4 transition-transform duration-200" :class="{ 'rotate-180': openGaleri }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
       </button>
       <div x-show="openGaleri" x-transition class="pl-4 font-normal capitalize space-y-1">
-        <a href="/foto" class="block py-1 px-3 rounded hover:bg-[#F6DC43] hover:text-black transition duration-200">Foto</a>
-        <a href="/video" class="block py-1 px-3 rounded hover:bg-[#F6DC43] hover:text-black transition duration-200">Video</a>
+        <a href="/foto" class="flex items-center gap-2 py-1 px-3 rounded hover:bg-[#F6DC43] hover:text-black transition duration-200"><i class="fas fa-image"></i> Foto</a>
+        <a href="/video" class="flex items-center gap-2 py-1 px-3 rounded hover:bg-[#F6DC43] hover:text-black transition duration-200"><i class="fas fa-video"></i> Video</a>
       </div>
     </div>
 
-    <!-- Menu lainnya -->
-    <a href="/pengumuman" class="block py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300">Pengumuman</a>
-    <a href="/ppdb" class="block py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300">PPDB</a>
-    <a href="/kontak" class="block py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300">Kontak</a>
-    <a href="/pengaduan" class="block py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300">Pengaduan</a>
+    <a href="/pengumuman" class="flex items-center gap-2 py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300"><i class="fas fa-bullhorn"></i> Pengumuman</a>
+    <a href="/ppdb" class="flex items-center gap-2 py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300"><i class="fas fa-user-plus"></i> PPDB</a>
+    <a href="/kontak" class="flex items-center gap-2 py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300"><i class="fas fa-phone"></i> Kontak</a>
+    <a href="/pengaduan" class="flex items-center gap-2 py-2 px-4 rounded-xl hover:bg-[#F6DC43] hover:text-black transition duration-300"><i class="fas fa-comment-dots"></i> Pengaduan</a>
   </div>
 </nav>
 
 <!-- Sub-navbar Sosial Media -->
 <div class="bg-[#BF3131] mt-[90px] px-4 md:px-6 py-2 mb-8">
   <div class="max-w-screen-xl mx-auto flex items-center space-x-4">
-    <!-- Instagram -->
-    <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram"
-       class="w-9 h-9 flex items-center justify-center rounded-full bg-white hover:bg-gray-100 transition-all duration-300 ease-in-out transform hover:scale-110 hover:rotate-3 shadow">
+    <a href="https://www.instagram.com/" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-full bg-white hover:bg-gray-100 transition-all duration-300 ease-in-out transform hover:scale-110 hover:rotate-3 shadow">
       <i class="fab fa-instagram text-[#C13584] text-lg"></i>
     </a>
-    <!-- YouTube -->
-    <a href="https://www.youtube.com/" target="_blank" aria-label="YouTube"
-       class="w-9 h-9 flex items-center justify-center rounded-full bg-white hover:bg-gray-100 transition-all duration-300 ease-in-out transform hover:scale-110 hover:rotate-3 shadow">
+    <a href="https://www.youtube.com/" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-full bg-white hover:bg-gray-100 transition-all duration-300 ease-in-out transform hover:scale-110 hover:rotate-3 shadow">
       <i class="fab fa-youtube text-[#FF0000] text-lg"></i>
     </a>
-    <!-- WhatsApp -->
-    <a href="https://wa.me/6281234567890" target="_blank" aria-label="WhatsApp"
-       class="w-9 h-9 flex items-center justify-center rounded-full bg-white hover:bg-gray-100 transition-all duration-300 ease-in-out transform hover:scale-110 hover:rotate-3 shadow">
+    <a href="https://wa.me/6281234567890" target="_blank" class="w-9 h-9 flex items-center justify-center rounded-full bg-white hover:bg-gray-100 transition-all duration-300 ease-in-out transform hover:scale-110 hover:rotate-3 shadow">
       <i class="fab fa-whatsapp text-[#25D366] text-lg"></i>
     </a>
   </div>
