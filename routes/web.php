@@ -23,7 +23,7 @@ Route::get('/about', AboutPage::class)->name('about');
 Route::get('/achievement', AchievementPage::class)->name('achievement');
 Route::get('/announcement', AnnouncementPage::class)->name('announcement');
 Route::get('/contact', ContactPage::class)->name('contact');
-Route::get('/gallery', GalleryPage::class)->name('gallery');
+Route::get('/galeri', GalleryPage::class)->name('gallery');
 Route::get('/news', NewsPage::class)->name('news');
 Route::get('/profile', ProfilePage::class)->name('profile');
 route::get('/visimisi', VisimisiPage::class)->name('visimisi');

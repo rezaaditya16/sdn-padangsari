@@ -8,6 +8,6 @@ class GalleryPage extends Component
 {
     public function render()
     {
-        return view('livewire.livewire.gallery-page');
+        return view('livewire.gallery-page');
     }
 }

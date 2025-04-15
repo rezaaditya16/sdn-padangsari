@@ -84,38 +84,8 @@
       </div>
 
       <!-- Dropdown Galeri -->
-      <div class="relative" x-data="{ open: false, timeout: null }"
-           @mouseenter="clearTimeout(timeout); open = true"
-           @mouseleave="timeout = setTimeout(() => open = false, 300)">
-        <button class="flex items-center px-3 py-2 hover:bg-[#FFFBDA] hover:text-black rounded-xl transition">
-          Galeri
-          <svg class="ml-1 h-4 w-4 transition-transform duration-300 ease-in-out" :class="{ 'rotate-180': open }"
-               xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-          </svg>
-        </button>
-        <ul x-show="open"
-            x-transition:enter="transition ease-out duration-300"
-            x-transition:enter-start="opacity-0 scale-95 translate-y-2"
-            x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-            x-transition:leave="transition ease-in duration-200"
-            x-transition:leave-start="opacity-100 scale-100 translate-y-0"
-            x-transition:leave-end="opacity-0 scale-95 translate-y-2"
-            x-cloak
-            class="absolute bg-[#FFFBDA] text-black mt-2 rounded-xl shadow-lg w-48 z-10 font-normal capitalize text-sm">
-          <li>
-            <a href="/foto" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFEC9E] rounded-xl">
-              <i class="fas fa-image"></i> Foto
-            </a>
-          </li>
-          <li>
-            <a href="/video" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFEC9E] rounded-xl">
-              <i class="fas fa-video"></i> Video
-            </a>
-          </li>
-        </ul>
-      </div>
 
+      <a href="/galeri" class="px-4 py-2 hover:bg-[#FFFBDA] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">Galeri</a>
       <a href="/pengumuman" class="px-4 py-2 hover:bg-[#FFFBDA] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">Pengumuman</a>
       <a href="/ppdb" class="px-4 py-2 hover:bg-[#FFFBDA] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">PPDB</a>
       <a href="/kontak" class="px-4 py-2 hover:bg-[#FFFBDA] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">Kontak</a>
@@ -160,31 +130,8 @@
       </div>
     </div>
 
-    <!-- Galeri Mobile Dropdown with Smooth Animation -->
-    <div>
-      <button @click="openGaleri = !openGaleri"
-              class="w-full flex items-center justify-between py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition duration-300">
-        <span>Galeri</span>
-        <svg class="h-4 w-4 transform transition-transform duration-300 ease-in-out" :class="{ 'rotate-180': openGaleri }"
-             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-        </svg>
-      </button>
-      <div x-show="openGaleri"
-           x-transition:enter="transition ease-out duration-300"
-           x-transition:enter-start="opacity-0 max-h-0"
-           x-transition:enter-end="opacity-100 max-h-40"
-           x-transition:leave="transition ease-in duration-200"
-           x-transition:leave-start="opacity-100 max-h-40"
-           x-transition:leave-end="opacity-0 max-h-0"
-           x-cloak
-           class="pl-4 font-normal capitalize space-y-1 overflow-hidden">
-        <a href="/foto" class="block py-1 px-3 rounded hover:bg-[#FFFBDA] hover:text-black transition duration-200">Foto</a>
-        <a href="/video" class="block py-1 px-3 rounded hover:bg-[#FFFBDA] hover:text-black transition duration-200">Video</a>
-      </div>
-    </div>
 
-    <!-- Menu lainnya -->
+    <a href="/galeri" class="px-4 py-2 hover:bg-[#FFFBDA] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">Galeri</a>
     <a href="/pengumuman" class="block py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition duration-300">Pengumuman</a>
     <a href="/ppdb" class="block py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition duration-300">PPDB</a>
     <a href="/kontak" class="block py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition duration-300">Kontak</a>
