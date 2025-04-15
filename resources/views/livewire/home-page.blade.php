@@ -11,7 +11,7 @@
     </div>
 
     <!-- HERO SLIDER WITH BACKGROUND BLUR -->
-<div class="relative h-[350px] md:h-[450px] lg:h-[500px] overflow-hidden">
+<div class="relative h-[200px] sm:h-[300px] md:h-[450px] lg:h-[500px] overflow-hidden">
   <!-- Background Image with Blur -->
   <div 
     class="absolute inset-0 bg-cover bg-center blur-sm brightness-75"
@@ -25,18 +25,21 @@
       x-data="{ currentSlide: 0, totalSlides: 3 }"
       x-init="setInterval(() => currentSlide = (currentSlide + 1) % totalSlides, 5000)"
       class="relative w-full h-full max-w-full overflow-hidden rounded-lg">
+      
       <div 
-        class="flex transition-transform duration-500 ease-in-out  h-full"
+        class="flex transition-transform duration-500 ease-in-out h-full"
         :style="{ transform: 'translateX(-' + (currentSlide * 100) + '%)' }">
+        
         <template x-for="(image, index) in ['img1.jpeg', 'UcapanSelamat.jpg', 'img2.jpg']" :key="index">
-          <div class="min-w-full h-full">
+          <div class="min-w-full h-full flex items-center justify-center">
             <img 
               :src="'{{ asset('images') }}/' + image"
               :alt="'Slide ' + (index + 1)"
-              class="w-4/5 h-full px-20 mx-auto object-cover"> <!-- Full Coverage Image -->
+              class="max-h-full max-w-full object-contain sm:w-[90%] sm:mx-auto transition-all duration-300 rounded-md">
           </div>
         </template>
       </div>
+
       <!-- Navigation Arrows -->
       <div class="absolute inset-0 flex justify-between items-center px-4">
         <button 
