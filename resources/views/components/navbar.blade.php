@@ -94,49 +94,34 @@
   </div>
 
   <!-- Menu Mobile -->
-  <div x-show="open"
-       x-transition:enter="transition ease-out duration-300"
-       x-transition:enter-start="opacity-0 -translate-y-4"
-       x-transition:enter-end="opacity-100 translate-y-0"
-       x-transition:leave="transition ease-in duration-200"
-       x-transition:leave-start="opacity-100 translate-y-0"
-       x-transition:leave-end="opacity-0 -translate-y-4"
-       class="md:hidden px-6 pb-6 space-y-2 font-bebas uppercase tracking-wide text-base bg-[#BF3131] transform origin-top">
+<div x-show="open" x-transition x-cloak class="md:hidden px-4 pb-6 space-y-2 font-bebas uppercase tracking-wide text-base bg-[#BF3131] rounded-b-xl">
+  <a href="/" class="block w-full py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition">Beranda</a>
 
-    <a href="/" class="block py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition duration-300">Beranda</a>
-
-    <!-- Profil Mobile Dropdown with Smooth Animation -->
-    <div>
-      <button @click="openProfil = !openProfil"
-              class="w-full flex items-center justify-between py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition duration-300">
-        <span>Profil</span>
-        <svg class="h-4 w-4 transform transition-transform duration-300 ease-in-out" :class="{ 'rotate-180': openProfil }"
-             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-        </svg>
-      </button>
-      <div x-show="openProfil"
-           x-transition:enter="transition ease-out duration-300"
-           x-transition:enter-start="opacity-0 max-h-0"
-           x-transition:enter-end="opacity-100 max-h-40"
-           x-transition:leave="transition ease-in duration-200"
-           x-transition:leave-start="opacity-100 max-h-40"
-           x-transition:leave-end="opacity-0 max-h-0"
-           x-cloak
-           class="pl-4 font-normal capitalize space-y-1 overflow-hidden">
-        <a href="/visimisi" class="block py-1 px-3 rounded hover:bg-[#FFFBDA] hover:text-black transition duration-200">Profil Sekolah</a>
-        <a href="/guru" class="block py-1 px-3 rounded hover:bg-[#FFFBDA] hover:text-black transition duration-200">Profil Guru</a>
-        <a href="/siswa" class="block py-1 px-3 rounded hover:bg-[#FFFBDA] hover:text-black transition duration-200">Profil Siswa</a>
-      </div>
+  <!-- Dropdown Profil Mobile -->
+  <div>
+    <button @click="openProfil = !openProfil" class="w-full flex items-center justify-between py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition">
+      <span>Profil</span>
+      <svg class="h-4 w-4 transform transition-transform duration-300 ease-in-out" :class="{ 'rotate-180': openProfil }"
+           xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+      </svg>
+    </button>
+    <div x-show="openProfil" x-transition x-cloak class="pl-6 font-normal capitalize space-y-1 text-sm">
+      <a href="/visimisi" class="block w-full py-1 px-3 rounded hover:bg-[#FFFBDA] hover:text-black transition">Profil Sekolah</a>
+      <a href="/guru" class="block w-full py-1 px-3 rounded hover:bg-[#FFFBDA] hover:text-black transition">Profil Guru</a>
+      <a href="/siswa" class="block w-full py-1 px-3 rounded hover:bg-[#FFFBDA] hover:text-black transition">Profil Siswa</a>
     </div>
-
-
-    <a href="/galeri" class="px-4 py-2 hover:bg-[#FFFBDA] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">Galeri</a>
-    <a href="/pengumuman" class="block py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition duration-300">Pengumuman</a>
-    <a href="/ppdb" class="block py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition duration-300">PPDB</a>
-    <a href="/kontak" class="block py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition duration-300">Kontak</a>
-    <a href="/pengaduan" class="block py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition duration-300">Pengaduan</a>
   </div>
+
+  <!-- Menu lainnya -->
+  <a href="/galeri" class="block w-full py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition">Galeri</a>
+  <a href="/pengumuman" class="block w-full py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition">Pengumuman</a>
+  <a href="/ppdb" class="block w-full py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition">PPDB</a>
+  <a href="/kontak" class="block w-full py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition">Kontak</a>
+  <a href="/pengaduan" class="block w-full py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition">Pengaduan</a>
+</div>
+
+  
 </nav>
 
 <!-- Sub-navbar Sosial Media -->

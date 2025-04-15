@@ -44,7 +44,7 @@
         <!-- Tabel -->
         <div class="overflow-x-auto rounded-lg shadow-xl bg-white">
             <table class="min-w-full table-auto text-black">
-                <thead class="bg-[#BF3131] text-black">
+                <thead class="bg-[#BF3131] text-white">
                     <tr>
                         <th class="px-6 py-3 text-left text-sm font-medium">Nama Siswa</th>
                         <th class="px-6 py-3 text-left text-sm font-medium">Kelas</th>
