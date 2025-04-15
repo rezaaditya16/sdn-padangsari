@@ -11,11 +11,9 @@
 
     <!-- Form Pengaduan -->
     <div class="max-w-3xl mx-auto pt-24 px-6 pb-20">
-        <div class="bg-white shadow-2xl border border-red-800 rounded-3xl p-10">
+        <div class="bg-white shadow-2xl border-2 rounded-3xl p-10">
             <h2 class="text-3xl font-bold text-red-700 mb-8 flex items-center gap-3">
-                <svg class="w-7 h-7 text-red-700" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M12 18.5a6.5 6.5 0 100-13 6.5 6.5 0 000 13z" />
-                </svg>
+                <img src="{{ asset('images/laptop.gif') }}" alt="Laptop GIF" class="w-12 h-12">
                 Form Pengaduan
             </h2>
 
@@ -32,8 +30,8 @@
                     <div>
                         <label class="block text-gray-700 font-semibold mb-1">Nama Depan</label>
                         <div class="relative">
-                            <input type="text" name="first_name" class="w-full border border-gray-300 rounded-xl py-3 pl-12 pr-4 shadow-sm focus:ring-2 focus:ring-yellow-400 focus:outline-none transition" placeholder="Masukkan nama depan">
-                            <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-yellow-500">
+                            <input type="text" name="first_name" class="w-full border border-gray-300 rounded-xl py-3 pl-12 pr-4 shadow-sm focus:ring-2 focus:ring-red-900 focus:outline-none transition" placeholder="Masukkan nama depan">
+                            <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-red-700">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A9 9 0 1112 21"></path>
                                 </svg>
@@ -45,8 +43,8 @@
                     <div>
                         <label class="block text-gray-700 font-semibold mb-1">Nama Belakang</label>
                         <div class="relative">
-                            <input type="text" name="last_name" class="w-full border border-gray-300 rounded-xl py-3 pl-12 pr-4 shadow-sm focus:ring-2 focus:ring-yellow-400 focus:outline-none transition" placeholder="Masukkan nama belakang">
-                            <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-yellow-500">
+                            <input type="text" name="last_name" class="w-full border border-gray-300 rounded-xl py-3 pl-12 pr-4 shadow-sm focus:ring-2 focus:ring-red-900 focus:outline-none transition" placeholder="Masukkan nama belakang">
+                            <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-red-700">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A9 9 0 1112 21"></path>
                                 </svg>
@@ -59,8 +57,8 @@
                 <div>
                     <label class="block text-gray-700 font-semibold mb-1">Alamat Email</label>
                     <div class="relative">
-                        <input type="email" name="email" class="w-full border border-gray-300 rounded-xl py-3 pl-12 pr-4 shadow-sm focus:ring-2 focus:ring-yellow-400 focus:outline-none transition" placeholder="Masukkan email aktif">
-                        <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-yellow-500">
+                        <input type="email" name="email" class="w-full border border-gray-300 rounded-xl py-3 pl-12 pr-4 shadow-sm focus:ring-2 focus:ring-red-900 focus:outline-none transition" placeholder="Masukkan email aktif">
+                        <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-red-700">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M16 12l-4 4m0 0l-4-4m4 4V8"></path>
                             </svg>
@@ -71,7 +69,7 @@
                 <!-- Pesan -->
                 <div>
                     <label class="block text-gray-700 font-semibold mb-1">Pesan</label>
-                    <textarea name="message" rows="6" class="w-full border border-gray-300 rounded-xl py-3 px-4 shadow-sm focus:ring-2 focus:ring-yellow-400 focus:outline-none transition" placeholder="Tulis pesan atau keluhan Anda di sini..."></textarea>
+                    <textarea name="message" rows="6" class="w-full border border-gray-300 rounded-xl py-3 px-4 shadow-sm focus:ring-2 focus:ring-red-900 focus:outline-none transition" placeholder="Tulis pesan atau keluhan Anda di sini..."></textarea>
                 </div>
 
                 <!-- Tombol Submit -->
