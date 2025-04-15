@@ -15,6 +15,8 @@ use Filament\Tables\Columns\ImageColumn;
 
 class GalleryResource extends Resource
 {
+    protected static ?string $navigationGroup = 'Information';
+    protected static ?string $navigationLabel = 'Gallery';
     protected static ?string $model = Gallery::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-photo';

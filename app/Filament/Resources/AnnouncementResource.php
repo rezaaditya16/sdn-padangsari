@@ -34,7 +34,10 @@ class AnnouncementResource extends Resource
             Textarea::make('content')
                 ->required(),
             FileUpload::make('image')
+                ->label('Gambar')
                 ->image()
+                ->disk('public') // Menyimpan ke disk 'public'
+                ->directory('announcements') // Folder penyimpanan
                 ->required(),
             DatePicker::make('published_at')
                 ->required(),
