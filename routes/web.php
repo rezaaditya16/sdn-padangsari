@@ -16,7 +16,7 @@ use App\Livewire\PengumumanPage;
 use App\Livewire\PengaduanPage;
 use App\Livewire\GuruPage;
 use App\Livewire\PpdbPage;
-use App\Livewire\SiswaPage;
+use App\Livewire\SiswaPage;                                                                                                                                                                                                                                                                                                                                                          
 
 Route::get('/', HomePage::class)->name('home');
 Route::get('/about', AboutPage::class)->name('about');

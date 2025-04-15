@@ -33,7 +33,7 @@
                         class="flex transition-transform duration-500 ease-in-out w-full h-full"
                         :style="{ transform: 'translateX(-' + (currentSlide * 100) + '%)' }"
                     >
-                        <template x-for="(image, index) in ['img1.jpeg', 'img2.jpg', 'UcapanSelamat.jpg', 'ramadhan.jpg']" :key="index">
+                        <template x-for="(image, index) in ['UcapanSelamat.jpg', 'UcapanSelamat.jpg', 'UcapanSelamat.jpg']" :key="index">
                             <div class="min-w-full h-full">
                                 <img 
                                     :src="'{{ asset('images') }}/' + image"
