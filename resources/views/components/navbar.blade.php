@@ -82,6 +82,11 @@
       <a href="/pengaduan" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFFBDA] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">
         <i class="fas fa-comment-dots"></i> Pengaduan
       </a>
+      <!-- Menu Sang Juara mengarah ke link yang diberikan -->
+<a href="https://sangjuara.semarangkota.go.id/" target="_blank" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFFBDA] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">
+  <i class="fas fa-trophy"></i> Sang Juara
+</a>
+
     </div>
   </div>
 
@@ -112,6 +117,10 @@
     <a href="/ppdb" class="flex items-center gap-2 py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition"><i class="fas fa-user-plus"></i> PPDB</a>
     <a href="/kontak" class="flex items-center gap-2 py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition"><i class="fas fa-envelope"></i> Kontak</a>
     <a href="/pengaduan" class="flex items-center gap-2 py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition"><i class="fas fa-comment-dots"></i> Pengaduan</a>
+    <a href="https://sangjuara.semarangkota.go.id/" target="_blank" class="flex items-center gap-2 py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition">
+      <i class="fas fa-trophy"></i> Sang Juara
+    </a>
+    
   </div>
 </nav>
 
