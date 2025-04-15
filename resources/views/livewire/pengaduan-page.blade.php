@@ -1,19 +1,20 @@
 <div>
     <!-- Hero Section -->
     <div class="relative h-[400px] bg-cover bg-center mt-3" style="background-image: url('{{ asset('images/sekolah.png') }}'); background-attachment: fixed;">
-    <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
-        <div class="text-center text-white px-4">
-            <h1 class="text-4xl md:text-5xl font-bold mb-2">PROFIL SEKOLAH</h1>
-            <p class="text-xl md:text-2xl">SDN PADANGSARI 01</p>
+        <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+            <div class="text-center text-white px-4">
+                <h1 class="text-4xl md:text-5xl font-bold mb-2">PROFIL SEKOLAH</h1>
+                <p class="text-xl md:text-2xl">SDN PADANGSARI 01</p>
+            </div>
         </div>
     </div>
-</div>
 
     <!-- Form Pengaduan -->
     <div class="max-w-2xl mx-auto pt-24 px-6 pb-12">
         <div class="bg-white shadow-xl rounded-2xl p-8">
             <h2 class="text-2xl font-bold text-gray-800 mb-6">Form Pengaduan</h2>
 
+            <!-- Flash Message -->
             @if (session()->has('message'))
                 <div class="mb-4 p-4 bg-green-100 text-green-700 rounded">
                     {{ session('message') }}
