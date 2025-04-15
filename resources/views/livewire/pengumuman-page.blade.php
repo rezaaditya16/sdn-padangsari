@@ -14,7 +14,7 @@
     @foreach ($pengumuman as $item)
         <div 
             x-data="{ open: false }" 
-            class="bg-purple-100 p-8 rounded-3xl w-[95%] mx-auto my-10 transition-all duration-500 ease-in-out"
+            class="bg-gray-100 p-8 rounded-3xl w-[95%] mx-auto my-10 transition-all duration-500 ease-in-out"
         >
             <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
                 <img src="{{ $item->image ?? asset('images/default.png') }}" 
@@ -32,7 +32,7 @@
                     <div class="text-right mt-6">
                         <button 
                             @click="open = !open" 
-                            class="bg-purple-500 hover:bg-purple-600 text-white px-6 py-2 rounded-full transition">
+                            class="bg-red-600 hover:bg-white text-black px-6 py-2 rounded-full transition">
                             <span x-text="open ? 'Sembunyikan' : 'Selengkapnya'"></span>
                         </button>
                     </div>
