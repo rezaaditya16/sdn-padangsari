@@ -33,18 +33,19 @@ class StudentResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Select::make('classroom_id')
-                        ->label('Classroom')
-                        ->options(Classroom::all()->pluck('name', 'id'))
-                        ->searchable()
-                        ->required()
-                        ->reactive()
-                        ->afterStateUpdated(function ($state, callable $set) {
-                            $classroom = Classroom::find($state);
-                            $set('class', $classroom ? $classroom->name : '');
-                        }),
-                TextInput::make('class')
+                    ->label('Classroom')
+                    ->options(Classroom::all()->pluck('name', 'id')) // Ambil nama kelas dari model Classroom
+                    ->searchable()
                     ->required()
-                    ->maxLength(255),
+                    ->reactive()
+                    ->afterStateUpdated(function ($state, callable $set) {
+                        $classroom = Classroom::find($state); // Cari classroom berdasarkan ID
+                        $set('class', $classroom ? $classroom->name : null); // Set nilai class berdasarkan nama classroom
+                    }),
+                TextInput::make('class')
+                    ->label('Class')
+                    ->required()
+                    ->disabled(), // Nonaktifkan input manual karena diatur otomatis
                 FileUpload::make('photo')
                     ->image()
                     ->nullable(),
@@ -59,6 +60,12 @@ class StudentResource extends Resource
                     ->searchable(),
                 TextColumn::make('class')
                     ->searchable(),
+                ImageColumn::make('photo')
+                    ->label('Foto')
+                    ->size(100)
+                    ->disk('public')
+                    ->getStateUsing(fn($record) => $record->photo ? asset('storage/' . $record->photo) : null)
+                    ->square(),
                 TextColumn::make('created_at')
                     ->dateTime(),
             ])

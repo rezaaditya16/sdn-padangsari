@@ -10,7 +10,12 @@ class Student extends Model
     use HasFactory;
 
     // Tentukan kolom yang dapat diisi (mass assignable)
-    protected $fillable = ['name', 'class', 'photo'];
+    protected $fillable = [
+        'name',
+        'class',
+        'classroom_id',
+        'photo',
+    ];
 
     public function classroom()
     {

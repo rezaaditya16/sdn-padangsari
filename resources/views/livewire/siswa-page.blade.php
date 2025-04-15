@@ -30,7 +30,7 @@
         </div>
 
         <!-- Tabel Responsif -->
-        <div class="overflow-x-auto rounded-lg shadow-xl bg-white">
+        {{-- <div class="overflow-x-auto rounded-lg shadow-xl bg-white">
             <table class="min-w-full text-sm md:text-base table-auto text-black">
                 <thead class="bg-[#BF3131] text-white">
                     <tr>
@@ -51,6 +51,32 @@
                     @endforelse
                 </tbody>
             </table>
+        </div> --}}
+
+        <!-- Grid Responsif -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
+            @forelse ($students as $student)
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    <!-- Foto -->
+                    @if ($student->photo)
+                        <img src="{{ asset('storage/' . $student->photo) }}" alt="{{ $student->name }}" class="w-full h-48 object-cover">
+                    @else
+                        <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500">
+                            <span>Foto Tidak Tersedia</span>
+                        </div>
+                    @endif
+
+                    <!-- Informasi Siswa -->
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-800">{{ $student->name }}</h3>
+                        <p class="text-gray-600">Kelas: {{ $student->class }}</p>
+                    </div>
+                </div>
+            @empty
+                <div class="col-span-full text-center text-gray-500">
+                    Tidak ada siswa ditemukan.
+                </div>
+            @endforelse
         </div>
     </div>
 </div>
