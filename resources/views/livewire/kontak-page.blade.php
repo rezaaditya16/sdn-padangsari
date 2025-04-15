@@ -1,4 +1,3 @@
-
 <!-- Konten Utama -->
 <div class="max-w-screen overflow-x-hidden">
     <!-- Hero Section -->
@@ -16,7 +15,8 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- Alamat -->
             <div class="bg-white shadow-md rounded-xl p-6 text-center">
-                <i class="fas fa-map-marker-alt text-blue-600 text-4xl mb-3"></i>
+                <!-- Ubah warna ikon menjadi merah -->
+                <i class="fas fa-map-marker-alt text-red-600 text-4xl mb-3"></i>
                 <h5 class="text-lg font-semibold mb-2">Alamat</h5>
                 <p class="text-gray-600 leading-relaxed">
                     SDN 01 Padangsari<br>
@@ -28,7 +28,8 @@
 
             <!-- Customer Service -->
             <div class="bg-white shadow-md rounded-xl p-6 text-center">
-                <i class="fas fa-headset text-blue-600 text-4xl mb-3"></i>
+                <!-- Ubah warna ikon menjadi hijau -->
+                <i class="fas fa-headset text-green-600 text-4xl mb-3"></i>
                 <h5 class="text-lg font-semibold mb-2">Customer Service</h5>
                 <p class="text-gray-600 leading-relaxed">
                     Phone: (0324) 322-001<br>
@@ -38,7 +39,8 @@
 
             <!-- Jam Kerja -->
             <div class="bg-white shadow-md rounded-xl p-6 text-center">
-                <i class="fas fa-clock text-blue-600 text-4xl mb-3"></i>
+                <!-- Ubah warna ikon menjadi kuning -->
+                <i class="fas fa-clock text-yellow-600 text-4xl mb-3"></i>
                 <h5 class="text-lg font-semibold mb-2">Jam Kerja</h5>
                 <p class="text-gray-600 leading-relaxed">
                     Senin - Jumat: 07.00 - 15.00<br>

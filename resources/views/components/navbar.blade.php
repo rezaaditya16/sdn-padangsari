@@ -27,13 +27,13 @@
   <div class="flex items-center justify-between">
     <!-- Logo -->
     <div class="flex items-center clip-diagonal bg-white h-24 pl-4 pr-10 w-full md:w-auto">
-  <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-16 w-16 object-contain" />
-  <div class="ml-4 text-black">
-    <!-- Tambahkan kelas responsif untuk ukuran teks -->
-    <h1 class="text-xl md:text-3xl font-bebas uppercase tracking-wide leading-tight">SDN Padangsari 01</h1>
-    <p class="text-xs md:text-sm italic">Sekolah Unggul Berprestasi</p>
-  </div>
-</div>
+      <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-16 w-16 object-contain" />
+      <div class="ml-4 text-black">
+        <!-- Tambahkan kelas responsif untuk ukuran teks -->
+        <h1 class="text-xl md:text-3xl font-bebas uppercase tracking-wide leading-tight">SDN Padangsari 01</h1>
+        <p class="text-xs md:text-sm italic">Sekolah Unggul Berprestasi</p>
+      </div>
+    </div>
 
     <!-- Mobile button -->
     <button @click="open = !open" class="md:hidden p-4">
