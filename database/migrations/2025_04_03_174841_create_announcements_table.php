@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('content');
-            $table->string('image')->nullable();
+            $table->string('image');
             $table->date('publish_date')->default(DB::raw('CURRENT_DATE'));
             $table->timestamps();
         });

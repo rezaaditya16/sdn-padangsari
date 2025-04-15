@@ -16,6 +16,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Columns\ImageColumn;
 
 class AnnouncementResource extends Resource
 {
@@ -48,25 +49,34 @@ class AnnouncementResource extends Resource
     {
         return $table
         ->columns([
-            Tables\Columns\TextColumn::make('title'),
+            Tables\Columns\TextColumn::make('title')
+                ->label('Judul')
+                ->searchable()
+                ->sortable(),
             Tables\Columns\TextColumn::make('content')
+                ->label('Konten')
                 ->limit(50),
-            Tables\Columns\TextColumn::make('published_at')
-                ->date(),
+            Tables\Columns\ImageColumn::make('image') // Ganti 'images' menjadi 'image'
+                ->label('Gambar')
+                ->size(100)
+                ->disk('public')
+                ->getStateUsing(fn($record) => $record->image ? asset('storage/' . $record->image) : null)
+                ->square(),
             Tables\Columns\TextColumn::make('created_at')
+                ->label('Dibuat Pada')
                 ->dateTime(),
         ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+        ->filters([
+            //
+        ])
+        ->actions([
+            Tables\Actions\ViewAction::make(),
+            Tables\Actions\EditAction::make(),
+            Tables\Actions\DeleteAction::make(),
+        ])
+        ->bulkActions([
+            Tables\Actions\DeleteBulkAction::make(),
+        ]);
     }
 
     public static function getRelations(): array
