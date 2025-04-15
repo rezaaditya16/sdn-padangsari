@@ -47,9 +47,20 @@ class TeacherResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('position'),
+                Tables\Columns\TextColumn::make('name')
+                ->label('Nama')
+                ->searchable(),
+                Tables\Columns\ImageColumn::make('photo')
+                    ->label('Foto')
+                    ->size(100)
+                    ->disk('public') // Pastikan disk sesuai dengan konfigurasi penyimpanan Anda
+                    ->getStateUsing(fn($record) => $record->photo ? asset('storage/' . $record->photo) : null)
+                    ->square(), // Membuat gambar berbentuk persegi
+                Tables\Columns\TextColumn::make('position')
+                    ->label('Posisi')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Dibuat Pada')
                     ->dateTime(),
             ])
             ->filters([
