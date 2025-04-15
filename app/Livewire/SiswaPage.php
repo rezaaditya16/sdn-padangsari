@@ -7,21 +7,31 @@ use Livewire\Component;
 
 class SiswaPage extends Component
 {
-    public $kelasFilter = 'all';
-
-    public function render()
-    {
-        if ($this->kelasFilter === 'all') {
-            $students = Student::all();
-        } elseif (str_starts_with($this->kelasFilter, 'Kelas')) {
-            $kelasAngka = str_replace('Kelas ', '', $this->kelasFilter); // hasil: "1", "2", dst
-            $students = Student::where('class', 'like', $kelasAngka . '%')->get();
-        } else {
-            $students = Student::where('class', $this->kelasFilter)->get();
-        }
+    public $selectedClass = '';
     
-        return view('livewire.siswa-page', compact('students'));
+    public function mount()
+    {
+        // Initialize with empty string to show all students
     }
     
-
+    public function updatedSelectedClass()
+    {
+        // This method automatically runs when selectedClass is updated
+        // We don't need to do anything here as the render() method will handle the filtering
+    }
+    
+    public function render()
+    {
+        $query = Student::query();
+        
+        if (!empty($this->selectedClass)) {
+            $query->where('class', $this->selectedClass);
+        }
+        
+        $students = $query->get();
+        
+        return view('livewire.siswa-page', [
+            'students' => $students,
+        ]);
+    }
 }

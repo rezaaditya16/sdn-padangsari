@@ -1,4 +1,4 @@
-<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" class="overflow-x-hidden">
   <div class="site-wrap" id="home-section">
     <!-- Mobile Menu -->
     <div class="site-mobile-menu site-navbar-target">
@@ -11,7 +11,7 @@
     </div>
 
     <!-- HERO SLIDER WITH BACKGROUND BLUR -->
-    <div class="relative h-[400px] overflow-hidden">
+    <div class="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
       <div 
         class="absolute inset-0 bg-cover bg-center scale-110 blur-sm brightness-75"
         style="background-image: url('{{ asset('images/sekolah.png') }}'); background-attachment: fixed; z-index: 0;">
@@ -21,7 +21,7 @@
         <div 
           x-data="{ currentSlide: 0, totalSlides: 3 }"
           x-init="setInterval(() => currentSlide = (currentSlide + 1) % totalSlides, 5000)"
-          class="relative w-full max-w-6xl h-[300px] md:h-[400px] overflow-hidden rounded-lg">
+          class="relative w-full h-full max-w-full overflow-hidden rounded-lg">
           <div 
             class="flex transition-transform duration-500 ease-in-out w-full h-full"
             :style="{ transform: 'translateX(-' + (currentSlide * 100) + '%)' }">
@@ -67,17 +67,16 @@
       </div>
       <div class="md:w-[75%] text-gray-700 text-justify space-y-4" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
         <p><span class="ml-4">Assalamu'alaikum wr.wb.</span></p>
-        <p><span class="ml-4">Puji syukur kami panjatkan kehadirat  Allah SWT, Tuhan Yang Maha Esa yang telah memberikan rahmat dan hidayahNya sehingga pembuatan website SD Negeri Padangsari 01 Semarang ini dapat terlaksana dengan lancar tanpa suatu halangan apa pun. kami merasa bangga mendapatkan kesempatan untuk mengikuti workshop pelatihan pembuatan website sekolah. Kami akan berupaya untuk mengembangkan ilmu yang sudah diberikan melalui workshop untuk kemajuan SD Negeri Padangsari 01 terutama dibidang pendidikan dan memeberikan informasi secara detail tentang SD Negeri Padangsari 01. Dilihat dari perkembangan zaman, teknologi dan kebutuhan akan informasi mau tidak mau kita harus mengikutinya.</span></p>
-        <p><span class="ml-4">Kami berusaha menyajikan informasi tentang Siswa, Guru, karyawan, tendik dan kegiatan-kegiatan disekolah SDN Padangsari 01, informasi atau pengumuman penting yang dibutuhkan oleh masyarakat umum. selain itu, kami juga memberikan sedikit informasi tentang tempat Pariwisata, Kesehatan yang ada disekitar SDN Padangsari 01.</span></p>
-        <p><span class="ml-4">Semoga dengan adanya website ini dapat membantu dunia pariwisata, pendidikan dan masyarakat umum untuk mengetahui dan memahami SDN Padangsari 01 dan sekitarnya. Kami berharap, dengan adanya website ini dapat memberikan manfaat bagi semua pihak yang membutuhkan. Besar harapan kami mengharapkan masukan dari berbagai pihak agar website kami lebih bagus dalam segi tampilan dan lain-lain sehingga dapat memenuhi kebutuhan akan informasi dalam dunia pendidikan khususnya. Kami akan terus belajar, menggembangkan dan memperbaiki dalam segi tampilan, isi dan mutu website. Terimakasih  atas dukungannya, semoga website kami lebih maju untuk mencapai SD Negeri Padangsari 01 yang lebih baik.</span></p>
-        <p class="mt-2"><span class="ml-4">Wassalamu'alaikum wr.wb.</span></p>
+        <p><span class="ml-4">Puji syukur kami panjatkan kehadirat Allah SWT...</span></p>
+        <p><span class="ml-4">Semoga dengan adanya website ini dapat membantu dunia pariwisata...</span></p>
+        <p><span class="ml-4">Wassalamu'alaikum wr.wb.</span></p>
       </div>
     </section>
 
     <!-- SCHOOL INFORMATION -->
     <section class="w-full max-w-6xl mx-auto mt-10 p-6 bg-gray-100 shadow-md rounded-lg px-4">
       <p class="text-gray-800 text-justify">
-      Secara administrasi Sekolah Dasar (SD) Negeri Padangsari 01 berada di Jalan Damar Raya No 80 A Kecamatan Banyumanik. SD Negeri Padangsari 01 terdiri dari beberapa bangunan utama,  dgn rincian 7 (tujuh) ruangan Kelas, 1 (satu) ruangan Guru, 1 (satu) ruang Kepala Sekolah, 1 (satu) ruangan Perpustakaan, Mushola,  Ruang UKS, 2 (dua)kantin yang berada didalam sekolah. 
+      Secara administrasi Sekolah Dasar (SD) Negeri Padangsari 01 berada di Jalan Damar Raya No 80 A Kecamatan Banyumanik...
       </p>
     </section>
 
