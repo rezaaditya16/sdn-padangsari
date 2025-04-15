@@ -51,12 +51,19 @@
            @mouseleave="timeout = setTimeout(() => open = false, 300)">
         <button class="flex items-center px-3 py-2 hover:bg-[#FFFBDA] hover:text-black rounded-xl transition">
           Profil
-          <svg class="ml-1 h-4 w-4 transition-transform duration-200" :class="{ 'rotate-180': open }"
+          <svg class="ml-1 h-4 w-4 transition-transform duration-300 ease-in-out" :class="{ 'rotate-180': open }"
                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
           </svg>
         </button>
-        <ul x-show="open" x-transition
+        <ul x-show="open"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 scale-95 translate-y-2"
+            x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+            x-transition:leave-end="opacity-0 scale-95 translate-y-2"
+            x-cloak
             class="absolute bg-[#FFFBDA] text-black mt-2 rounded-xl shadow-lg w-52 z-10 font-normal capitalize text-sm">
           <li>
             <a href="/visimisi" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFEC9E] rounded-xl">
@@ -82,12 +89,19 @@
            @mouseleave="timeout = setTimeout(() => open = false, 300)">
         <button class="flex items-center px-3 py-2 hover:bg-[#FFFBDA] hover:text-black rounded-xl transition">
           Galeri
-          <svg class="ml-1 h-4 w-4 transition-transform duration-200" :class="{ 'rotate-180': open }"
+          <svg class="ml-1 h-4 w-4 transition-transform duration-300 ease-in-out" :class="{ 'rotate-180': open }"
                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
           </svg>
         </button>
-        <ul x-show="open" x-transition
+        <ul x-show="open"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 scale-95 translate-y-2"
+            x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+            x-transition:leave-end="opacity-0 scale-95 translate-y-2"
+            x-cloak
             class="absolute bg-[#FFFBDA] text-black mt-2 rounded-xl shadow-lg w-48 z-10 font-normal capitalize text-sm">
           <li>
             <a href="/foto" class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFEC9E] rounded-xl">
@@ -109,7 +123,7 @@
     </div>
   </div>
 
-  <!-- Menu Mobile dengan animasi menurun -->
+  <!-- Menu Mobile -->
   <div x-show="open"
        x-transition:enter="transition ease-out duration-300"
        x-transition:enter-start="opacity-0 -translate-y-4"
@@ -121,34 +135,50 @@
 
     <a href="/" class="block py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition duration-300">Beranda</a>
 
-    <!-- Profil Mobile -->
+    <!-- Profil Mobile Dropdown with Smooth Animation -->
     <div>
       <button @click="openProfil = !openProfil"
               class="w-full flex items-center justify-between py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition duration-300">
         <span>Profil</span>
-        <svg class="h-4 w-4 transition-transform duration-200" :class="{ 'rotate-180': openProfil }"
+        <svg class="h-4 w-4 transform transition-transform duration-300 ease-in-out" :class="{ 'rotate-180': openProfil }"
              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
         </svg>
       </button>
-      <div x-show="openProfil" x-transition class="pl-4 font-normal capitalize space-y-1">
+      <div x-show="openProfil"
+           x-transition:enter="transition ease-out duration-300"
+           x-transition:enter-start="opacity-0 max-h-0"
+           x-transition:enter-end="opacity-100 max-h-40"
+           x-transition:leave="transition ease-in duration-200"
+           x-transition:leave-start="opacity-100 max-h-40"
+           x-transition:leave-end="opacity-0 max-h-0"
+           x-cloak
+           class="pl-4 font-normal capitalize space-y-1 overflow-hidden">
         <a href="/visimisi" class="block py-1 px-3 rounded hover:bg-[#FFFBDA] hover:text-black transition duration-200">Profil Sekolah</a>
         <a href="/guru" class="block py-1 px-3 rounded hover:bg-[#FFFBDA] hover:text-black transition duration-200">Profil Guru</a>
         <a href="/siswa" class="block py-1 px-3 rounded hover:bg-[#FFFBDA] hover:text-black transition duration-200">Profil Siswa</a>
       </div>
     </div>
 
-    <!-- Galeri Mobile -->
+    <!-- Galeri Mobile Dropdown with Smooth Animation -->
     <div>
       <button @click="openGaleri = !openGaleri"
               class="w-full flex items-center justify-between py-2 px-4 rounded-xl hover:bg-[#FFFBDA] hover:text-black transition duration-300">
         <span>Galeri</span>
-        <svg class="h-4 w-4 transition-transform duration-200" :class="{ 'rotate-180': openGaleri }"
+        <svg class="h-4 w-4 transform transition-transform duration-300 ease-in-out" :class="{ 'rotate-180': openGaleri }"
              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
         </svg>
       </button>
-      <div x-show="openGaleri" x-transition class="pl-4 font-normal capitalize space-y-1">
+      <div x-show="openGaleri"
+           x-transition:enter="transition ease-out duration-300"
+           x-transition:enter-start="opacity-0 max-h-0"
+           x-transition:enter-end="opacity-100 max-h-40"
+           x-transition:leave="transition ease-in duration-200"
+           x-transition:leave-start="opacity-100 max-h-40"
+           x-transition:leave-end="opacity-0 max-h-0"
+           x-cloak
+           class="pl-4 font-normal capitalize space-y-1 overflow-hidden">
         <a href="/foto" class="block py-1 px-3 rounded hover:bg-[#FFFBDA] hover:text-black transition duration-200">Foto</a>
         <a href="/video" class="block py-1 px-3 rounded hover:bg-[#FFFBDA] hover:text-black transition duration-200">Video</a>
       </div>
@@ -165,17 +195,14 @@
 <!-- Sub-navbar Sosial Media -->
 <div class="bg-[#BF3131] mt-[90px] px-4 md:px-6 py-2 mb-8">
   <div class="max-w-screen-xl mx-auto flex items-center space-x-4">
-    <!-- Instagram -->
     <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram"
        class="w-9 h-9 flex items-center justify-center rounded-full bg-white hover:bg-gray-100 transition-all duration-300 ease-in-out transform hover:scale-110 hover:rotate-3 shadow">
       <i class="fab fa-instagram text-[#C13584] text-lg"></i>
     </a>
-    <!-- YouTube -->
     <a href="https://www.youtube.com/" target="_blank" aria-label="YouTube"
        class="w-9 h-9 flex items-center justify-center rounded-full bg-white hover:bg-gray-100 transition-all duration-300 ease-in-out transform hover:scale-110 hover:rotate-3 shadow">
       <i class="fab fa-youtube text-[#FF0000] text-lg"></i>
     </a>
-    <!-- WhatsApp -->
     <a href="https://wa.me/6281234567890" target="_blank" aria-label="WhatsApp"
        class="w-9 h-9 flex items-center justify-center rounded-full bg-white hover:bg-gray-100 transition-all duration-300 ease-in-out transform hover:scale-110 hover:rotate-3 shadow">
       <i class="fab fa-whatsapp text-[#25D366] text-lg"></i>

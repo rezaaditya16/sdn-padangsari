@@ -18,9 +18,10 @@
 
             <!-- Custom Dropdown with Alpine.js -->
             <div x-data="{ open: false, selected: 'Semua Kelas' }" class="relative w-48">
-                <button @click="open = !open" class="bg-[#FF4C4C] text-white border rounded px-4 py-2 w-full text-left">
-                    <span x-text="selected"></span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute right-3 top-1/2 transform -translate-y-1/2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <button @click="open = !open" class="bg-[#7D0A0A] text-white border rounded px-4 py-2 w-full text-left flex justify-between items-center">
+                    <span x-text="selected" class="mr-2"></span>
+                    <!-- Dropdown Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform duration-300" :class="open ? 'rotate-180' : 'rotate-0'" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
                     </svg>
                 </button>
@@ -43,7 +44,7 @@
         <!-- Tabel -->
         <div class="overflow-x-auto rounded-lg shadow-xl bg-white">
             <table class="min-w-full table-auto text-black">
-                <thead class="bg-[#FFBB70] text-black">
+                <thead class="bg-[#BF3131] text-black">
                     <tr>
                         <th class="px-6 py-3 text-left text-sm font-medium">Nama Siswa</th>
                         <th class="px-6 py-3 text-left text-sm font-medium">Kelas</th>
