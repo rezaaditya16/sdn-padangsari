@@ -16,9 +16,9 @@ class TotalStatsWidget extends BaseWidget
                 ->icon('heroicon-o-bell')
                 ->color('info'),
 
-            Card::make('Total Berita', Post::count())
-                ->icon('heroicon-o-newspaper')
-                ->color('success'),
+            // Card::make('Total Berita', Post::count())
+            //     ->icon('heroicon-o-newspaper')
+            //     ->color('success'),
         ];
     }
 }

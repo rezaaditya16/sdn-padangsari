@@ -24,7 +24,7 @@
                 </div>
             @endif
 
-            <form action="mailto:aufa.fadholi@gmail.com" method="post" enctype="text/plain" class="space-y-6">
+            <form action="mailto:padangsari01sdnegeri@gmail.com" method="post" enctype="text/plain" class="space-y-6">
                 <div class="grid md:grid-cols-2 gap-6">
                     <!-- Nama Depan -->
                     <div>

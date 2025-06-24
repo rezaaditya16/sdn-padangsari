@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Resources\Pages\CreateRecord;
 
 class GalleryResource extends Resource
 {
@@ -82,5 +83,13 @@ class GalleryResource extends Resource
             'create' => Pages\CreateGallery::route('/create'),
             'edit' => Pages\EditGallery::route('/{record}/edit'),
         ];
+    }
+}
+
+class CreateGallery extends CreateRecord
+{
+    protected function getCreatedNotificationRedirectUrl(): ?string
+    {
+        return $this->getResource()::getUrl('view', ['record' => $this->record]);
     }
 }

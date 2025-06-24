@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Resources\Pages\CreateRecord;
 
 class ClassroomResource extends Resource
 {
@@ -68,5 +69,13 @@ class ClassroomResource extends Resource
             'edit' => Pages\EditClassroom::route('/{record}/edit'),
             'view' => Pages\ViewClassroom::route('/{record}'), 
         ];
+    }
+}
+
+class CreateUser extends CreateRecord
+{
+    protected function getCreatedNotificationRedirectUrl(): ?string
+    {
+        return $this->getResource()::getUrl('view', ['record' => $this->record]);
     }
 }

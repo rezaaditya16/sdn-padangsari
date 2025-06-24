@@ -18,6 +18,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Filters\SelectFilter;
 
 class StudentResource extends Resource
 {
@@ -57,8 +58,11 @@ class StudentResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label('Nama')
                     ->searchable(),
                 TextColumn::make('class')
+                    ->label('Kelas')
+                    ->sortable() // <-- tambahkan ini agar bisa sort
                     ->searchable(),
                 ImageColumn::make('photo')
                     ->label('Foto')
@@ -70,7 +74,9 @@ class StudentResource extends Resource
                     ->dateTime(),
             ])
             ->filters([
-                //
+                SelectFilter::make('classroom_id')
+                    ->label('Kelas')
+                    ->relationship('classroom', 'name'),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),

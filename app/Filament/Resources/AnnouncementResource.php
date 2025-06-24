@@ -17,6 +17,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Resources\Pages\CreateRecord;
 
 class AnnouncementResource extends Resource
 {
@@ -93,5 +94,13 @@ class AnnouncementResource extends Resource
             'create' => Pages\CreateAnnouncement::route('/create'),
             'edit' => Pages\EditAnnouncement::route('/{record}/edit'),
         ];
+    }
+}
+
+class CreateAnnouncement extends CreateRecord
+{
+    protected function getCreatedNotificationRedirectUrl(): ?string
+    {
+        return $this->getResource()::getUrl('view', ['record' => $this->record]);
     }
 }

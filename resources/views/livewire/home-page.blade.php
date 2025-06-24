@@ -143,7 +143,7 @@
           <div>
             <h3 class="text-3xl font-extrabold text-gray-800 border-b-4 border-gray-700 inline-block mb-4">Acara Sekolah</h3>
             <p class="text-gray-800 text-lg mb-6">Lihat kegiatan-kegiatan tahunan SDN Padangsari 01 yang menarik di sini.</p>
-            <a href="{{ url('/galeri') }}" class="inline-block bg-red-600 text-white px-6 py-3 rounded hover:bg-red-700 transition-all duration-200">
+            <a href="{{ url('/galeri') }}" class="inline-block bg-red-500 text-white px-6 py-3 rounded hover:bg-red-700 transition-all duration-200">
               Lihat galeri
             </a>
           </div>
@@ -160,7 +160,7 @@
           <div>
             <h3 class="text-3xl font-extrabold text-gray-800 border-b-4 border-gray-700 inline-block mb-4">Pengumuman</h3>
             <p class="text-gray-800 text-lg mb-6">Baca pengumuman terbaru seputar kegiatan di SDN Padangsari 01</p>
-            <a href="{{ url('/pengumuman') }}" class="inline-block bg-yellow-300 text-gray-900 font-semibold px-6 py-3 rounded hover:bg-yellow-400 transition-all duration-200">
+            <a href="{{ url('/pengumuman') }}" class="inline-block bg-yellow-300 text-gray-900 font-semibold px-6 py-3 rounded hover:bg-yellow-500 transition-all duration-200">
               Lihat Pengumuman
             </a>
           </div>
