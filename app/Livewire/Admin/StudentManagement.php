@@ -241,6 +241,6 @@ class StudentManagement extends Component
     {
         $students = $this->students;
 
-        return view('livewire.admin.student-management', compact('students'));
+        return view('livewire.admin.student-management-new', compact('students'));
     }
 }

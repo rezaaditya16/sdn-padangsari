@@ -175,6 +175,6 @@ class TeacherManagement extends Component
     {
         $teachers = $this->teachers;
 
-        return view('livewire.admin.teacher-management', compact('teachers'));
+        return view('livewire.admin.teacher-management-new', compact('teachers'));
     }
 }
