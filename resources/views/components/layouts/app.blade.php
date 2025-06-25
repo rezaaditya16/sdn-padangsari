@@ -8,13 +8,15 @@
 
     @livewireStyles
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
-    <script src="//unpkg.com/alpinejs" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script>
+        // Tailwind config to suppress production warning
+        tailwind.config = {
+            content: []
+        }
+    </script>
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-    <script src="https://kit.fontawesome.com/your_kit_code.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     
     
     <style>
@@ -29,7 +31,7 @@
 </style>
 
 </head>
-<body class="flex flex-col min-h-screen font-roboto overflow-x-hidden">
+<body class="flex flex-col min-h-screen font-roboto overflow-x-hidden bg-gray-100 pt-24 font-poppins">
     {{-- Header --}}
 
     {{-- Sidebar (Navbar Vertikal) --}}

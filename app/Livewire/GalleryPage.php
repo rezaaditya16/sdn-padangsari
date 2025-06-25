@@ -9,8 +9,10 @@ class GalleryPage extends Component
 {
     public function render()
     {
-        // Ambil semua data galeri dari database
-        $galleries = Gallery::all();
+        // Ambil galeri yang dipublikasi saja, urutkan berdasarkan tanggal terbaru
+        $galleries = Gallery::published()
+                           ->orderBy('created_at', 'desc')
+                           ->get();
 
         // Kirim data ke view
         return view('livewire.gallery-page', compact('galleries'));

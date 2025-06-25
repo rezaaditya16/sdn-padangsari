@@ -23,13 +23,31 @@ Route::get('/about', AboutPage::class)->name('about');
 Route::get('/achievement', AchievementPage::class)->name('achievement');
 Route::get('/announcement', AnnouncementPage::class)->name('announcement');
 Route::get('/contact', ContactPage::class)->name('contact');
-Route::get('/galeri', GalleryPage::class)->name('gallery');
+Route::get('/galeri', GalleryPage::class)->name('galeri');
 Route::get('/news', NewsPage::class)->name('news');
 Route::get('/profile', ProfilePage::class)->name('profile');
 route::get('/visimisi', VisimisiPage::class)->name('visimisi');
 route::get('/kontak', KontakPage::class)->name('kontak');
 route::get('/pengumuman', PengumumanPage::class)->name('pengumuman');
 route::get('/pengaduan', PengaduanPage::class)->name('pengaduan');
+route::get('/pengaduan/login', function () {
+    return view('parent-login');
+})->name('parent.login');
+route::get('/pengaduan/form', PengaduanPage::class)->name('pengaduan.form')->middleware('parent.auth');
 route::get('/guru', GuruPage::class)->name('guru');
 route::get('/ppdb', PpdbPage::class)->name('ppdb');
 route::get('/siswa', SiswaPage::class)->name('siswa');
+
+// Include admin Livewire routes
+require __DIR__.'/admin-livewire.php';
+
+// Include test routes for debugging
+if (env('APP_DEBUG', false)) {
+    require __DIR__.'/test-auto-login.php';
+    require __DIR__.'/test-roles.php';
+    require __DIR__.'/debug-role.php';
+    require __DIR__.'/test-direct-access.php';
+    require __DIR__.'/test-login-redirect.php';
+    require __DIR__.'/test-session-debug.php';
+    require __DIR__.'/test-bypass.php';
+}

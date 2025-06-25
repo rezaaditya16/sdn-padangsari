@@ -9,7 +9,8 @@ class GuruPage extends Component
 {
     public function render()
     {
-        $teachers = Teacher::all();
+        // Ambil data guru yang aktif saja
+        $teachers = Teacher::active()->orderBy('name')->get();
 
         return view('livewire.guru-page', [
             'teachers' => $teachers,

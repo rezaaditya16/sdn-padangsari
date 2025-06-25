@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Classroom extends Model
 {
@@ -11,6 +11,7 @@ class Classroom extends Model
 
     protected $fillable = [
         'name',
+        'wali_kelas_id', // Tambahkan 'wali_kelas_id'
     ];
 
     public function students()
@@ -21,5 +22,11 @@ class Classroom extends Model
     public function teachers()
     {
         return $this->hasMany(Teacher::class);
+    }
+
+    // Relasi untuk wali kelas
+    public function waliKelas()
+    {
+        return $this->belongsTo(User::class, 'wali_kelas_id');
     }
 }

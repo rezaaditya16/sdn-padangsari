@@ -22,16 +22,25 @@ class SiswaPage extends Component
     
     public function render()
     {
-        $query = Student::query();
+        $query = Student::active(); // Hanya siswa aktif
         
         if (!empty($this->selectedClass)) {
             $query->where('class', $this->selectedClass);
         }
         
-        $students = $query->get();
+        $students = $query->orderBy('name')->get();
+        
+        // Ambil daftar kelas untuk filter
+        $classes = Student::active()
+                          ->select('class')
+                          ->distinct()
+                          ->whereNotNull('class')
+                          ->orderBy('class')
+                          ->pluck('class');
         
         return view('livewire.siswa-page', [
             'students' => $students,
+            'classes' => $classes,
         ]);
     }
 }
