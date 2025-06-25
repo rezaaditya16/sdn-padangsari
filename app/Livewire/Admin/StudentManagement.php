@@ -15,6 +15,7 @@ class StudentManagement extends Component
     use WithPagination, WithFileUploads;
 
     public $search = '';
+    public $classroomFilter = '';
     public $showModal = false;
     public $showViewModal = false;
     public $showDeleteModal = false;
@@ -62,6 +63,17 @@ class StudentManagement extends Component
         $this->resetPage();
     }
 
+    public function updatingClassroomFilter()
+    {
+        $this->resetPage();
+    }
+
+    public function exportStudents()
+    {
+        // TODO: Implement export functionality
+        session()->flash('message', 'Fitur export akan segera tersedia!');
+    }
+
     public function showCreateModal()
     {
         $this->resetForm();
@@ -91,7 +103,7 @@ class StudentManagement extends Component
         $this->showViewModal = true;
     }
 
-    public function storeStudent()
+    public function saveStudent()
     {
         // Update validation rules for edit mode
         if ($this->editMode) {
@@ -217,6 +229,9 @@ class StudentManagement extends Component
                 $query->where('name', 'like', '%' . $this->search . '%')
                       ->orWhere('nisn', 'like', '%' . $this->search . '%')
                       ->orWhere('class', 'like', '%' . $this->search . '%');
+            })
+            ->when($this->classroomFilter, function ($query) {
+                $query->where('classroom_id', $this->classroomFilter);
             })
             ->orderBy('created_at', 'desc')
             ->paginate(10);

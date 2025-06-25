@@ -69,7 +69,7 @@
             <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                 <select wire:model.live="classroomFilter" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
                     <option value="">Semua Kelas</option>
-                    @foreach($classrooms as $classroom)
+                    @foreach($this->classrooms as $classroom)
                         <option value="{{ $classroom->id }}">{{ $classroom->name }}</option>
                     @endforeach
                 </select>
