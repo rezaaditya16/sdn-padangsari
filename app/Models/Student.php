@@ -13,7 +13,6 @@ class Student extends Model
     // Tentukan kolom yang dapat diisi (mass assignable)
     protected $fillable = [
         'name',
-        'class',
         'classroom_id',
         'photo',
         'nisn',
@@ -59,14 +58,5 @@ class Student extends Model
     public function scopeActive($query)
     {
         return $query; // Semua siswa dianggap aktif
-    }
-
-    protected static function booted()
-    {
-        static::saving(function ($student) {
-            if ($student->classroom) {
-                $student->class = $student->classroom->name;
-            }
-        });
     }
 }

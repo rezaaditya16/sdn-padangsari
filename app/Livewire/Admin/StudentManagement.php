@@ -27,7 +27,7 @@ class StudentManagement extends Component
         'nisn' => '',
         'name' => '',
         'birth_date' => '',
-        'class' => '',
+        'classroom_id' => '',
         'parent_email' => '',
         'photo' => null
     ];
@@ -36,7 +36,7 @@ class StudentManagement extends Component
         'form.nisn' => 'required|string|max:255|unique:students,nisn',
         'form.name' => 'required|string|max:255',
         'form.birth_date' => 'required|date',
-        'form.class' => 'required|string|max:255',
+        'form.classroom_id' => 'required|exists:classrooms,id',
         'form.parent_email' => 'nullable|email|max:255',
         'form.photo' => 'nullable|image|max:2048'
     ];
@@ -47,7 +47,8 @@ class StudentManagement extends Component
         'form.name.required' => 'Nama siswa harus diisi.',
         'form.birth_date.required' => 'Tanggal lahir harus diisi.',
         'form.birth_date.date' => 'Format tanggal tidak valid.',
-        'form.class.required' => 'Kelas harus diisi.',
+        'form.classroom_id.required' => 'Kelas harus dipilih.',
+        'form.classroom_id.exists' => 'Kelas yang dipilih tidak valid.',
         'form.parent_email.email' => 'Format email tidak valid.',
         'form.photo.image' => 'File harus berupa gambar.',
         'form.photo.max' => 'Ukuran gambar maksimal 2MB.',
@@ -89,7 +90,7 @@ class StudentManagement extends Component
             'nisn' => $student->nisn,
             'name' => $student->name,
             'birth_date' => $student->birth_date ? $student->birth_date->format('Y-m-d') : '',
-            'class' => $student->class,
+            'classroom_id' => $student->classroom_id,
             'parent_email' => $student->parent_email,
             'photo' => null // Reset untuk upload baru
         ];
@@ -118,7 +119,7 @@ class StudentManagement extends Component
             'nisn' => $this->form['nisn'],
             'name' => $this->form['name'],
             'birth_date' => $this->form['birth_date'],
-            'class' => $this->form['class'],
+            'classroom_id' => $this->form['classroom_id'],
             'parent_email' => $this->form['parent_email'],
         ];
         
@@ -185,7 +186,7 @@ class StudentManagement extends Component
             'nisn' => '',
             'name' => '',
             'birth_date' => '',
-            'class' => '',
+            'classroom_id' => '',
             'parent_email' => '',
             'photo' => null
         ];
@@ -225,10 +226,13 @@ class StudentManagement extends Component
     public function getStudentsProperty()
     {
         return Student::query()
+            ->with('classroom') // Load relasi classroom
             ->when($this->search, function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%')
                       ->orWhere('nisn', 'like', '%' . $this->search . '%')
-                      ->orWhere('class', 'like', '%' . $this->search . '%');
+                      ->orWhereHas('classroom', function ($q) {
+                          $q->where('name', 'like', '%' . $this->search . '%');
+                      });
             })
             ->when($this->classroomFilter, function ($query) {
                 $query->where('classroom_id', $this->classroomFilter);

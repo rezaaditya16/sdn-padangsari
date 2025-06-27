@@ -111,7 +111,7 @@
                                     <div class="text-sm text-gray-900">{{ $student->nisn }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-900">{{ $student->class }}</div>
+                                    <div class="text-sm text-gray-900">{{ $student->classroom->name ?? '-' }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ $student->birth_date ? $student->birth_date->format('d M Y') : '-' }}
@@ -205,12 +205,17 @@
                             @error('form.birth_date') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                         </div>
 
-                        <!-- Class -->
+                        <!-- Classroom -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Kelas</label>
-                            <input wire:model="form.class" type="text" placeholder="Contoh: 6A, 5B"
+                            <select wire:model="form.classroom_id" 
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            @error('form.class') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                                <option value="">Pilih Kelas</option>
+                                @foreach($this->classrooms as $classroom)
+                                    <option value="{{ $classroom->id }}">{{ $classroom->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('form.classroom_id') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                         </div>
 
                         <!-- Photo Upload -->

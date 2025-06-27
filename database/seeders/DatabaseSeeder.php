@@ -20,11 +20,12 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        $this->call(ClassroomSeeder::class);
-        $this->call(StudentSeeder::class);
-        $this->call(TeacherSeeder::class);
+        // Seed data yang tidak memiliki dependencies
         $this->call(CategorySeeder::class);
         $this->call(AdminUserSeeder::class);
-        $this->call(PengaduanSeeder::class);
+        
+        // Seed data yang membutuhkan classroom_id
+        $this->call(StudentSeeder::class);
+        $this->call(TeacherSeeder::class);
     }
 }

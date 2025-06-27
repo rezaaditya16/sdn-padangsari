@@ -12,19 +12,20 @@
         </button>
     </div>
 
-    <!-- Search and Filter -->
+    <!-- Search -->
     <div class="bg-white rounded-lg shadow p-6">
         <div class="flex flex-col md:flex-row gap-4 mb-4">
             <div class="flex-1">
-                <input type="text" wire:model.live="search" placeholder="Cari pengumuman..." 
+                <input type="text" wire:model.live="search" placeholder="Cari pengumuman berdasarkan judul atau konten..." 
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
             </div>
-            <div class="md:w-48">
-                <select wire:model.live="filterStatus" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">Semua Status</option>
-                    <option value="published">Dipublikasi</option>
-                    <option value="draft">Draft</option>
-                </select>
+        </div>
+        
+        <!-- Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <div class="text-2xl font-bold text-blue-600">{{ $this->totalAnnouncements }}</div>
+                <div class="text-sm text-blue-600">Total Pengumuman</div>
             </div>
         </div>
     </div>
@@ -39,15 +40,15 @@
                             Judul
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Kategori
+                            Gambar
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Status
+                            Tanggal Publish
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Tanggal
+                            Dibuat
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Aksi
                         </th>
                     </tr>
@@ -55,64 +56,40 @@
                 <tbody class="bg-white divide-y divide-gray-200">
                     @forelse($announcements as $announcement)
                         <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4">
-                                <div class="flex items-center">
-                                    @if($announcement->image)
-                                        <img src="{{ Storage::url($announcement->image) }}" alt="{{ $announcement->title }}" 
-                                            class="h-16 w-16 rounded-lg object-cover mr-4">
-                                    @else
-                                        <div class="h-16 w-16 bg-gray-200 rounded-lg flex items-center justify-center mr-4">
-                                            <i class="fas fa-bullhorn text-gray-400"></i>
-                                        </div>
-                                    @endif
-                                    <div>
-                                        <div class="text-sm font-medium text-gray-900">{{ $announcement->title }}</div>
-                                        <div class="text-sm text-gray-500">{{ Str::limit($announcement->content, 100) }}</div>
-                                        @if($announcement->is_urgent)
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 mt-1">
-                                                <i class="fas fa-exclamation-triangle mr-1"></i>
-                                                Urgent
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">{{ $announcement->title }}</div>
+                                <div class="text-sm text-gray-500">{{ Str::limit($announcement->content, 100) }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                @if($announcement->category)
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                                        {{ $announcement->category->name }}
-                                    </span>
+                                @if($announcement->image)
+                                    <img src="{{ Storage::url($announcement->image) }}" alt="Gambar" 
+                                        class="w-16 h-16 object-cover rounded-lg">
                                 @else
-                                    <span class="text-gray-400">-</span>
+                                    <div class="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-image text-gray-400"></i>
+                                    </div>
                                 @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                    {{ $announcement->status === 'published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">
-                                    {{ $announcement->status === 'published' ? 'Dipublikasi' : 'Draft' }}
-                                </span>
+                                <div class="text-sm text-gray-900">
+                                    {{ $announcement->publish_date ? $announcement->publish_date->format('d M Y') : 'Belum diset' }}
+                                </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                <div>{{ $announcement->created_at->format('d M Y') }}</div>
-                                <div class="text-xs text-gray-500">{{ $announcement->created_at->format('H:i') }}</div>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-500">{{ $announcement->created_at->format('d M Y H:i') }}</div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <div class="flex items-center space-x-2">
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <div class="flex items-center justify-end gap-2">
                                     <button wire:click="viewAnnouncement({{ $announcement->id }})" 
-                                        class="text-gray-600 hover:text-gray-900 transition" title="Lihat">
+                                        class="text-blue-600 hover:text-blue-800 transition" title="Lihat">
                                         <i class="fas fa-eye"></i>
                                     </button>
                                     <button wire:click="editAnnouncement({{ $announcement->id }})" 
-                                        class="text-blue-600 hover:text-blue-900 transition" title="Edit">
+                                        class="text-yellow-600 hover:text-yellow-800 transition" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button wire:click="toggleStatus({{ $announcement->id }})" 
-                                        class="text-{{ $announcement->status === 'published' ? 'yellow' : 'green' }}-600 hover:text-{{ $announcement->status === 'published' ? 'yellow' : 'green' }}-900 transition" 
-                                        title="{{ $announcement->status === 'published' ? 'Jadikan Draft' : 'Publikasikan' }}">
-                                        <i class="fas fa-{{ $announcement->status === 'published' ? 'pause' : 'play' }}"></i>
-                                    </button>
                                     <button wire:click="confirmDelete({{ $announcement->id }})" 
-                                        class="text-red-600 hover:text-red-900 transition" title="Hapus">
+                                        class="text-red-600 hover:text-red-800 transition" title="Hapus">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
@@ -120,183 +97,171 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="px-6 py-4 text-center text-gray-500">
-                                <div class="flex flex-col items-center justify-center py-8">
-                                    <i class="fas fa-bullhorn text-gray-300 text-5xl mb-4"></i>
-                                    <p class="text-lg font-medium mb-2">Belum ada pengumuman</p>
-                                    <p class="text-sm">Klik tombol "Tambah Pengumuman" untuk membuat pengumuman baru</p>
-                                </div>
+                            <td colspan="5" class="px-6 py-12 text-center text-gray-500">
+                                <i class="fas fa-bullhorn text-4xl mb-4 text-gray-300"></i>
+                                <div class="text-lg font-medium">Belum ada pengumuman</div>
+                                <div class="text-sm">Mulai dengan menambahkan pengumuman pertama</div>
                             </td>
                         </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
-
+        
         <!-- Pagination -->
-        <div class="bg-white px-4 py-3 border-t border-gray-200">
+        <div class="px-6 py-4 border-t border-gray-200">
             {{ $announcements->links() }}
         </div>
     </div>
 
     <!-- Create/Edit Modal -->
     @if($showModal)
-        <div class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50" wire:click.self="closeModal">
-            <div class="relative top-10 mx-auto p-5 border w-11/12 md:w-2/3 lg:w-1/2 shadow-lg rounded-md bg-white max-h-screen overflow-y-auto">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-lg font-medium text-gray-900">
-                        {{ $editMode ? 'Edit Pengumuman' : 'Tambah Pengumuman Baru' }}
-                    </h3>
-                    <button wire:click="closeModal" class="text-gray-400 hover:text-gray-600">
-                        <i class="fas fa-times"></i>
-                    </button>
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4 max-h-screen overflow-y-auto">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-medium text-gray-900">
+                    {{ $editMode ? 'Edit Pengumuman' : 'Tambah Pengumuman' }}
+                </h3>
+            </div>
+            
+            <form wire:submit="storeAnnouncement" class="p-6 space-y-4">
+                <!-- Judul -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Judul Pengumuman</label>
+                    <input type="text" wire:model="form.title" 
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Masukkan judul pengumuman">
+                    @error('form.title') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
-                <form wire:submit.prevent="{{ $editMode ? 'updateAnnouncement' : 'storeAnnouncement' }}">
-                    <div class="space-y-4">
-                        <!-- Title -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Judul Pengumuman</label>
-                            <input type="text" wire:model="form.title" 
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                            @error('form.title') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                <!-- Konten -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Konten</label>
+                    <textarea wire:model="form.content" rows="6"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Masukkan konten pengumuman"></textarea>
+                    @error('form.content') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                </div>
+
+                <!-- Tanggal Publish -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Publish</label>
+                    <input type="date" wire:model="form.publish_date" 
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    @error('form.publish_date') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                </div>
+
+                <!-- Upload Gambar -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Gambar {{ $editMode ? '(Kosongkan jika tidak ingin mengubah)' : '' }}
+                    </label>
+                    <input type="file" wire:model="form.image" accept="image/*"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    @error('form.image') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    
+                    @if($form['image'])
+                        <div class="mt-2">
+                            <img src="{{ $form['image']->temporaryUrl() }}" alt="Preview" class="w-32 h-32 object-cover rounded-lg">
                         </div>
+                    @endif
+                </div>
 
-                        <!-- Category and Status -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Kategori</label>
-                                <select wire:model="form.category_id" 
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                                    <option value="">Pilih Kategori</option>
-                                    @foreach($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('form.category_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
-                                <select wire:model="form.status" 
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                                    <option value="">Pilih Status</option>
-                                    <option value="draft">Draft</option>
-                                    <option value="published">Dipublikasi</option>
-                                </select>
-                                @error('form.status') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                            </div>
-                        </div>
-
-                        <!-- Urgent Flag -->
-                        <div class="flex items-center">
-                            <input type="checkbox" wire:model="form.is_urgent" 
-                                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                            <label class="ml-2 block text-sm text-gray-900">
-                                Pengumuman Urgent
-                            </label>
-                        </div>
-
-                        <!-- Content -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Konten Pengumuman</label>
-                            <textarea wire:model="form.content" rows="6"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"></textarea>
-                            @error('form.content') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                        </div>
-
-                        <!-- Image Upload -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Gambar (Opsional)</label>
-                            <input type="file" wire:model="form.image" accept="image/*"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                            @error('form.image') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                            
-                            @if($form['image'] ?? false)
-                                <div class="mt-2">
-                                    <img src="{{ $form['image']->temporaryUrl() }}" alt="Preview" class="h-32 w-auto rounded-lg">
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-
-                    <div class="flex justify-end space-x-2 mt-6">
-                        <button type="button" wire:click="closeModal" 
-                            class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
-                            Batal
-                        </button>
-                        <button type="submit" 
-                            class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-                            {{ $editMode ? 'Update' : 'Simpan' }}
-                        </button>
-                    </div>
-                </form>
-            </div>
+                <!-- Buttons -->
+                <div class="flex justify-end gap-3 pt-4 border-t border-gray-200">
+                    <button type="button" wire:click="closeModal" 
+                        class="px-4 py-2 text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition">
+                        Batal
+                    </button>
+                    <button type="submit" 
+                        class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+                        {{ $editMode ? 'Update' : 'Simpan' }}
+                    </button>
+                </div>
+            </form>
         </div>
+    </div>
     @endif
 
     <!-- View Modal -->
     @if($showViewModal && $selectedAnnouncement)
-        <div class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50" wire:click.self="closeViewModal">
-            <div class="relative top-10 mx-auto p-5 border w-11/12 md:w-2/3 lg:w-1/2 shadow-lg rounded-md bg-white max-h-screen overflow-y-auto">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-lg font-medium text-gray-900">Detail Pengumuman</h3>
-                    <button wire:click="closeViewModal" class="text-gray-400 hover:text-gray-600">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-3xl mx-4 max-h-screen overflow-y-auto">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-medium text-gray-900">Detail Pengumuman</h3>
+            </div>
+            
+            <div class="p-6">
                 <div class="space-y-4">
                     <div>
-                        <h1 class="text-2xl font-bold text-gray-900">{{ $selectedAnnouncement->title }}</h1>
-                        <div class="flex items-center space-x-4 mt-2 text-sm text-gray-500">
-                            <span>{{ $selectedAnnouncement->created_at->format('d M Y, H:i') }}</span>
-                            @if($selectedAnnouncement->category)
-                                <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full">{{ $selectedAnnouncement->category->name }}</span>
-                            @endif
-                            @if($selectedAnnouncement->is_urgent)
-                                <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full">Urgent</span>
-                            @endif
-                        </div>
+                        <h4 class="font-semibold text-gray-900 text-xl">{{ $selectedAnnouncement->title }}</h4>
                     </div>
-
+                    
                     @if($selectedAnnouncement->image)
-                        <div>
-                            <img src="{{ Storage::url($selectedAnnouncement->image) }}" alt="{{ $selectedAnnouncement->title }}" 
-                                class="w-full h-64 object-cover rounded-lg">
-                        </div>
-                    @endif
-
-                    <div class="prose max-w-none">
-                        {!! nl2br(e($selectedAnnouncement->content)) !!}
+                    <div>
+                        <img src="{{ Storage::url($selectedAnnouncement->image) }}" alt="Gambar" 
+                            class="w-full max-w-md h-64 object-cover rounded-lg">
                     </div>
+                    @endif
+                    
+                    <div>
+                        <p class="text-gray-700 whitespace-pre-line">{{ $selectedAnnouncement->content }}</p>
+                    </div>
+                    
+                    <div class="text-sm text-gray-500 space-y-1">
+                        <div>Tanggal Publish: {{ $selectedAnnouncement->publish_date ? $selectedAnnouncement->publish_date->format('d M Y') : 'Belum diset' }}</div>
+                        <div>Dibuat: {{ $selectedAnnouncement->created_at->format('d M Y H:i') }}</div>
+                        @if($selectedAnnouncement->updated_at != $selectedAnnouncement->created_at)
+                        <div>Diupdate: {{ $selectedAnnouncement->updated_at->format('d M Y H:i') }}</div>
+                        @endif
+                    </div>
+                </div>
+                
+                <div class="flex justify-end pt-4 border-t border-gray-200 mt-6">
+                    <button wire:click="closeModal" 
+                        class="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition">
+                        Tutup
+                    </button>
                 </div>
             </div>
         </div>
+    </div>
     @endif
 
     <!-- Delete Confirmation Modal -->
-    @if($showDeleteModal)
-        <div class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-            <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-                <div class="text-center">
-                    <i class="fas fa-exclamation-triangle text-red-600 text-5xl mb-4"></i>
-                    <h3 class="text-lg font-medium text-gray-900 mb-2">Konfirmasi Hapus</h3>
-                    <p class="text-sm text-gray-600 mb-6">
-                        Apakah Anda yakin ingin menghapus pengumuman ini? Tindakan ini tidak dapat dibatalkan.
-                    </p>
-                    <div class="flex justify-center space-x-2">
-                        <button wire:click="cancelDelete" 
-                            class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
-                            Batal
-                        </button>
-                        <button wire:click="deleteAnnouncement" 
-                            class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
-                            Hapus
-                        </button>
-                    </div>
+    @if($showDeleteModal && $selectedAnnouncement)
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-medium text-gray-900">Konfirmasi Hapus</h3>
+            </div>
+            
+            <div class="p-6">
+                <p class="text-gray-700">
+                    Apakah Anda yakin ingin menghapus pengumuman 
+                    <strong>"{{ $selectedAnnouncement->title }}"</strong>? 
+                    Tindakan ini tidak dapat dibatalkan.
+                </p>
+                
+                <div class="flex justify-end gap-3 mt-6">
+                    <button wire:click="closeModal" 
+                        class="px-4 py-2 text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition">
+                        Batal
+                    </button>
+                    <button wire:click="deleteAnnouncement" 
+                        class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition">
+                        Hapus
+                    </button>
                 </div>
             </div>
+        </div>
+    </div>
+    @endif
+
+    <!-- Flash Messages -->
+    @if (session()->has('message'))
+        <div class="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+            {{ session('message') }}
         </div>
     @endif
 </div>
