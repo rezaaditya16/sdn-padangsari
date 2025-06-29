@@ -65,18 +65,18 @@
             </form>
 
             <div class="mt-6">
-                <div class="relative">
+                {{-- <div class="relative">
                     <div class="absolute inset-0 flex items-center">
                         <div class="w-full border-t border-gray-300" />
                     </div>
                     <div class="relative flex justify-center text-sm">
                         <span class="px-2 bg-white text-gray-500">Informasi</span>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="mt-4 text-sm text-gray-600 text-center">
                     <p>Jika Anda tidak mengetahui NISN atau tanggal lahir siswa,</p>
-                    <p>silakan hubungi pihak sekolah melalui halaman 
+                    <p>silakan hubungi pihak sekolah melalui halaman
                         <a href="{{ route('kontak') }}" class="text-red-600 hover:text-red-500">kontak</a>
                     </p>
                 </div>

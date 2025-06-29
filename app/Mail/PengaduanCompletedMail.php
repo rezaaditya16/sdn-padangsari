@@ -27,7 +27,7 @@ class PengaduanCompletedMail extends Mailable
     {
         $this->pengaduan = $pengaduan;
         $this->responses = $pengaduan->complaintResponses()->with('user')->get();
-        $this->attachments = $attachments;
+        $this->attachments = is_array($attachments) ? $attachments : [];
     }
 
     /**
@@ -52,7 +52,7 @@ class PengaduanCompletedMail extends Mailable
                 'responses' => $this->responses,
                 'studentName' => $this->pengaduan->student->name ?? 'Siswa',
                 'categoryName' => $this->pengaduan->category->name ?? 'Umum',
-                'handlerName' => $this->pengaduan->assignedUser->name ?? 'Tim Sekolah',
+                'handlerName' => $this->pengaduan->assignedToUser->name ?? 'Tim Sekolah',
             ]
         );
     }
