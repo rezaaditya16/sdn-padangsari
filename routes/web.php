@@ -14,6 +14,8 @@ use App\Livewire\VisimisiPage;
 use App\Livewire\KontakPage;
 use App\Livewire\PengumumanPage;
 use App\Livewire\PengaduanPage;
+use App\Livewire\PengaduanListPage;
+use App\Livewire\PengaduanDetailPage;
 use App\Livewire\GuruPage;
 use App\Livewire\PpdbPage;
 use App\Livewire\SiswaPage;
@@ -33,6 +35,8 @@ route::get('/pengaduan', PengaduanPage::class)->name('pengaduan');
 route::get('/pengaduan/login', function () {
     return view('parent-login');
 })->name('parent.login');
+route::get('/pengaduan/list', PengaduanListPage::class)->name('pengaduan.index')->middleware('parent.auth');
+route::get('/pengaduan/detail/{id}', PengaduanDetailPage::class)->name('pengaduan.detail')->middleware('parent.auth');
 route::get('/pengaduan/form', PengaduanPage::class)->name('pengaduan.form')->middleware('parent.auth');
 route::get('/guru', GuruPage::class)->name('guru');
 route::get('/ppdb', PpdbPage::class)->name('ppdb');

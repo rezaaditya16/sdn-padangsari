@@ -99,4 +99,65 @@ class Pengaduan extends Model
 
         return false;
     }
+
+    /**
+     * Auto-assign pengaduan based on category target role
+     */
+    public function autoAssign()
+    {
+        // Don't reassign if already assigned
+        if ($this->assigned_to) {
+            return;
+        }
+
+        // Get target role from category
+        $targetRole = $this->category->target_role ?? 'guru_bk';
+
+        // Find available user with the target role
+        $user = User::where('role', $targetRole)->first();
+
+        // If no user found with target role, assign to guru_bk as fallback
+        if (!$user) {
+            $user = User::where('role', 'guru_bk')->first();
+        }
+
+        // If still no user, assign to admin as last resort
+        if (!$user) {
+            $user = User::where('role', 'admin')->first();
+        }
+
+        // Assign the user
+        if ($user) {
+            $this->update(['assigned_to' => $user->id]);
+        }
+    }
+
+    /**
+     * Boot method to handle model events
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Auto-assign when pengaduan is created
+        static::created(function ($pengaduan) {
+            $pengaduan->autoAssign();
+        });
+
+        // Send email when status is changed to "Selesai"
+        static::updated(function ($pengaduan) {
+            if ($pengaduan->isDirty('status') && $pengaduan->status === 'Selesai') {
+                $pengaduan->completed_at = now();
+                $pengaduan->saveQuietly(); // Save without triggering events again
+                
+                // Send completion email
+                try {
+                    \Illuminate\Support\Facades\Mail::to($pengaduan->student->parent_email ?? 'noreply@sdnpadangsari.sch.id')
+                        ->send(new \App\Mail\PengaduanCompletedMail($pengaduan));
+                } catch (\Exception $e) {
+                    \Illuminate\Support\Facades\Log::error('Failed to send completion email: ' . $e->getMessage());
+                }
+            }
+        });
+    }
 }
