@@ -1,6 +1,6 @@
-<div>
+<div class="mt-[-90px]">
     <!-- Hero Section -->
-    <div class="relative h-[400px] bg-cover bg-center mt-3" style="background-image: url('{{ asset('images/sekolah.png') }}'); background-attachment: fixed;">
+    <div class="relative h-[400px] bg-cover bg-center" style="background-image: url('{{ asset('images/sekolah.png') }}'); background-attachment: fixed;">
         <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
             <div class="text-center text-white px-4">
                 <h1 class="text-4xl md:text-5xl font-bold mb-2">PENGADUAN</h1>
@@ -64,8 +64,8 @@
                                 </svg>
                             </div>
                         </div>
-                        @error('category_id') 
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p> 
+                        @error('category_id')
+                            <p class="mt-1 text-sm text-red-600">{{ $errors->first('category_id') }}</p>
                         @enderror
                     </div>
 
@@ -80,8 +80,8 @@
                                 </svg>
                             </div>
                         </div>
-                        @error('title') 
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p> 
+                        @error('title')
+                            <p class="mt-1 text-sm text-red-600">{{ $errors->first('title') }}</p>
                         @enderror
                     </div>
 
@@ -96,8 +96,8 @@
                                 </svg>
                             </div>
                         </div>
-                        @error('message') 
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p> 
+                        @error('message')
+                            <p class="mt-1 text-sm text-red-600">{{ $errors->first('message') }}</p>
                         @enderror
                     </div>
 
@@ -123,7 +123,7 @@
                 <p class="text-gray-600 mb-6">
                     Untuk mengajukan pengaduan, Anda harus login terlebih dahulu sebagai orang tua siswa.
                 </p>
-                <a href="{{ route('parent.login') }}" 
+                <a href="{{ route('parent.login') }}"
                    class="bg-red-700 hover:bg-red-800 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-all duration-300">
                     Login Orang Tua
                 </a>

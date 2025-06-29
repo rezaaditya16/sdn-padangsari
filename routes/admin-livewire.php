@@ -5,18 +5,9 @@ use Illuminate\Support\Facades\Auth;
 
 // Admin Authentication Routes
 Route::prefix('admin')->group(function () {
-    // Login page - handle both guest and authenticated users
+    // Login page - redirect to general login
     Route::get('/login', function () {
-        if (Auth::check()) {
-            $user = Auth::user();
-            // Redirect berdasarkan role jika sudah login
-            if (in_array($user->role, ['admin', 'super_admin'])) {
-                return redirect()->route('admin.dashboard');
-            } else {
-                return redirect()->route('admin.pengaduan.index');
-            }
-        }
-        return view('admin.auth.login');
+        return redirect()->route('login');
     })->name('admin.login');
 
     // Protected admin routes
@@ -104,7 +95,7 @@ Route::prefix('admin')->group(function () {
             Auth::logout();
             request()->session()->invalidate();
             request()->session()->regenerateToken();
-            return redirect()->route('admin.login');
+            return redirect()->route('login');
         })->name('admin.logout');
     });
 });

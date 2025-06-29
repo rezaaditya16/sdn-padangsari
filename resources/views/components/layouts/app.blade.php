@@ -17,8 +17,8 @@
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    
-    
+
+
     <style>
   @keyframes marquee {
     0%   { transform: translateX(100%); }
@@ -38,11 +38,11 @@
     @include('components.navbar')
 
     {{-- Konten Utama --}}
-    <div class="flex-grow mt-[-45px]">
+    <div class="flex-grow mt-32 md:mt-36">
         {{-- Hero Section --}}
         {{ $slot }}
     </div>
-    
+
 
     {{-- Footer --}}
     @include('components.footer')

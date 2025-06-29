@@ -36,6 +36,14 @@ class Teacher extends Model
     }
 
     /**
+     * Relationship dengan Attendance
+     */
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
+    }
+
+    /**
      * Scope untuk semua guru (mengganti active karena tidak ada field status)
      */
     public function scopeActive($query)

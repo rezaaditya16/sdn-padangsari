@@ -1,4 +1,5 @@
-<div><div class="relative h-[400px] bg-cover bg-center mt-3" style="background-image: url('{{ asset('images/sekolah.png') }}'); background-attachment: fixed;">
+<div class="mt-[-115px]">
+    <div class="relative h-[400px] bg-cover bg-center mt-3" style="background-image: url('{{ asset('images/sekolah.png') }}'); background-attachment: fixed;">
     <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
         <div class="text-center text-white px-4">
             <h1 class="text-4xl md:text-5xl font-bold mb-2">SDN PADANGSARI 01</h1>
@@ -16,7 +17,7 @@
         <div class="mb-12 p-6 bg-gray-100 rounded-lg shadow-md border border-gray-200" data-aos="fade-up">
             <h2 class="text-2xl font-semibold mb-3 text-red-600">Informasi Umum</h2>
             <p class="text-gray-700">
-                SDN Padangsari 01 membuka pendaftaran peserta didik baru tahun ajaran 2025/2026. 
+                SDN Padangsari 01 membuka pendaftaran peserta didik baru tahun ajaran 2025/2026.
                 Pendaftaran dilakukan secara online maupun offline dengan mengikuti alur yang telah ditentukan.
             </p>
         </div>

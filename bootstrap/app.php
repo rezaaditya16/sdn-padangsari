@@ -17,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin.role' => \App\Http\Middleware\AdminRoleMiddleware::class,
             'redirect.role' => \App\Http\Middleware\RedirectBasedOnRole::class,
             'superadmin' => \App\Http\Middleware\SuperAdminMiddleware::class,
+            'admin' => \App\Http\Middleware\AdminMiddleware::class,
         ]);
         
         // Configure authentication redirects

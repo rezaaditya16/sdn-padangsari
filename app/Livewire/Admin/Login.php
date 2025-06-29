@@ -43,9 +43,9 @@ class Login extends Component
 
         if (Auth::attempt($credentials, $this->remember)) {
             Session::regenerate();
-            
+
             session()->flash('success', 'Login berhasil! Selamat datang, ' . Auth::user()->name);
-            
+
             return $this->redirectBasedOnRole();
         } else {
             $this->addError('email', 'Email atau password salah.');
@@ -55,7 +55,12 @@ class Login extends Component
     private function redirectBasedOnRole()
     {
         $user = Auth::user();
-        
+
+        // Jika guru, redirect ke halaman absensi
+        if ($user->role === 'guru') {
+            return redirect()->route('attendance.index');
+        }
+
         // Admin dan Super Admin ke dashboard
         if (in_array($user->role, ['admin', 'super_admin'])) {
             return redirect()->route('admin.dashboard');
@@ -64,7 +69,7 @@ class Login extends Component
         elseif (in_array($user->role, ['kepala_sekolah', 'guru_bk', 'wali_kelas', 'guru_mapel', 'tenaga_pendidik'])) {
             return redirect()->route('admin.pengaduan.index');
         }
-        
+
         // Role tidak valid, logout dan redirect ke login
         Auth::logout();
         session()->flash('error', 'Role tidak valid untuk mengakses admin panel.');

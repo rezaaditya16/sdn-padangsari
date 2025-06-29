@@ -16,7 +16,7 @@ use App\Livewire\PengumumanPage;
 use App\Livewire\PengaduanPage;
 use App\Livewire\GuruPage;
 use App\Livewire\PpdbPage;
-use App\Livewire\SiswaPage;                                                                                                                                                                                                                                                                                                                                                          
+use App\Livewire\SiswaPage;
 
 Route::get('/', HomePage::class)->name('home');
 Route::get('/about', AboutPage::class)->name('about');
@@ -40,6 +40,33 @@ route::get('/siswa', SiswaPage::class)->name('siswa');
 
 // Include admin Livewire routes
 require __DIR__.'/admin-livewire.php';
+
+// General Authentication Routes
+Route::get('/login', [App\Http\Controllers\GeneralAuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [App\Http\Controllers\GeneralAuthController::class, 'login']);
+Route::post('/logout', [App\Http\Controllers\GeneralAuthController::class, 'logout'])->name('logout');
+
+// Legacy teacher routes (redirect to general login)
+Route::get('/teacher/login', function() {
+    return redirect()->route('login');
+})->name('teacher.login');
+
+Route::post('/teacher/logout', function() {
+    return redirect()->route('logout');
+})->name('teacher.logout');
+
+// Attendance routes - hanya untuk guru yang sudah login
+Route::middleware(['auth'])->group(function () {
+    Route::get('/attendance', [App\Http\Controllers\AttendanceController::class, 'index'])->name('attendance.index');
+    Route::post('/attendance/checkin', [App\Http\Controllers\AttendanceController::class, 'checkIn'])->name('attendance.checkin');
+    Route::get('/attendance/location', [App\Http\Controllers\AttendanceController::class, 'getLocation'])->name('attendance.location');
+    Route::get('/attendance/history', [App\Http\Controllers\AttendanceController::class, 'history'])->name('attendance.history');
+});
+
+// Admin attendance routes
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/attendance', [App\Http\Controllers\AttendanceController::class, 'adminIndex'])->name('admin.attendance');
+});
 
 // Include test routes for debugging
 if (env('APP_DEBUG', false)) {

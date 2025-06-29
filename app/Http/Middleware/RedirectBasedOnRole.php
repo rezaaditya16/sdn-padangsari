@@ -17,6 +17,13 @@ class RedirectBasedOnRole
         if (Auth::check()) {
             $user = Auth::user();
             
+            // Jika guru login, redirect ke halaman absensi
+            if ($user->role === 'guru') {
+                if ($request->is('admin*')) {
+                    return redirect()->route('attendance.index');
+                }
+            }
+            
             // Admin dan Super Admin dapat mengakses semua halaman admin
             if (in_array($user->role, ['admin', 'super_admin'])) {
                 return $next($request);

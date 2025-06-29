@@ -24,6 +24,7 @@ class User extends Authenticatable
         'password',
         'email_verified_at',
         'role', // Tambahkan 'role'
+        'teacher_id', // Tambahkan 'teacher_id'
     ];
 
     /**
@@ -115,5 +116,18 @@ class User extends Authenticatable
     public function hasRole($role)
     {
         return $this->role === $role;
+    }
+
+    /**
+     * Relasi dengan Teacher
+     */
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class);
+    }
+
+    public function isGuru()
+    {
+        return $this->role === 'guru';
     }
 }

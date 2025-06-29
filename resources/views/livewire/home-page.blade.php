@@ -11,9 +11,9 @@
     </div>
 
     <!-- HERO SLIDER WITH BACKGROUND BLUR -->
-<div class="relative h-[200px] sm:h-[300px] md:h-[450px] lg:h-[500px] overflow-hidden">
+<div class="relative h-[200px] sm:h-[300px] md:h-[450px] lg:h-[500px] overflow-hidden mt-[-120px]">
   <!-- Background Image with Blur -->
-  <div 
+  <div
     class="absolute inset-0 bg-cover bg-center blur-sm brightness-75"
     style="background-image: url('{{ asset('images/sekolah.png') }}'); background-attachment: fixed; z-index: 0;">
   </div>
@@ -21,18 +21,18 @@
   <div class="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
   <!-- Content Centered on Top of the Background -->
   <div class="relative z-20 flex items-center justify-center h-full">
-    <div 
+    <div
       x-data="{ currentSlide: 0, totalSlides: 3 }"
       x-init="setInterval(() => currentSlide = (currentSlide + 1) % totalSlides, 5000)"
       class="relative w-full h-full max-w-full overflow-hidden rounded-lg">
-      
-      <div 
+
+      <div
         class="flex transition-transform duration-500 ease-in-out h-full"
         :style="{ transform: 'translateX(-' + (currentSlide * 100) + '%)' }">
-        
+
         <template x-for="(image, index) in ['img1.jpeg', 'UcapanSelamat.jpg', 'img2.jpg']" :key="index">
           <div class="min-w-full h-full flex items-center justify-center">
-            <img 
+            <img
               :src="'{{ asset('images') }}/' + image"
               :alt="'Slide ' + (index + 1)"
               class="max-h-full max-w-full object-contain sm:w-[90%] sm:mx-auto transition-all duration-300 rounded-md">
@@ -42,11 +42,11 @@
 
       <!-- Navigation Arrows -->
       <div class="absolute inset-0 flex justify-between items-center px-4">
-        <button 
+        <button
           @click="currentSlide = (currentSlide === 0 ? totalSlides - 1 : currentSlide - 1)"
           class="bg-black bg-opacity-50 text-white px-3 py-2 rounded-full hover:bg-opacity-75">&#10094;
         </button>
-        <button 
+        <button
           @click="currentSlide = (currentSlide === totalSlides - 1 ? 0 : currentSlide + 1)"
           class="bg-black bg-opacity-50 text-white px-3 py-2 rounded-full hover:bg-opacity-75">&#10095;
         </button>
@@ -102,9 +102,9 @@
   <div class="flex flex-col md:flex-row gap-10 items-center bg-white border-2 rounded-xl shadow-2xl p-8" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
     <!-- Gambar Sekolah -->
     <div class="md:w-1/2 w-full overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition duration-300" data-aos="zoom-in" data-aos-delay="400">
-      <img 
-        src="{{ asset('images/sekolh.jpg') }}" 
-        alt="Foto Sekolah" 
+      <img
+        src="{{ asset('images/sekolh.jpg') }}"
+        alt="Foto Sekolah"
         class="w-full h-full object-cover rounded-lg transform hover:scale-105 transition duration-500 ease-in-out"
       >
     </div>
@@ -138,7 +138,7 @@
           <div class="w-52 h-52">
             <img src="{{ asset('images/calendar.gif') }}" alt="Acara Sekolah" class="w-full h-full object-contain">
           </div>
-    
+
           <!-- Konten -->
           <div>
             <h3 class="text-3xl font-extrabold text-gray-800 border-b-4 border-gray-700 inline-block mb-4">Acara Sekolah</h3>
@@ -148,14 +148,14 @@
             </a>
           </div>
         </div>
-    
+
         <!-- Kartu Pengumuman -->
         <div class="bg-white p-12 rounded-lg flex flex-col md:flex-row items-center gap-8 shadow-2xl">
           <!-- Gambar -->
           <div class="w-52 h-52">
             <img src="{{ asset('images/megaphone.gif') }}" alt="Pengumuman" class="w-full h-full object-contain">
           </div>
-    
+
           <!-- Konten -->
           <div>
             <h3 class="text-3xl font-extrabold text-gray-800 border-b-4 border-gray-700 inline-block mb-4">Pengumuman</h3>
@@ -167,7 +167,7 @@
         </div>
       </div>
     </section>
-    
-    
+
+
   </div>
 </body>
