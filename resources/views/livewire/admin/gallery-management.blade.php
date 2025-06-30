@@ -43,13 +43,16 @@
                                 {{ $gallery->created_at->format('d M Y') }}
                             </span>
                             <div class="flex space-x-2">
+                                <button wire:click="viewGallery({{ $gallery->id }})" 
+                                    class="text-green-600 hover:text-green-800 text-sm" title="Lihat">
+                                    <i class="fas fa-eye"></i>
+                                </button>
                                 <button wire:click="editGallery({{ $gallery->id }})" 
-                                    class="text-blue-600 hover:text-blue-800 text-sm">
+                                    class="text-blue-600 hover:text-blue-800 text-sm" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button wire:click="deleteGallery({{ $gallery->id }})" 
-                                    onclick="confirm('Yakin ingin hapus foto ini?') || event.stopImmediatePropagation()"
-                                    class="text-red-600 hover:text-red-800 text-sm">
+                                <button wire:click="confirmDelete({{ $gallery->id }})" 
+                                    class="text-red-600 hover:text-red-800 text-sm" title="Hapus">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
@@ -116,15 +119,17 @@
                     <!-- Image Upload -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">
-                            {{ $editMode ? 'Ganti Foto (opsional)' : 'Upload Foto' }}
+                            {{ $editMode ? 'Tambah Foto Baru (opsional)' : 'Upload Foto' }}
                         </label>
-                        <input wire:model="form.image" type="file" accept="image/*" 
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('form.image') border-red-500 @enderror">
-                        @error('form.image')
+                        <input wire:model="form.images" type="file" accept="image/*" multiple
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('form.images.*') border-red-500 @enderror">
+                        @error('form.images.*')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
-                        @if($editMode && !$form['image'])
-                            <p class="mt-1 text-sm text-gray-600">Foto saat ini akan tetap digunakan jika tidak mengganti</p>
+                        @if($editMode)
+                            <p class="mt-1 text-sm text-gray-600">Foto baru akan ditambahkan ke galeri yang sudah ada</p>
+                        @else
+                            <p class="mt-1 text-sm text-gray-600">Pilih satu atau beberapa foto sekaligus</p>
                         @endif
                     </div>
 
@@ -147,6 +152,112 @@
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+    @endif
+
+    <!-- View Modal -->
+    @if($showViewModal && $selectedGallery)
+        <div class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center p-4">
+            <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="flex justify-between items-center p-6 border-b">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900">{{ $selectedGallery->title }}</h3>
+                        <p class="text-sm text-gray-600 mt-1">{{ $selectedGallery->created_at->format('d M Y, H:i') }}</p>
+                    </div>
+                    <button wire:click="closeModal" class="text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                
+                <div class="p-6">
+                    @if($selectedGallery->description)
+                        <div class="mb-6">
+                            <h4 class="font-medium text-gray-900 mb-2">Deskripsi</h4>
+                            <p class="text-gray-700">{{ $selectedGallery->description }}</p>
+                        </div>
+                    @endif
+                    
+                    @if($selectedGallery->images && count($selectedGallery->images) > 0)
+                        <div>
+                            <h4 class="font-medium text-gray-900 mb-4">Foto ({{ count($selectedGallery->images) }})</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                @foreach($selectedGallery->images as $index => $image)
+                                    <div class="relative group">
+                                        <img src="{{ Storage::url($image) }}" 
+                                             alt="{{ $selectedGallery->title }}" 
+                                             class="w-full h-48 object-cover rounded-lg">
+                                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 rounded-lg flex items-center justify-center">
+                                            <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex space-x-2">
+                                                <a href="{{ Storage::url($image) }}" target="_blank" 
+                                                   class="bg-white text-gray-700 px-3 py-1 rounded-md text-sm hover:bg-gray-100">
+                                                    <i class="fas fa-expand-alt mr-1"></i>
+                                                    Lihat
+                                                </a>
+                                                <button wire:click="removeImage({{ $selectedGallery->id }}, {{ $index }})" 
+                                                        wire:confirm="Yakin ingin hapus foto ini?"
+                                                        class="bg-red-500 text-white px-3 py-1 rounded-md text-sm hover:bg-red-600">
+                                                    <i class="fas fa-trash mr-1"></i>
+                                                    Hapus
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @else
+                        <div class="text-center py-8">
+                            <i class="fas fa-images text-gray-400 text-4xl mb-2"></i>
+                            <p class="text-gray-600">Tidak ada foto dalam galeri ini</p>
+                        </div>
+                    @endif
+                </div>
+                
+                <div class="flex justify-end space-x-3 p-6 border-t">
+                    <button wire:click="editGallery({{ $selectedGallery->id }})" 
+                            class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                        <i class="fas fa-edit mr-2"></i>
+                        Edit Galeri
+                    </button>
+                    <button wire:click="closeModal" 
+                            class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
+                        Tutup
+                    </button>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <!-- Delete Modal -->
+    @if($showDeleteModal && $selectedGallery)
+        <div class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center p-4">
+            <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
+                <div class="p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
+                            <i class="fas fa-exclamation-triangle text-red-600"></i>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">Hapus Galeri</h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Yakin ingin menghapus galeri "<strong>{{ $selectedGallery->title }}</strong>"? 
+                            Semua foto dalam galeri ini akan dihapus permanen.
+                        </p>
+                    </div>
+                    <div class="flex justify-center space-x-3">
+                        <button wire:click="closeModal" 
+                                class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
+                            Batal
+                        </button>
+                        <button wire:click="deleteGallery" 
+                                class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700">
+                            <i class="fas fa-trash mr-2"></i>
+                            Hapus
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     @endif

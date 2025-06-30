@@ -19,12 +19,6 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-
-        // Seed data yang tidak memiliki dependencies
-        $this->call(CategorySeeder::class);
-        $this->call(AdminUserSeeder::class);
-        
-        // Seed data yang membutuhkan classroom_id
         $this->call(StudentSeeder::class);
         $this->call(TeacherSeeder::class);
     }

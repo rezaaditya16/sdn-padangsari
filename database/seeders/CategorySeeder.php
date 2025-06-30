@@ -16,19 +16,27 @@ class CategorySeeder extends Seeder
             ],
             [
                 'name' => 'Masalah Akademik',
-                'target_role' => 'guru_mapel',
+                'target_role' => 'wali_kelas',
             ],
             [
                 'name' => 'Fasilitas Sekolah',
-                'target_role' => 'tenaga_pendidik',
+                'target_role' => 'staff_tu',
+            ],
+            [
+                'name' => 'Keamanan Sekolah',
+                'target_role' => 'guru_piket',
             ],
             [
                 'name' => 'Administrasi',
-                'target_role' => 'kepala_sekolah',
+                'target_role' => 'staff_tu',
             ],
             [
                 'name' => 'Konseling',
                 'target_role' => 'guru_bk',
+            ],
+            [
+                'name' => 'Keuangan / SPP',
+                'target_role' => 'staff_tu',
             ],
             [
                 'name' => 'Lainnya',
