@@ -10,8 +10,13 @@
       <div class="site-mobile-menu-body"></div>
     </div>
 
+    <!-- Override margin top dari layout utama untuk home page -->
+    <style>
+      .flex-grow { margin-top: 0 !important; }
+    </style>
+
     <!-- HERO SLIDER WITH BACKGROUND BLUR -->
-<div class="relative h-[200px] sm:h-[300px] md:h-[450px] lg:h-[500px] overflow-hidden mt-[-120px]">
+<div class="relative h-[200px] sm:h-[300px] md:h-[450px] lg:h-[500px] overflow-hidden -mt-11">
   <!-- Background Image with Blur -->
   <div
     class="absolute inset-0 bg-cover bg-center blur-sm brightness-75"

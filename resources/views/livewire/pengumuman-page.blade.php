@@ -1,6 +1,11 @@
-<div class="mt-[-90px]">
+<div>
+    <!-- Override margin dari layout untuk Pengumuman -->
+    <style>
+        .flex-grow { margin-top: 0 !important; }
+    </style>
+
     <!-- Hero Section -->
-    <div class="relative h-[400px] bg-cover bg-center" style="background-image: url('{{ asset('images/sekolah.png') }}'); background-attachment: fixed;">
+    <div class="relative h-[400px] bg-cover bg-center -mt-8" style="background-image: url('{{ asset('images/sekolah.png') }}'); background-attachment: fixed;">
         <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
             <div class="text-center text-white px-4">
                 <h1 class="text-4xl md:text-5xl font-bold mb-2">PENGUMUMAN</h1>

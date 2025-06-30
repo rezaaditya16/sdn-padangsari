@@ -78,7 +78,7 @@
                                     class="fas fa-user-graduate"></i> Profil Siswa</a></li>
                     </ul>
                 </div>
-                
+
                 <a href="https://sangjuara.semarangkota.go.id/" target="_blank"
                     class="flex items-center gap-2 px-4 py-2 hover:bg-[#FFFBDA] hover:text-black rounded-xl transition duration-300 transform hover:scale-105">
                     <i class="fas fa-trophy"></i> Sang Juara
@@ -162,7 +162,7 @@
     </nav>
 
     <!-- Sub-navbar Sosial Media -->
-    <div class="bg-[#BF3131] mt-[95px] px-4 md:px-6 py-2 mb-8">
+    <div class="bg-[#BF3131] px-4 md:px-6 py-2 mb-8">
         <div class="max-w-screen-xl mx-auto flex items-center space-x-4">
             <a href="https://www.instagram.com/sdnpadangsari01?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                 target="_blank" aria-label="Instagram"

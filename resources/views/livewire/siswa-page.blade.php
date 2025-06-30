@@ -19,13 +19,10 @@
             <label for="kelasFilter" class="text-base md:text-lg font-medium text-black">Filter Kelas:</label>
             <select wire:model.live="selectedClass" id="kelasFilter"
                 class="bg-[#7D0A0A] text-white border rounded px-4 py-2 w-full sm:w-48">
-                <option class="hover:bg-blue-300" value="">Semua Kelas</option>
-                <option class="hover:bg-blue-300" value="Kelas 1">Kelas 1</option>
-                <option class="hover:bg-blue-300" value="Kelas 2">Kelas 2</option>
-                <option class="hover:bg-blue-300" value="Kelas 3">Kelas 3</option>
-                <option class="hover:bg-blue-300" value="Kelas 4">Kelas 4</option>
-                <option class="hover:bg-blue-300" value="Kelas 5">Kelas 5</option>
-                <option class="hover:bg-blue-300" value="Kelas 6">Kelas 6</option>
+                <option value="">Semua Kelas</option>
+                @foreach($classes as $class)
+                    <option value="{{ $class }}">{{ $class }}</option>
+                @endforeach
             </select>
         </div>
 
@@ -42,7 +39,7 @@
                     @forelse ($students as $student)
                         <tr class="transition duration-300 ease-in-out hover:bg-[#FFFBDA]">
                             <td class="px-4 sm:px-6 py-4 font-medium">{{ $student->name }}</td>
-                            <td class="px-4 sm:px-6 py-4 font-medium">{{ $student->class }}</td>
+                            <td class="px-4 sm:px-6 py-4 font-medium">{{ $student->classroom->name ?? 'Kelas tidak tersedia' }}</td>
                         </tr>
                     @empty
                         <tr>
@@ -69,7 +66,7 @@
                     <!-- Informasi Siswa -->
                     <div class="p-4">
                         <h3 class="text-lg font-semibold text-gray-800">{{ $student->name }}</h3>
-                        <p class="text-gray-600">Kelas: {{ $student->class }}</p>
+                        <p class="text-gray-600">Kelas: {{ $student->classroom->name ?? 'Kelas tidak tersedia' }}</p>
                     </div>
                 </div>
             @empty
