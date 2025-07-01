@@ -63,22 +63,21 @@ Route::post('/teacher/logout', function() {
 Route::middleware(['auth'])->group(function () {
     Route::get('/attendance', [App\Http\Controllers\AttendanceController::class, 'index'])->name('attendance.index');
     Route::post('/attendance/checkin', [App\Http\Controllers\AttendanceController::class, 'checkIn'])->name('attendance.checkin');
+    Route::post('/attendance/checkout', [App\Http\Controllers\AttendanceController::class, 'checkOut'])->name('attendance.checkout');
     Route::get('/attendance/location', [App\Http\Controllers\AttendanceController::class, 'getLocation'])->name('attendance.location');
     Route::get('/attendance/history', [App\Http\Controllers\AttendanceController::class, 'history'])->name('attendance.history');
+
+    // Professional attendance features
+    Route::post('/attendance/absence', [App\Http\Controllers\AttendanceController::class, 'submitAbsence'])->name('attendance.absence');
+    Route::get('/attendance/discipline-report', [App\Http\Controllers\AttendanceController::class, 'getDisciplineReport'])->name('attendance.discipline-report');
 });
 
 // Admin attendance routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/attendance', [App\Http\Controllers\AttendanceController::class, 'adminIndex'])->name('admin.attendance');
-});
+    Route::get('/attendance/dashboard', [App\Http\Controllers\AttendanceController::class, 'adminDashboard'])->name('admin.attendance.dashboard');
+    Route::post('/attendance/report', [App\Http\Controllers\AttendanceController::class, 'generateReport'])->name('admin.attendance.report');
 
-// Include test routes for debugging
-if (env('APP_DEBUG', false)) {
-    require __DIR__.'/test-auto-login.php';
-    require __DIR__.'/test-roles.php';
-    require __DIR__.'/debug-role.php';
-    require __DIR__.'/test-direct-access.php';
-    require __DIR__.'/test-login-redirect.php';
-    require __DIR__.'/test-session-debug.php';
-    require __DIR__.'/test-bypass.php';
-}
+    // Professional attendance management
+    Route::post('/attendance/process-absence/{id}', [App\Http\Controllers\AttendanceController::class, 'processAbsence'])->name('admin.attendance.process-absence');
+});

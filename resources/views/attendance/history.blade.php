@@ -45,14 +45,14 @@
             </form>
 
             <!-- Statistik -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div class="bg-green-50 border border-green-200 rounded-lg p-4">
                     <div class="flex items-center">
                         <div class="bg-green-500 text-white p-3 rounded-full">
                             <i class="fas fa-check-circle text-lg"></i>
                         </div>
                         <div class="ml-4">
-                            <h3 class="text-lg font-semibold text-green-800">Total Hadir</h3>
+                            <h3 class="text-sm font-semibold text-green-800">Total Hadir</h3>
                             <p class="text-2xl font-bold text-green-600">{{ $totalHadir }}</p>
                         </div>
                     </div>
@@ -61,11 +61,11 @@
                 <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
                     <div class="flex items-center">
                         <div class="bg-blue-500 text-white p-3 rounded-full">
-                            <i class="fas fa-calendar text-lg"></i>
+                            <i class="fas fa-sign-out-alt text-lg"></i>
                         </div>
                         <div class="ml-4">
-                            <h3 class="text-lg font-semibold text-blue-800">Hari Kerja</h3>
-                            <p class="text-2xl font-bold text-blue-600">{{ $totalHariKerja }}</p>
+                            <h3 class="text-sm font-semibold text-blue-800">Total Check Out</h3>
+                            <p class="text-2xl font-bold text-blue-600">{{ $totalCheckOut }}</p>
                         </div>
                     </div>
                 </div>
@@ -73,11 +73,23 @@
                 <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
                     <div class="flex items-center">
                         <div class="bg-purple-500 text-white p-3 rounded-full">
+                            <i class="fas fa-clock text-lg"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-sm font-semibold text-purple-800">Rata-rata Jam Kerja</h3>
+                            <p class="text-2xl font-bold text-purple-600">{{ $rataRataJamKerja }}h</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                    <div class="flex items-center">
+                        <div class="bg-orange-500 text-white p-3 rounded-full">
                             <i class="fas fa-percentage text-lg"></i>
                         </div>
                         <div class="ml-4">
-                            <h3 class="text-lg font-semibold text-purple-800">Persentase</h3>
-                            <p class="text-2xl font-bold text-purple-600">{{ $persentaseKehadiran }}%</p>
+                            <h3 class="text-sm font-semibold text-orange-800">Kehadiran</h3>
+                            <p class="text-2xl font-bold text-orange-600">{{ $persentaseKehadiran }}%</p>
                         </div>
                     </div>
                 </div>
@@ -100,15 +112,17 @@
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hari</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Waktu Check-in</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check In</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check Out</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jam Kerja</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status Kerja</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jarak</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Catatan</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @foreach($attendances as $attendance)
                                 <tr class="hover:bg-gray-50">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                         {{ $attendance->date->format('d/m/Y') }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -129,28 +143,80 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         @if($attendance->check_in_time)
-                                            {{ $attendance->check_in_time->format('H:i:s') }}
+                                            <div class="text-green-600 font-medium">
+                                                {{ $attendance->check_in_time->format('H:i:s') }}
+                                            </div>
+                                        @else
+                                            <span class="text-gray-400">-</span>
+                                        @endif
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        @if($attendance->check_out_time)
+                                            <div class="text-red-600 font-medium">
+                                                {{ $attendance->check_out_time->format('H:i:s') }}
+                                            </div>
+                                        @else
+                                            @if($attendance->check_in_time)
+                                                <span class="text-yellow-600 text-xs">Belum checkout</span>
+                                            @else
+                                                <span class="text-gray-400">-</span>
+                                            @endif
+                                        @endif
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        @if($attendance->work_hours)
+                                            <span class="text-blue-600">{{ $attendance->formatted_work_hours }}</span>
+                                        @else
+                                            <span class="text-gray-400">-</span>
+                                        @endif
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        @if($attendance->work_status)
+                                            @if($attendance->work_status === 'complete')
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                    <i class="fas fa-check mr-1"></i>
+                                                    {{ $attendance->work_status_label }}
+                                                </span>
+                                            @elseif($attendance->work_status === 'overtime')
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                    <i class="fas fa-clock mr-1"></i>
+                                                    {{ $attendance->work_status_label }}
+                                                </span>
+                                            @else
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                                    <i class="fas fa-exclamation-triangle mr-1"></i>
+                                                    {{ $attendance->work_status_label }}
+                                                </span>
+                                            @endif
                                         @else
                                             <span class="text-gray-400">-</span>
                                         @endif
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         @if($attendance->distance)
-                                            {{ round($attendance->distance) }} m
-                                        @else
-                                            <span class="text-gray-400">-</span>
-                                        @endif
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">
-                                        @if($attendance->notes)
-                                            <div class="max-w-xs truncate" title="{{ $attendance->notes }}">
-                                                {{ $attendance->notes }}
-                                            </div>
+                                            {{ round($attendance->distance) }}m
+                                            @if($attendance->check_out_distance)
+                                                <br><small class="text-xs text-gray-400">Out: {{ round($attendance->check_out_distance) }}m</small>
+                                            @endif
                                         @else
                                             <span class="text-gray-400">-</span>
                                         @endif
                                     </td>
                                 </tr>
+                                <!-- Expandable row for notes -->
+                                @if($attendance->notes || $attendance->check_out_notes)
+                                    <tr class="bg-gray-50">
+                                        <td colspan="8" class="px-6 py-2 text-sm text-gray-600">
+                                            @if($attendance->notes)
+                                                <strong>Catatan Check-in:</strong> {{ $attendance->notes }}
+                                            @endif
+                                            @if($attendance->check_out_notes)
+                                                @if($attendance->notes)<br>@endif
+                                                <strong>Catatan Check-out:</strong> {{ $attendance->check_out_notes }}
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>

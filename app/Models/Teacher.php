@@ -44,6 +44,14 @@ class Teacher extends Model
     }
 
     /**
+     * Relationship dengan User (guru yang login)
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class, 'teacher_id');
+    }
+
+    /**
      * Scope untuk semua guru (mengganti active karena tidak ada field status)
      */
     public function scopeActive($query)

@@ -1,91 +1,122 @@
 @extends('layouts.admin')
 
-@section('title', 'Data Absensi Guru')
+@section('title', 'Monitoring Presensi Guru')
 
 @section('content')
 <div class="container mx-auto px-4 py-8">
-    <div class="bg-white rounded-lg shadow-md p-6">
-        <!-- Header -->
-        <div class="flex justify-between items-center mb-6">
+    <!-- Header dengan Navigation -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-6">
             <div>
-                <h1 class="text-2xl font-bold text-gray-800">Data Absensi Guru</h1>
-                <p class="text-gray-600">Monitoring kehadiran guru harian</p>
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Monitoring Presensi Guru</h1>
+                <p class="text-gray-600">Real-time monitoring kehadiran dan aktivitas guru</p>
+                <p class="text-sm text-gray-500 mt-1">{{ $selectedDate->format('l, d F Y') }}</p>
             </div>
 
-            <!-- Filter Tanggal -->
-            <div class="flex items-center space-x-4">
+            <div class="flex flex-col sm:flex-row gap-3 mt-4 lg:mt-0">
+                <!-- Filter Tanggal -->
                 <form method="GET" action="{{ route('admin.attendance') }}" class="flex items-center space-x-2">
-                    <label for="date" class="text-sm font-medium text-gray-700">Tanggal:</label>
                     <input type="date"
                            id="date"
                            name="date"
                            value="{{ $selectedDate->format('Y-m-d') }}"
-                           class="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7D0A0A]">
-                    <button type="submit" class="bg-[#7D0A0A] text-white px-4 py-2 rounded-md text-sm hover:bg-[#BF3131] transition">
-                        Filter
+                           class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition">
+                        <i class="fas fa-search mr-1"></i>Filter
                     </button>
                 </form>
+
+                <!-- Navigation Buttons -->
+                <a href="{{ route('admin.attendance.dashboard') }}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-indigo-700 transition">
+                    <i class="fas fa-chart-line mr-1"></i>Dashboard
+                </a>
             </div>
         </div>
 
-        <!-- Summary Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            @php
-                $totalTeachers = $teachers->count();
-                $presentTeachers = $teachers->filter(function($teacher) {
-                    return $teacher->attendances->first() && $teacher->attendances->first()->status === 'hadir';
-                })->count();
-                $absentTeachers = $totalTeachers - $presentTeachers;
-            @endphp
-
-            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <div class="flex items-center">
-                    <div class="bg-blue-500 text-white p-3 rounded-full">
-                        <i class="fas fa-users text-xl"></i>
+        <!-- Real-time Statistics Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg p-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-blue-100 text-sm">Total Guru</p>
+                        <p class="text-2xl font-bold">{{ $stats['total_teachers'] }}</p>
                     </div>
-                    <div class="ml-4">
-                        <h3 class="text-lg font-semibold text-blue-800">Total Guru</h3>
-                        <p class="text-2xl font-bold text-blue-600">{{ $totalTeachers }}</p>
-                    </div>
+                    <i class="fas fa-users text-blue-200 text-2xl"></i>
                 </div>
             </div>
 
-            <div class="bg-green-50 border border-green-200 rounded-lg p-4">
-                <div class="flex items-center">
-                    <div class="bg-green-500 text-white p-3 rounded-full">
-                        <i class="fas fa-check-circle text-xl"></i>
+            <div class="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg p-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-green-100 text-sm">Hadir</p>
+                        <p class="text-2xl font-bold">{{ $stats['present_teachers'] }}</p>
+                        <p class="text-green-100 text-xs">{{ $stats['attendance_rate'] }}%</p>
                     </div>
-                    <div class="ml-4">
-                        <h3 class="text-lg font-semibold text-green-800">Hadir</h3>
-                        <p class="text-2xl font-bold text-green-600">{{ $presentTeachers }}</p>
-                    </div>
+                    <i class="fas fa-check-circle text-green-200 text-2xl"></i>
                 </div>
             </div>
 
-            <div class="bg-red-50 border border-red-200 rounded-lg p-4">
-                <div class="flex items-center">
-                    <div class="bg-red-500 text-white p-3 rounded-full">
-                        <i class="fas fa-times-circle text-xl"></i>
+            <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white rounded-lg p-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-yellow-100 text-sm">Sedang Kerja</p>
+                        <p class="text-2xl font-bold">{{ $stats['ongoing_work'] }}</p>
                     </div>
-                    <div class="ml-4">
-                        <h3 class="text-lg font-semibold text-red-800">Tidak Hadir</h3>
-                        <p class="text-2xl font-bold text-red-600">{{ $absentTeachers }}</p>
+                    <i class="fas fa-clock text-yellow-200 text-2xl"></i>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg p-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-purple-100 text-sm">Selesai Kerja</p>
+                        <p class="text-2xl font-bold">{{ $stats['checked_out_teachers'] }}</p>
+                        <p class="text-purple-100 text-xs">{{ $stats['completion_rate'] }}%</p>
                     </div>
+                    <i class="fas fa-sign-out-alt text-purple-200 text-2xl"></i>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg p-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-red-100 text-sm">Tidak Hadir</p>
+                        <p class="text-2xl font-bold">{{ $stats['absent_teachers'] }}</p>
+                    </div>
+                    <i class="fas fa-times-circle text-red-200 text-2xl"></i>
                 </div>
             </div>
         </div>
 
-        <!-- Tabel Absensi -->
+        <!-- Average Work Hours -->
+        @if($stats['avg_work_hours'] > 0)
+            <div class="mt-4 bg-gray-50 rounded-lg p-4">
+                <div class="flex items-center justify-between">
+                    <span class="text-gray-700 font-medium">Rata-rata Jam Kerja Hari Ini:</span>
+                    <span class="text-xl font-bold text-blue-600">{{ $stats['avg_work_hours_formatted'] }}</span>
+                </div>
+            </div>
+        @endif
+    </div>
+
+    <!-- Detailed Attendance Table -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h2 class="text-xl font-semibold text-gray-800">Detail Presensi Guru</h2>
+        </div>
+
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Guru</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jabatan</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Guru</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Waktu Check-in</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jarak</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check In</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check Out</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jam Kerja</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status Kerja</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lokasi</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Catatan</th>
                     </tr>
                 </thead>
@@ -94,56 +125,121 @@
                         @php
                             $attendance = $teacher->attendances->first();
                         @endphp
-                        <tr class="hover:bg-gray-50">
+                        <tr class="hover:bg-gray-50 {{ $attendance && $attendance->status === 'hadir' ? ($attendance->check_out_time ? 'bg-green-25' : 'bg-yellow-25') : 'bg-red-25' }}">
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                 {{ $index + 1 }}
                             </td>
+
+                            <!-- Guru Info -->
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <div class="flex-shrink-0 h-10 w-10">
-                                        <div class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center">
-                                            <i class="fas fa-user text-gray-600"></i>
-                                        </div>
+                                    <div class="flex-shrink-0 h-12 w-12">
+                                        @if($teacher->photo)
+                                            <img class="h-12 w-12 rounded-full object-cover" src="{{ asset('storage/' . $teacher->photo) }}" alt="{{ $teacher->name }}">
+                                        @else
+                                            <div class="h-12 w-12 rounded-full bg-gray-300 flex items-center justify-center">
+                                                <i class="fas fa-user text-gray-600"></i>
+                                            </div>
+                                        @endif
                                     </div>
                                     <div class="ml-4">
                                         <div class="text-sm font-medium text-gray-900">{{ $teacher->name }}</div>
+                                        <div class="text-sm text-gray-500">{{ $teacher->position }}</div>
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ $teacher->position }}
-                            </td>
+
+                            <!-- Status -->
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @if($attendance && $attendance->status === 'hadir')
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                        <i class="fas fa-check-circle mr-1"></i>
-                                        Hadir
-                                    </span>
+                                    @if($attendance->check_out_time)
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                            <i class="fas fa-check-double mr-1"></i>Selesai
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                            <i class="fas fa-clock mr-1"></i>Sedang Kerja
+                                        </span>
+                                    @endif
                                 @else
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                                        <i class="fas fa-times-circle mr-1"></i>
-                                        Tidak Hadir
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                        <i class="fas fa-times-circle mr-1"></i>Tidak Hadir
                                     </span>
                                 @endif
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+
+                            <!-- Check In -->
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
                                 @if($attendance && $attendance->check_in_time)
-                                    {{ $attendance->check_in_time->format('H:i:s') }}
+                                    <div class="text-gray-900 font-medium">{{ $attendance->check_in_time->format('H:i:s') }}</div>
+                                    <div class="text-gray-500 text-xs">{{ round($attendance->distance) }}m dari sekolah</div>
                                 @else
                                     <span class="text-gray-400">-</span>
                                 @endif
                             </td>
+
+                            <!-- Check Out -->
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                @if($attendance && $attendance->check_out_time)
+                                    <div class="text-gray-900 font-medium">{{ $attendance->check_out_time->format('H:i:s') }}</div>
+                                    <div class="text-gray-500 text-xs">{{ round($attendance->check_out_distance) }}m dari sekolah</div>
+                                @elseif($attendance && $attendance->status === 'hadir')
+                                    <span class="text-yellow-600 text-xs">Belum check out</span>
+                                @else
+                                    <span class="text-gray-400">-</span>
+                                @endif
+                            </td>
+
+                            <!-- Jam Kerja -->
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                @if($attendance && $attendance->work_hours)
+                                    <span class="text-gray-900 font-medium">{{ $attendance->formatted_work_hours }}</span>
+                                @elseif($attendance && $attendance->status === 'hadir' && !$attendance->check_out_time)
+                                    <span class="text-blue-600 text-xs">Sedang berjalan</span>
+                                @else
+                                    <span class="text-gray-400">-</span>
+                                @endif
+                            </td>
+
+                            <!-- Status Kerja -->
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                @if($attendance && $attendance->work_status)
+                                    @php
+                                        $statusColors = [
+                                            'complete' => 'bg-green-100 text-green-800',
+                                            'overtime' => 'bg-blue-100 text-blue-800',
+                                            'incomplete' => 'bg-yellow-100 text-yellow-800'
+                                        ];
+                                    @endphp
+                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium {{ $statusColors[$attendance->work_status] ?? 'bg-gray-100 text-gray-800' }}">
+                                        {{ $attendance->work_status_label }}
+                                    </span>
+                                @else
+                                    <span class="text-gray-400">-</span>
+                                @endif
+                            </td>
+
+                            <!-- Lokasi -->
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                @if($attendance && $attendance->distance)
-                                    {{ round($attendance->distance) }} m
+                                @if($attendance && $attendance->latitude)
+                                    <button class="text-blue-600 hover:text-blue-800" onclick="showLocation({{ $attendance->latitude }}, {{ $attendance->longitude }})">
+                                        <i class="fas fa-map-marker-alt mr-1"></i>Lihat
+                                    </button>
                                 @else
                                     <span class="text-gray-400">-</span>
                                 @endif
                             </td>
+
+                            <!-- Catatan -->
                             <td class="px-6 py-4 text-sm text-gray-500">
-                                @if($attendance && $attendance->notes)
-                                    <div class="max-w-xs truncate" title="{{ $attendance->notes }}">
-                                        {{ $attendance->notes }}
+                                @if($attendance && ($attendance->notes || $attendance->check_out_notes))
+                                    <div class="max-w-xs">
+                                        @if($attendance->notes)
+                                            <div class="mb-1"><strong>In:</strong> {{ Str::limit($attendance->notes, 50) }}</div>
+                                        @endif
+                                        @if($attendance->check_out_notes)
+                                            <div><strong>Out:</strong> {{ Str::limit($attendance->check_out_notes, 50) }}</div>
+                                        @endif
                                     </div>
                                 @else
                                     <span class="text-gray-400">-</span>
@@ -162,5 +258,75 @@
             </div>
         @endif
     </div>
+
+    <!-- Export Options -->
+    <div class="mt-6 bg-white rounded-lg shadow-md p-6">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Export Laporan</h3>
+        <form method="POST" action="{{ route('admin.attendance.report') }}" class="flex flex-col sm:flex-row gap-4 items-end">
+            @csrf
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Mulai</label>
+                <input type="date" name="start_date" value="{{ $selectedDate->format('Y-m-d') }}" class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Akhir</label>
+                <input type="date" name="end_date" value="{{ $selectedDate->format('Y-m-d') }}" class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div>
+                <input type="hidden" name="format" value="excel">
+            </div>
+            <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
+                <i class="fas fa-file-excel mr-2"></i>Export Excel
+            </button>
+        </form>
+    </div>
 </div>
+
+<!-- Modal untuk menampilkan lokasi -->
+<div id="locationModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden" style="z-index: 1000;">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-lg max-w-md w-full p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold">Lokasi Presensi</h3>
+                <button onclick="closeLocationModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div id="locationContent">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function showLocation(lat, lng) {
+    document.getElementById('locationModal').classList.remove('hidden');
+    document.getElementById('locationContent').innerHTML = `
+        <div class="text-center">
+            <p class="mb-4">Koordinat: ${lat.toFixed(6)}, ${lng.toFixed(6)}</p>
+            <a href="https://www.google.com/maps?q=${lat},${lng}" target="_blank"
+               class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                <i class="fas fa-external-link-alt mr-2"></i>Buka di Google Maps
+            </a>
+        </div>
+    `;
+}
+
+function closeLocationModal() {
+    document.getElementById('locationModal').classList.add('hidden');
+}
+
+// Auto refresh setiap 30 detik untuk real-time monitoring
+setInterval(function() {
+    // Only refresh if user is on the same date (today)
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedDate = urlParams.get('date');
+    const today = new Date().toISOString().split('T')[0];
+
+    if (!selectedDate || selectedDate === today) {
+        location.reload();
+    }
+}, 30000);
+</script>
 @endsection
