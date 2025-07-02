@@ -308,7 +308,20 @@ class AttendanceController extends Controller
 
         $absentTeachers = $teachers->filter(function($teacher) {
             $attendance = $teacher->attendances->first();
-            return $attendance && $attendance->status === 'absent';
+            return $attendance && $attendance->status === 'absent' &&
+                   ($attendance->absence_status === 'rejected' || !$attendance->absence_status);
+        })->count();
+
+        $ijinTeachers = $teachers->filter(function($teacher) {
+            $attendance = $teacher->attendances->first();
+            return $attendance && $attendance->status === 'absent' &&
+                   $attendance->absence_status === 'approved';
+        })->count();
+
+        $pendingIjinTeachers = $teachers->filter(function($teacher) {
+            $attendance = $teacher->attendances->first();
+            return $attendance && $attendance->status === 'absent' &&
+                   $attendance->absence_status === 'pending';
         })->count();
 
         $belumHadirTeachers = $teachers->filter(function($teacher) {
@@ -329,6 +342,8 @@ class AttendanceController extends Controller
             'present_teachers' => $presentTeachers,
             'checked_out_teachers' => $checkedOutTeachers,
             'absent_teachers' => $absentTeachers,
+            'ijin_teachers' => $ijinTeachers,
+            'pending_ijin_teachers' => $pendingIjinTeachers,
             'belum_hadir_teachers' => $belumHadirTeachers,
             'ongoing_work' => $ongoingWork,
             'attendance_rate' => $attendanceRate,
