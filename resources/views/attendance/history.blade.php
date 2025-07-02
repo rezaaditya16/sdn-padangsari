@@ -137,7 +137,7 @@
                                         @else
                                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
                                                 <i class="fas fa-times-circle mr-1"></i>
-                                                Tidak Hadir
+                                                Belum Hadir
                                             </span>
                                         @endif
                                     </td>

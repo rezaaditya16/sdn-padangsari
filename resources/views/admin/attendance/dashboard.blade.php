@@ -243,7 +243,7 @@
             <!-- Absent Teachers -->
             <div class="bg-red-50 rounded-lg p-4">
                 <h3 class="font-medium text-red-800 mb-3 flex items-center">
-                    <i class="fas fa-times-circle mr-2"></i>Tidak Hadir ({{ $todayStats['absent'] ?? 0 }})
+                    <i class="fas fa-times-circle mr-2"></i>Belum Hadir ({{ $todayStats['absent'] ?? 0 }})
                 </h3>
                 <div class="space-y-2 max-h-40 overflow-y-auto">
                     @foreach($todayStats['absent_teachers'] ?? [] as $teacher)
@@ -306,7 +306,7 @@
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Guru</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hadir</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tidak Hadir</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Belum Hadir</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">% Kehadiran</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Selesai Kerja</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">% Penyelesaian</th>
@@ -486,7 +486,7 @@ function sendWarning(teacherId) {
 // Export functionality
 document.addEventListener('DOMContentLoaded', function() {
     const exportExcelBtn = document.getElementById('export-excel');
-    
+
     if (exportExcelBtn) {
         exportExcelBtn.addEventListener('click', () => exportData('excel'));
     }
@@ -495,7 +495,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function exportData(format) {
     const month = {{ $month }};
     const year = {{ $year }};
-    
+
     // Show loading state
     const button = event.target;
     const originalText = button.innerHTML;
@@ -525,15 +525,15 @@ function exportData(format) {
         const a = document.createElement('a');
         a.style.display = 'none';
         a.href = url;
-        
+
         const filename = `laporan_kehadiran_${year}-${month.toString().padStart(2, '0')}.csv`;
         a.download = filename;
-        
+
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
         document.body.removeChild(a);
-        
+
         // Reset button
         button.disabled = false;
         button.innerHTML = originalText;

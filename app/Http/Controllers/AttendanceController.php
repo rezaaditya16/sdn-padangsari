@@ -282,7 +282,7 @@ class AttendanceController extends Controller
                 $dummyAttendance = new Attendance([
                     'teacher_id' => $teacher->id,
                     'date' => $selectedDate,
-                    'status' => 'tidak_hadir'
+                    'status' => 'belum_hadir'
                 ]);
                 $dummyAttendance->exists = false; // Mark as not persisted
 
@@ -311,6 +311,11 @@ class AttendanceController extends Controller
             return $attendance && $attendance->status === 'absent';
         })->count();
 
+        $belumHadirTeachers = $teachers->filter(function($teacher) {
+            $attendance = $teacher->attendances->first();
+            return $attendance && $attendance->status === 'belum_hadir';
+        })->count();
+
         $ongoingWork = $presentTeachers - $checkedOutTeachers;
         $attendanceRate = $totalTeachers > 0 ? round(($presentTeachers / $totalTeachers) * 100, 1) : 0;
         $completionRate = $presentTeachers > 0 ? round(($checkedOutTeachers / $presentTeachers) * 100, 1) : 0;
@@ -324,6 +329,7 @@ class AttendanceController extends Controller
             'present_teachers' => $presentTeachers,
             'checked_out_teachers' => $checkedOutTeachers,
             'absent_teachers' => $absentTeachers,
+            'belum_hadir_teachers' => $belumHadirTeachers,
             'ongoing_work' => $ongoingWork,
             'attendance_rate' => $attendanceRate,
             'completion_rate' => $completionRate,
@@ -805,7 +811,7 @@ class AttendanceController extends Controller
                 'Posisi',
                 'Total Hari Kerja',
                 'Hadir',
-                'Tidak Hadir',
+                'Belum Hadir',
                 'Persentase Kehadiran (%)',
                 'Hari Selesai Kerja',
                 'Persentase Penyelesaian (%)',
