@@ -42,7 +42,7 @@
         </div>
 
         <!-- Real-time Statistics Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
             <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg p-4">
                 <div class="flex items-center justify-between">
                     <div>
@@ -88,20 +88,10 @@
             <div class="bg-gradient-to-r from-indigo-500 to-indigo-600 text-white rounded-lg p-4">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-indigo-100 text-sm">Ijin</p>
+                        <p class="text-indigo-100 text-sm">Ijin Disetujui</p>
                         <p class="text-2xl font-bold">{{ $stats['ijin_teachers'] }}</p>
                     </div>
                     <i class="fas fa-calendar-times text-indigo-200 text-2xl"></i>
-                </div>
-            </div>
-
-            <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg p-4">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-orange-100 text-sm">Pending Ijin</p>
-                        <p class="text-2xl font-bold">{{ $stats['pending_ijin_teachers'] }}</p>
-                    </div>
-                    <i class="fas fa-hourglass-half text-orange-200 text-2xl"></i>
                 </div>
             </div>
 
@@ -110,6 +100,9 @@
                     <div>
                         <p class="text-red-100 text-sm">Belum Hadir</p>
                         <p class="text-2xl font-bold">{{ $stats['belum_hadir_teachers'] }}</p>
+                        @if($stats['pending_ijin_teachers'] > 0)
+                            <p class="text-red-100 text-xs">{{ $stats['pending_ijin_teachers'] }} menunggu ijin</p>
+                        @endif
                     </div>
                     <i class="fas fa-times-circle text-red-200 text-2xl"></i>
                 </div>
@@ -156,7 +149,7 @@
                         @php
                             $attendance = $teacher->attendances->first();
                             $rowClass = 'bg-red-25'; // Default: belum hadir
-                            
+
                             if ($attendance && $attendance->status === 'hadir') {
                                 $rowClass = $attendance->check_out_time ? 'bg-green-25' : 'bg-yellow-25';
                             } elseif ($attendance && $attendance->status === 'absent') {
@@ -164,7 +157,8 @@
                                     $rowClass = 'bg-indigo-25';
                                 } elseif ($attendance->absence_status === 'pending') {
                                     $rowClass = 'bg-orange-25';
-                                } elseif ($attendance->absence_status === 'rejected') {
+                                } else {
+                                    // Jika ijin ditolak atau tidak ada status ijin, masuk kategori belum hadir
                                     $rowClass = 'bg-red-25';
                                 }
                             }
@@ -217,13 +211,13 @@
                                         <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
                                             <i class="fas fa-clock mr-1"></i>Menunggu Persetujuan
                                         </span>
-                                    @elseif($attendance->absence_status === 'rejected')
-                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                                            <i class="fas fa-times-circle mr-1"></i>Ijin Ditolak
-                                        </span>
                                     @else
+                                        {{-- Ijin ditolak atau tidak ada pengajuan ijin, tampilkan sebagai Belum Hadir --}}
                                         <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                                            <i class="fas fa-times-circle mr-1"></i>Tidak Hadir
+                                            <i class="fas fa-times-circle mr-1"></i>Belum Hadir
+                                            @if($attendance->absence_status === 'rejected')
+                                                <span class="ml-1 text-xs">(Ijin Ditolak)</span>
+                                            @endif
                                         </span>
                                     @endif
                                 @else
@@ -247,13 +241,13 @@
                                         <span class="text-orange-600 text-xs">
                                             <i class="fas fa-hourglass-half mr-1"></i>Menunggu Persetujuan
                                         </span>
-                                    @elseif($attendance->absence_status === 'rejected')
-                                        <span class="text-red-600 text-xs">
-                                            <i class="fas fa-times-circle mr-1"></i>Ijin Ditolak
-                                        </span>
                                     @else
+                                        {{-- Ijin ditolak atau tidak ada pengajuan, tampilkan sebagai belum hadir --}}
                                         <span class="text-red-600 text-xs">
-                                            <i class="fas fa-times-circle mr-1"></i>Tidak Hadir
+                                            <i class="fas fa-times-circle mr-1"></i>Belum Hadir
+                                            @if($attendance->absence_status === 'rejected')
+                                                <br><small>(Ijin Ditolak)</small>
+                                            @endif
                                         </span>
                                     @endif
                                 @else
@@ -275,13 +269,13 @@
                                         <span class="text-orange-600 text-xs">
                                             <i class="fas fa-hourglass-half mr-1"></i>Menunggu
                                         </span>
-                                    @elseif($attendance->absence_status === 'rejected')
-                                        <span class="text-red-600 text-xs">
-                                            <i class="fas fa-times-circle mr-1"></i>Ditolak
-                                        </span>
                                     @else
+                                        {{-- Ijin ditolak atau tidak ada pengajuan --}}
                                         <span class="text-red-600 text-xs">
-                                            <i class="fas fa-times-circle mr-1"></i>Tidak Ada
+                                            <i class="fas fa-times-circle mr-1"></i>-
+                                            @if($attendance->absence_status === 'rejected')
+                                                <br><small>(Ijin Ditolak)</small>
+                                            @endif
                                         </span>
                                     @endif
                                 @elseif($attendance && $attendance->status === 'hadir')
@@ -304,13 +298,13 @@
                                         <span class="text-orange-600 text-xs">
                                             <i class="fas fa-hourglass-half mr-1"></i>Pending
                                         </span>
-                                    @elseif($attendance->absence_status === 'rejected')
-                                        <span class="text-red-600 text-xs">
-                                            <i class="fas fa-times-circle mr-1"></i>Ditolak
-                                        </span>
                                     @else
+                                        {{-- Ijin ditolak atau tidak ada pengajuan --}}
                                         <span class="text-red-600 text-xs">
-                                            <i class="fas fa-times-circle mr-1"></i>Tidak Ada
+                                            <i class="fas fa-times-circle mr-1"></i>-
+                                            @if($attendance->absence_status === 'rejected')
+                                                <br><small>(Ditolak)</small>
+                                            @endif
                                         </span>
                                     @endif
                                 @elseif($attendance && $attendance->status === 'hadir' && !$attendance->check_out_time)
@@ -354,7 +348,7 @@
                                 @if($attendance && $attendance->status === 'absent' && $attendance->absence_reason)
                                     <div class="max-w-xs">
                                         <div class="mb-1">
-                                            <strong>{{ $attendance->absence_status === 'approved' ? 'Ijin:' : ($attendance->absence_status === 'pending' ? 'Pengajuan:' : 'Pengajuan:') }}</strong> 
+                                            <strong>{{ $attendance->absence_status === 'approved' ? 'Ijin:' : ($attendance->absence_status === 'pending' ? 'Pengajuan:' : ($attendance->absence_status === 'rejected' ? 'Ijin Ditolak:' : 'Pengajuan:')) }}</strong>
                                             {{ Str::limit($attendance->absence_reason, 50) }}
                                         </div>
                                         @if($attendance->approval_notes)
@@ -365,6 +359,10 @@
                                         @if($attendance->absence_status === 'pending')
                                             <div class="text-orange-600 text-xs">
                                                 <i class="fas fa-hourglass-half mr-1"></i>Menunggu persetujuan admin
+                                            </div>
+                                        @elseif($attendance->absence_status === 'rejected')
+                                            <div class="text-red-600 text-xs">
+                                                <i class="fas fa-times-circle mr-1"></i>Status: Belum Hadir (Ijin Ditolak)
                                             </div>
                                         @endif
                                     </div>

@@ -309,7 +309,7 @@ class AttendanceController extends Controller
         $absentTeachers = $teachers->filter(function($teacher) {
             $attendance = $teacher->attendances->first();
             return $attendance && $attendance->status === 'absent' &&
-                   ($attendance->absence_status === 'rejected' || !$attendance->absence_status);
+                   !$attendance->absence_status; // Hanya yang tidak ada status ijin
         })->count();
 
         $ijinTeachers = $teachers->filter(function($teacher) {
@@ -326,7 +326,8 @@ class AttendanceController extends Controller
 
         $belumHadirTeachers = $teachers->filter(function($teacher) {
             $attendance = $teacher->attendances->first();
-            return $attendance && $attendance->status === 'belum_hadir';
+            return $attendance && ($attendance->status === 'belum_hadir' || 
+                   ($attendance->status === 'absent' && $attendance->absence_status === 'rejected'));
         })->count();
 
         $ongoingWork = $presentTeachers - $checkedOutTeachers;
