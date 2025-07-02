@@ -164,10 +164,10 @@ class Attendance extends Model
         if (!$this->work_hours) {
             return '-';
         }
-        
+
         $hours = floor($this->work_hours / 60);
         $minutes = $this->work_hours % 60;
-        
+
         return sprintf('%02d:%02d', $hours, $minutes);
     }
 
