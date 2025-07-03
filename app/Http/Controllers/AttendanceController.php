@@ -326,7 +326,7 @@ class AttendanceController extends Controller
 
         $belumHadirTeachers = $teachers->filter(function($teacher) {
             $attendance = $teacher->attendances->first();
-            return $attendance && ($attendance->status === 'belum_hadir' || 
+            return $attendance && ($attendance->status === 'belum_hadir' ||
                    ($attendance->status === 'absent' && $attendance->absence_status === 'rejected'));
         })->count();
 
@@ -824,18 +824,13 @@ class AttendanceController extends Controller
             fputcsv($file, [
                 'No',
                 'Nama Guru',
-                'Posisi',
-                'Total Hari Kerja',
-                'Hadir',
-                'Belum Hadir',
-                'Persentase Kehadiran (%)',
-                'Hari Selesai Kerja',
-                'Persentase Penyelesaian (%)',
-                'Total Jam Kerja (jam)',
-                'Rata-rata Jam per Hari',
-                'Jumlah Terlambat',
-                'Jumlah Pulang Cepat',
-                'Status Kinerja'
+                'Status',
+                'Check In',
+                'Check Out',
+                'Jam Kerja',
+                'Status Kerja',
+                'Lokasi',
+                'Catatan'
             ], ',');
 
             $no = 1;
@@ -853,18 +848,13 @@ class AttendanceController extends Controller
                 fputcsv($file, [
                     $no++,
                     $stats['teacher']->name ?? 'N/A',
-                    $stats['teacher']->position ?? 'Guru',
-                    $stats['total_days'],
-                    $stats['present_days'],
-                    $stats['absent_days'],
-                    $stats['attendance_rate'],
-                    $stats['complete_days'],
-                    $stats['completion_rate'],
-                    round($stats['total_work_hours'] / 60, 1),
-                    $stats['avg_work_hours'],
-                    $stats['late_count'],
-                    $stats['early_leave_count'],
-                    $status
+                    $status, // Status
+                    '-', // Check In
+                    '-', // Check Out
+                    round($stats['total_work_hours'] / 60, 1) . ' jam', // Jam Kerja
+                    '-', // Status Kerja
+                    'Sekolah', // Lokasi
+                    'Laporan Bulanan' // Catatan
                 ], ',');
             }
 
@@ -886,6 +876,187 @@ class AttendanceController extends Controller
         };
 
         return response()->stream($callback, 200, $headers);
+    }
+
+    /**
+     * Export daily attendance report
+     */
+    public function exportDaily(Request $request)
+    {
+        $date = $request->get('date', Carbon::today()->format('Y-m-d'));
+        $selectedDate = Carbon::parse($date);
+
+        $teachers = Teacher::with(['attendances' => function($query) use ($selectedDate) {
+            $query->where('date', $selectedDate);
+        }])->get();
+
+        // Buat data attendance untuk guru yang belum ada record hari ini
+        foreach ($teachers as $teacher) {
+            if ($teacher->attendances->isEmpty()) {
+                // Buat instance attendance tanpa menyimpan ke database
+                $dummyAttendance = new Attendance([
+                    'teacher_id' => $teacher->id,
+                    'date' => $selectedDate,
+                    'status' => 'belum_hadir'
+                ]);
+                $dummyAttendance->exists = false; // Mark as not persisted
+
+                // Set relasi ke teacher
+                $dummyAttendance->setRelation('teacher', $teacher);
+
+                // Tambahkan ke collection
+                $teacher->setRelation('attendances', collect([$dummyAttendance]));
+            }
+        }
+
+        $filename = 'laporan_absensi_harian_' . $selectedDate->format('Y-m-d') . '.csv';
+
+        $headers = [
+            'Content-Type' => 'text/csv; charset=utf-8',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+            'Cache-Control' => 'no-cache, no-store, must-revalidate',
+            'Pragma' => 'no-cache',
+            'Expires' => '0'
+        ];
+
+        $callback = function() use ($teachers, $selectedDate) {
+            $file = fopen('php://output', 'w');
+
+            // Add BOM for UTF-8
+            fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
+
+            // Header
+            fputcsv($file, ['LAPORAN ABSENSI HARIAN - SDN PADANGSARI'], ',');
+            fputcsv($file, ['Tanggal: ' . $selectedDate->format('l, d F Y')], ',');
+            fputcsv($file, ['Tanggal Cetak: ' . now()->format('d/m/Y H:i:s')], ',');
+            fputcsv($file, [], ','); // Empty row
+
+            // Table headers
+            fputcsv($file, [
+                'No',
+                'Nama Guru',
+                'Status',
+                'Check In',
+                'Check Out',
+                'Jam Kerja',
+                'Status Kerja',
+                'Lokasi',
+                'Catatan'
+            ], ',');
+
+            $no = 1;
+            foreach ($teachers as $teacher) {
+                $attendance = $teacher->attendances->first();
+
+                // Determine status
+                $status = 'Belum Hadir';
+                if ($attendance && $attendance->exists) {
+                    if ($attendance->absence_type && $attendance->absence_status === 'approved') {
+                        $status = 'Ijin';
+                    } elseif ($attendance->absence_type && $attendance->absence_status === 'pending') {
+                        $status = 'Pending';
+                    } elseif ($attendance->absence_type && $attendance->absence_status === 'rejected') {
+                        $status = 'Belum Hadir';
+                    } elseif ($attendance->check_in_time && $attendance->check_out_time) {
+                        $status = 'Selesai';
+                    } elseif ($attendance->check_in_time) {
+                        $status = 'Sedang Kerja';
+                    } elseif ($attendance->status === 'hadir') {
+                        $status = 'Hadir';
+                    }
+                }
+
+                // Format times
+                $checkIn = '-';
+                $checkOut = '-';
+                if ($attendance && $attendance->exists) {
+                    $checkIn = $attendance->check_in_time ?
+                        Carbon::parse($attendance->check_in_time)->format('H:i') : '-';
+                    $checkOut = $attendance->check_out_time ?
+                        Carbon::parse($attendance->check_out_time)->format('H:i') : '-';
+                }
+
+                // Calculate working hours
+                $workingHours = '-';
+                if ($attendance && $attendance->exists && $attendance->check_in_time && $attendance->check_out_time) {
+                    $checkInTime = Carbon::parse($attendance->check_in_time);
+                    $checkOutTime = Carbon::parse($attendance->check_out_time);
+                    $diffInMinutes = $checkOutTime->diffInMinutes($checkInTime);
+                    $hours = floor($diffInMinutes / 60);
+                    $minutes = $diffInMinutes % 60;
+                    $workingHours = sprintf('%d jam %d menit', $hours, $minutes);
+                }
+
+                // Status kerja
+                $workStatus = '-';
+                if ($attendance && $attendance->exists && $attendance->check_in_time) {
+                    if ($attendance->check_out_time) {
+                        $workStatus = 'Selesai';
+                    } else {
+                        $workStatus = 'Sedang Bekerja';
+                    }
+                }
+
+                // Location
+                $location = '-';
+                if ($attendance && $attendance->exists && ($attendance->check_in_latitude || $attendance->check_out_latitude)) {
+                    $location = 'Sekolah';
+                    if ($attendance->check_in_latitude && $attendance->check_in_longitude) {
+                        $distance = $this->calculateDistance(
+                            $attendance->check_in_latitude,
+                            $attendance->check_in_longitude,
+                            self::SCHOOL_LATITUDE,
+                            self::SCHOOL_LONGITUDE
+                        );
+                        if ($distance > self::MAX_DISTANCE) {
+                            $location = 'Luar Area';
+                        }
+                    }
+                }
+
+                // Notes/Catatan
+                $notes = '-';
+                if ($attendance && $attendance->exists) {
+                    if ($attendance->absence_reason) {
+                        $notes = $attendance->absence_reason;
+                    } elseif ($attendance->notes) {
+                        $notes = $attendance->notes;
+                    }
+                }
+
+                fputcsv($file, [
+                    $no++,
+                    $teacher->name,
+                    $status,
+                    $checkIn,
+                    $checkOut,
+                    $workingHours,
+                    $workStatus,
+                    $location,
+                    $notes
+                ], ',');
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
+    /**
+     * Calculate distance between two coordinates
+     */
+    private function calculateDistance($lat1, $lon1, $lat2, $lon2)
+    {
+        $earthRadius = 6371000; // Earth radius in meters
+
+        $dLat = deg2rad($lat2 - $lat1);
+        $dLon = deg2rad($lon2 - $lon1);
+
+        $a = sin($dLat/2) * sin($dLat/2) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * sin($dLon/2) * sin($dLon/2);
+        $c = 2 * atan2(sqrt($a), sqrt(1-$a));
+
+        return $earthRadius * $c;
     }
 
 }

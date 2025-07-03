@@ -77,6 +77,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/attendance', [App\Http\Controllers\AttendanceController::class, 'adminIndex'])->name('admin.attendance');
     Route::get('/attendance/dashboard', [App\Http\Controllers\AttendanceController::class, 'adminDashboard'])->name('admin.attendance.dashboard');
     Route::post('/attendance/report', [App\Http\Controllers\AttendanceController::class, 'generateReport'])->name('admin.attendance.report');
+    Route::get('/attendance/export', [App\Http\Controllers\AttendanceController::class, 'exportDaily'])->name('admin.attendance.export');
 
     // Professional attendance management
     Route::post('/attendance/process-absence/{id}', [App\Http\Controllers\AttendanceController::class, 'processAbsence'])->name('admin.attendance.process-absence');

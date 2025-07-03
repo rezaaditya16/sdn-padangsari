@@ -21,23 +21,35 @@
                 <p class="text-sm text-gray-500 mt-1">{{ $selectedDate->format('l, d F Y') }}</p>
             </div>
 
-            <div class="flex flex-col sm:flex-row gap-3 mt-4 lg:mt-0">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-4 lg:mt-0">
                 <!-- Filter Tanggal -->
                 <form method="GET" action="{{ route('admin.attendance') }}" class="flex items-center space-x-2">
                     <input type="date"
                            id="date"
                            name="date"
                            value="{{ $selectedDate->format('Y-m-d') }}"
-                           class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition">
-                        <i class="fas fa-search mr-1"></i>Filter
+                           class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
+                    <button type="submit"
+                            class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors duration-200 shadow-sm">
+                        <i class="fas fa-search mr-2 text-sm"></i>
+                        <span>Filter</span>
                     </button>
                 </form>
 
                 <!-- Navigation Buttons -->
-                <a href="{{ route('admin.attendance.dashboard') }}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-indigo-700 transition">
-                    <i class="fas fa-chart-line mr-1"></i>Dashboard
-                </a>
+                <div class="flex items-center space-x-3">
+                    <a href="{{ route('admin.attendance.dashboard') }}"
+                       class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition-colors duration-200 shadow-sm">
+                        <i class="fas fa-chart-line mr-2 text-sm"></i>
+                        <span>Dashboard</span>
+                    </a>
+
+                    <a href="{{ route('admin.attendance.export', ['date' => $selectedDate->format('Y-m-d')]) }}"
+                       class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition-colors duration-200 shadow-sm">
+                        <i class="fas fa-file-excel mr-2 text-sm"></i>
+                        <span>Export Excel</span>
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -391,28 +403,6 @@
                 <p class="text-gray-500">Tidak ada data guru yang ditemukan.</p>
             </div>
         @endif
-    </div>
-
-    <!-- Export Options -->
-    <div class="mt-6 bg-white rounded-lg shadow-md p-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-4">Export Laporan</h3>
-        <form method="POST" action="{{ route('admin.attendance.report') }}" class="flex flex-col sm:flex-row gap-4 items-end">
-            @csrf
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Mulai</label>
-                <input type="date" name="start_date" value="{{ $selectedDate->format('Y-m-d') }}" class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Akhir</label>
-                <input type="date" name="end_date" value="{{ $selectedDate->format('Y-m-d') }}" class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-            </div>
-            <div>
-                <input type="hidden" name="format" value="excel">
-            </div>
-            <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
-                <i class="fas fa-file-excel mr-2"></i>Export Excel
-            </button>
-        </form>
     </div>
 </div>
 
