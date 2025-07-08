@@ -1,6 +1,4 @@
-@include('components.navbar')
 
-<div class="min-h-screen bg-gray-50 py-8">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
             <!-- Header -->
@@ -52,7 +50,7 @@
                         <dl class="space-y-3">
                             <div>
                                 <dt class="text-sm font-medium text-gray-500">Ditangani Oleh</dt>
-                                <dd class="text-sm text-gray-900 mt-1">{{ $pengaduan->assignedToUser->name ?? 'Belum ditugaskan' }}</dd>
+                                <dd class="text-sm text-gray-900 mt-1">{{ $pengaduan->assignedUser->name ?? 'Belum ditugaskan' }}</dd>
                             </div>
                             @if($pengaduan->responded_at)
                                 <div>
@@ -137,4 +135,3 @@
             </div>
         </div>
     </div>
-</div>

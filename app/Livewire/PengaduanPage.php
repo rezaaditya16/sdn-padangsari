@@ -46,6 +46,9 @@ class PengaduanPage extends Component
             $this->reset(['title', 'message', 'category_id']);
             $this->successMessage = 'Pengaduan berhasil dikirim. Tim kami akan segera menindaklanjuti.';
             
+            // Refresh halaman untuk update history
+            $this->dispatch('pengaduan-submitted');
+            
         } catch (\Exception $e) {
             $this->errorMessage = 'Terjadi kesalahan saat mengirim pengaduan. Silakan coba lagi.';
         }
@@ -60,6 +63,16 @@ class PengaduanPage extends Component
         return redirect()->route('parent.login');
     }
 
+    public function viewAllPengaduan()
+    {
+        return redirect()->route('pengaduan.index');
+    }
+
+    public function viewPengaduanDetail($pengaduanId)
+    {
+        return redirect()->route('pengaduan.detail', $pengaduanId);
+    }
+
     public function render()
     {
         // Ambil semua kategori untuk dropdown
@@ -68,10 +81,21 @@ class PengaduanPage extends Component
         // Ambil data siswa yang sedang login
         $studentId = Session::get('authenticated_student_id');
         $student = $studentId ? Student::find($studentId) : null;
+        
+        // Ambil history pengaduan siswa jika sudah login
+        $pengaduanHistory = [];
+        if ($studentId) {
+            $pengaduanHistory = Pengaduan::with(['category', 'assignedUser', 'complaintResponses'])
+                ->where('student_id', $studentId)
+                ->orderBy('created_at', 'desc')
+                ->limit(5) // Tampilkan 5 pengaduan terakhir
+                ->get();
+        }
 
         return view('livewire.pengaduan-page', [
             'categories' => $categories,
-            'student' => $student
+            'student' => $student,
+            'pengaduanHistory' => $pengaduanHistory
         ]);
     }
 }
