@@ -10,13 +10,33 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Artisan;
 use App\Mail\AbsenceApprovedMail;
 
 class AttendanceController extends Controller
 {
-    const SCHOOL_LATITUDE = -6.982835;
-    const SCHOOL_LONGITUDE = 110.409355;
-    const MAX_DISTANCE = 2000; // 2 km dalam meter
+    // Default values - will be overridden by environment variables if set
+    const DEFAULT_SCHOOL_LATITUDE = -6.982835;
+    const DEFAULT_SCHOOL_LONGITUDE = 110.409355;
+    const DEFAULT_MAX_DISTANCE = 2000;
+
+    /**
+     * Get dynamic school location settings
+     */
+    private function getSchoolLatitude()
+    {
+        return env('SCHOOL_LATITUDE', self::DEFAULT_SCHOOL_LATITUDE);
+    }
+
+    private function getSchoolLongitude()
+    {
+        return env('SCHOOL_LONGITUDE', self::DEFAULT_SCHOOL_LONGITUDE);
+    }
+
+    private function getMaxDistance()
+    {
+        return env('SCHOOL_MAX_DISTANCE', self::DEFAULT_MAX_DISTANCE);
+    }
 
     /**
      * Tampilkan halaman absensi untuk guru
@@ -112,16 +132,16 @@ class AttendanceController extends Controller
             $distance = Attendance::calculateDistance(
                 $request->latitude,
                 $request->longitude,
-                self::SCHOOL_LATITUDE,
-                self::SCHOOL_LONGITUDE
+                $this->getSchoolLatitude(),
+                $this->getSchoolLongitude()
             );
 
-            Log::info('Distance calculated', ['distance' => $distance, 'max_distance' => self::MAX_DISTANCE]);
+            Log::info('Distance calculated', ['distance' => $distance, 'max_distance' => $this->getMaxDistance()]);
 
             // Cek apakah dalam radius yang diizinkan
-            if ($distance > self::MAX_DISTANCE) {
+            if ($distance > $this->getMaxDistance()) {
                 return response()->json([
-                    'error' => 'Anda terlalu jauh dari sekolah. Jarak Anda: ' . round($distance) . ' meter. Maksimal: ' . self::MAX_DISTANCE . ' meter.'
+                    'error' => 'Anda terlalu jauh dari sekolah. Jarak Anda: ' . round($distance) . ' meter. Maksimal: ' . $this->getMaxDistance() . ' meter.'
                 ], 400);
             }
 
@@ -212,8 +232,8 @@ class AttendanceController extends Controller
             $distance = Attendance::calculateDistance(
                 $request->latitude,
                 $request->longitude,
-                self::SCHOOL_LATITUDE,
-                self::SCHOOL_LONGITUDE
+                $this->getSchoolLatitude(),
+                $this->getSchoolLongitude()
             );
 
             // Update attendance record with checkout time
@@ -522,9 +542,9 @@ class AttendanceController extends Controller
     public function getLocation()
     {
         return response()->json([
-            'school_latitude' => self::SCHOOL_LATITUDE,
-            'school_longitude' => self::SCHOOL_LONGITUDE,
-            'max_distance' => self::MAX_DISTANCE
+            'school_latitude' => $this->getSchoolLatitude(),
+            'school_longitude' => $this->getSchoolLongitude(),
+            'max_distance' => $this->getMaxDistance()
         ]);
     }
 
@@ -1005,10 +1025,10 @@ class AttendanceController extends Controller
                         $distance = $this->calculateDistance(
                             $attendance->check_in_latitude,
                             $attendance->check_in_longitude,
-                            self::SCHOOL_LATITUDE,
-                            self::SCHOOL_LONGITUDE
+                            $this->getSchoolLatitude(),
+                            $this->getSchoolLongitude()
                         );
-                        if ($distance > self::MAX_DISTANCE) {
+                        if ($distance > $this->getMaxDistance()) {
                             $location = 'Luar Area';
                         }
                     }
@@ -1057,6 +1077,123 @@ class AttendanceController extends Controller
         $c = 2 * atan2(sqrt($a), sqrt(1-$a));
 
         return $earthRadius * $c;
+    }
+
+    /**
+     * Get location settings for admin
+     */
+    public function getLocationSettings()
+    {
+        return response()->json([
+            'latitude' => $this->getSchoolLatitude(),
+            'longitude' => $this->getSchoolLongitude(),
+            'max_distance' => $this->getMaxDistance()
+        ]);
+    }
+
+    /**
+     * Update location settings
+     */
+    public function updateLocationSettings(Request $request)
+    {
+        try {
+            // Validate input
+            $request->validate([
+                'school_latitude' => 'required|numeric|between:-90,90',
+                'school_longitude' => 'required|numeric|between:-180,180',
+                'max_distance' => 'required|integer|min:50|max:10000'
+            ]);
+
+            Log::info('Location settings update request', [
+                'latitude' => $request->school_latitude,
+                'longitude' => $request->school_longitude,
+                'max_distance' => $request->max_distance
+            ]);
+
+            // Check if .env file exists and is writable
+            $envFile = base_path('.env');
+
+            if (!file_exists($envFile)) {
+                Log::error('.env file does not exist');
+                return response()->json([
+                    'success' => false,
+                    'message' => 'File konfigurasi tidak ditemukan'
+                ], 500);
+            }
+
+            if (!is_writable($envFile)) {
+                Log::error('.env file is not writable');
+                return response()->json([
+                    'success' => false,
+                    'message' => 'File konfigurasi tidak dapat ditulis'
+                ], 500);
+            }
+
+            // Read current .env file
+            $env = file_get_contents($envFile);
+
+            // Update or add the location settings
+            $newSettings = [
+                'SCHOOL_LATITUDE' => $request->school_latitude,
+                'SCHOOL_LONGITUDE' => $request->school_longitude,
+                'SCHOOL_MAX_DISTANCE' => $request->max_distance
+            ];
+
+            foreach ($newSettings as $key => $value) {
+                $pattern = "/^{$key}=.*/m";
+                if (preg_match($pattern, $env)) {
+                    // Update existing setting
+                    $env = preg_replace($pattern, "{$key}={$value}", $env);
+                    Log::info("Updated existing setting: {$key}={$value}");
+                } else {
+                    // Add new setting
+                    $env .= "\n{$key}={$value}";
+                    Log::info("Added new setting: {$key}={$value}");
+                }
+            }
+
+            // Write back to .env file
+            $writeResult = file_put_contents($envFile, $env);
+
+            if ($writeResult === false) {
+                Log::error('Failed to write to .env file');
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Gagal menulis ke file konfigurasi'
+                ], 500);
+            }
+
+            Log::info('Successfully wrote to .env file');
+
+            // Clear config cache
+            try {
+                Artisan::call('config:clear');
+                Artisan::call('cache:clear');
+                Log::info('Cache cleared successfully');
+            } catch (\Exception $e) {
+                Log::warning('Failed to clear cache: ' . $e->getMessage());
+                // Don't fail the request if cache clear fails
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Pengaturan lokasi berhasil disimpan'
+            ]);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            Log::error('Validation error: ', $e->errors());
+            return response()->json([
+                'success' => false,
+                'message' => 'Data tidak valid: ' . implode(', ', $e->validator->errors()->all())
+            ], 422);
+        } catch (\Exception $e) {
+            Log::error('Error updating location settings: ' . $e->getMessage());
+            Log::error('Stack trace: ' . $e->getTraceAsString());
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal menyimpan pengaturan lokasi: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
 }

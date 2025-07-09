@@ -1,0 +1,18 @@
+# Pengaturan Lokasi Sekolah untuk Sistem Absensi
+# Tambahkan baris berikut ke file .env Anda
+
+# Koordinat Sekolah (Latitude/Lintang)
+SCHOOL_LATITUDE=-6.982835
+
+# Koordinat Sekolah (Longitude/Bujur)  
+SCHOOL_LONGITUDE=110.409355
+
+# Jarak maksimal untuk absensi (dalam meter)
+# Default: 2000 meter (2km)
+SCHOOL_MAX_DISTANCE=2000
+
+# Catatan:
+# - Latitude: nilai antara -90 sampai 90
+# - Longitude: nilai antara -180 sampai 180
+# - Max Distance: minimal 50 meter, maksimal 10000 meter (10km)
+# - Setelah mengubah pengaturan, restart aplikasi atau clear cache

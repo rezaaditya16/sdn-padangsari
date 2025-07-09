@@ -10,6 +10,8 @@
     .bg-orange-25 { background-color: rgba(249, 115, 22, 0.1); }
 </style>
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 @section('content')
 <div class="container mx-auto px-4 py-8">
     <!-- Header dengan Navigation -->
@@ -43,6 +45,12 @@
                         <i class="fas fa-chart-line mr-2 text-sm"></i>
                         <span>Dashboard</span>
                     </a>
+
+                    <button onclick="openLocationSettings()"
+                            class="inline-flex items-center px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white text-sm font-medium rounded-lg transition-colors duration-200 shadow-sm">
+                        <i class="fas fa-cog mr-2 text-sm"></i>
+                        <span>Settings</span>
+                    </button>
 
                     <a href="{{ route('admin.attendance.export', ['date' => $selectedDate->format('Y-m-d')]) }}"
                        class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition-colors duration-200 shadow-sm">
@@ -423,6 +431,124 @@
     </div>
 </div>
 
+<!-- Modal untuk pengaturan lokasi sekolah -->
+<div id="locationSettingsModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden" style="z-index: 1001;">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-lg max-w-lg w-full p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-semibold text-gray-800">Pengaturan Lokasi Sekolah</h3>
+                <button onclick="closeLocationSettings()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <form id="locationSettingsForm" onsubmit="saveLocationSettings(event)">
+                <div class="space-y-4">
+                    <!-- Current Location Display -->
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-info-circle text-blue-500 mt-1"></i>
+                            <div>
+                                <h4 class="font-medium text-blue-800">Lokasi Saat Ini</h4>
+                                <p class="text-sm text-blue-600" id="currentLocation">Loading...</p>
+                                <a href="#" id="currentLocationMap" target="_blank" class="text-xs text-blue-500 hover:text-blue-700">
+                                    <i class="fas fa-external-link-alt mr-1"></i>Lihat di Google Maps
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Latitude Input -->
+                    <div>
+                        <label for="school_latitude" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-globe mr-1"></i>Latitude Sekolah
+                        </label>
+                        <input type="number" 
+                               id="school_latitude" 
+                               name="school_latitude"
+                               step="any"
+                               class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                               placeholder="Contoh: -6.982835"
+                               required>
+                        <p class="text-xs text-gray-500 mt-1">Masukkan koordinat latitude (garis lintang)</p>
+                    </div>
+
+                    <!-- Longitude Input -->
+                    <div>
+                        <label for="school_longitude" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-globe mr-1"></i>Longitude Sekolah
+                        </label>
+                        <input type="number" 
+                               id="school_longitude" 
+                               name="school_longitude"
+                               step="any"
+                               class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                               placeholder="Contoh: 110.409355"
+                               required>
+                        <p class="text-xs text-gray-500 mt-1">Masukkan koordinat longitude (garis bujur)</p>
+                    </div>
+
+                    <!-- Max Distance Input -->
+                    <div>
+                        <label for="max_distance" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-ruler-combined mr-1"></i>Jarak Maksimal (meter)
+                        </label>
+                        <input type="number" 
+                               id="max_distance" 
+                               name="max_distance"
+                               min="50"
+                               max="10000"
+                               class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                               placeholder="2000"
+                               required>
+                        <p class="text-xs text-gray-500 mt-1">Radius maksimal untuk absensi (50m - 10km)</p>
+                    </div>
+
+                    <!-- Get Current Location Button -->
+                    <div class="flex space-x-2">
+                        <button type="button" 
+                                onclick="getCurrentLocation()" 
+                                class="flex-1 inline-flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors duration-200">
+                            <i class="fas fa-location-arrow mr-2"></i>
+                            <span>Gunakan Lokasi Saat Ini</span>
+                        </button>
+                        <button type="button" 
+                                onclick="previewLocation()" 
+                                class="inline-flex items-center px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white text-sm font-medium rounded-lg transition-colors duration-200">
+                            <i class="fas fa-eye mr-2"></i>
+                            <span>Preview</span>
+                        </button>
+                    </div>
+
+                    <!-- Warning -->
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-exclamation-triangle text-yellow-500 mt-1"></i>
+                            <div>
+                                <h4 class="font-medium text-yellow-800">Peringatan</h4>
+                                <p class="text-sm text-yellow-700">Perubahan lokasi akan mempengaruhi semua absensi selanjutnya. Pastikan koordinat sudah benar sebelum menyimpan.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Buttons -->
+                <div class="flex justify-end space-x-3 mt-6 pt-4 border-t border-gray-200">
+                    <button type="button" 
+                            onclick="closeLocationSettings()" 
+                            class="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors duration-200">
+                        Batal
+                    </button>
+                    <button type="submit" 
+                            class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition-colors duration-200">
+                        <i class="fas fa-save mr-2"></i>Simpan Pengaturan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
 function showLocation(lat, lng) {
     document.getElementById('locationModal').classList.remove('hidden');
@@ -439,6 +565,162 @@ function showLocation(lat, lng) {
 
 function closeLocationModal() {
     document.getElementById('locationModal').classList.add('hidden');
+}
+
+// Location Settings Functions
+function openLocationSettings() {
+    document.getElementById('locationSettingsModal').classList.remove('hidden');
+    loadCurrentLocationSettings();
+}
+
+function closeLocationSettings() {
+    document.getElementById('locationSettingsModal').classList.add('hidden');
+}
+
+function loadCurrentLocationSettings() {
+    console.log('Loading current location settings...');
+    
+    fetch('/admin/attendance/location-settings')
+        .then(response => {
+            console.log('Load settings response status:', response.status);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            return response.json();
+        })
+        .then(data => {
+            console.log('Current location settings:', data);
+            
+            document.getElementById('school_latitude').value = data.latitude;
+            document.getElementById('school_longitude').value = data.longitude;
+            document.getElementById('max_distance').value = data.max_distance;
+            
+            document.getElementById('currentLocation').textContent = 
+                `Lat: ${data.latitude}, Lng: ${data.longitude} (Radius: ${data.max_distance}m)`;
+            document.getElementById('currentLocationMap').href = 
+                `https://www.google.com/maps?q=${data.latitude},${data.longitude}`;
+        })
+        .catch(error => {
+            console.error('Error loading location settings:', error);
+            showAlert('Gagal memuat pengaturan lokasi: ' + error.message, 'error');
+        });
+}
+
+function getCurrentLocation() {
+    if (navigator.geolocation) {
+        const button = event.target;
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Mengambil Lokasi...';
+        button.disabled = true;
+
+        navigator.geolocation.getCurrentPosition(function(position) {
+            document.getElementById('school_latitude').value = position.coords.latitude;
+            document.getElementById('school_longitude').value = position.coords.longitude;
+            
+            button.innerHTML = originalText;
+            button.disabled = false;
+            showAlert('Lokasi berhasil diambil!', 'success');
+        }, function(error) {
+            button.innerHTML = originalText;
+            button.disabled = false;
+            showAlert('Gagal mengambil lokasi: ' + error.message, 'error');
+        });
+    } else {
+        showAlert('Geolocation tidak didukung oleh browser ini', 'error');
+    }
+}
+
+function previewLocation() {
+    const lat = document.getElementById('school_latitude').value;
+    const lng = document.getElementById('school_longitude').value;
+    
+    if (lat && lng) {
+        window.open(`https://www.google.com/maps?q=${lat},${lng}`, '_blank');
+    } else {
+        showAlert('Masukkan koordinat terlebih dahulu', 'warning');
+    }
+}
+
+function saveLocationSettings(event) {
+    event.preventDefault();
+    
+    const formData = new FormData(event.target);
+    const submitButton = event.target.querySelector('button[type="submit"]');
+    const originalText = submitButton.innerHTML;
+    
+    // Debug: Log form data
+    console.log('Form data being sent:');
+    for (let [key, value] of formData.entries()) {
+        console.log(key, value);
+    }
+    
+    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menyimpan...';
+    submitButton.disabled = true;
+
+    fetch('/admin/attendance/location-settings', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        }
+    })
+    .then(response => {
+        console.log('Response status:', response.status);
+        console.log('Response headers:', response.headers);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        return response.json();
+    })
+    .then(data => {
+        console.log('Response data:', data);
+        
+        if (data.success) {
+            showAlert('Pengaturan lokasi berhasil disimpan!', 'success');
+            closeLocationSettings();
+            // Reload current location settings to reflect changes
+            loadCurrentLocationSettings();
+        } else {
+            showAlert(data.message || 'Gagal menyimpan pengaturan', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Fetch error:', error);
+        showAlert('Terjadi kesalahan saat menyimpan: ' + error.message, 'error');
+    })
+    .finally(() => {
+        submitButton.innerHTML = originalText;
+        submitButton.disabled = false;
+    });
+}
+
+function showAlert(message, type = 'info') {
+    const alertColors = {
+        success: 'bg-green-100 border-green-400 text-green-700',
+        error: 'bg-red-100 border-red-400 text-red-700',
+        warning: 'bg-yellow-100 border-yellow-400 text-yellow-700',
+        info: 'bg-blue-100 border-blue-400 text-blue-700'
+    };
+
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `fixed top-4 right-4 z-50 px-4 py-3 border rounded ${alertColors[type]} transition-opacity duration-300`;
+    alertDiv.innerHTML = `
+        <div class="flex items-center">
+            <span>${message}</span>
+            <button onclick="this.parentElement.parentElement.remove()" class="ml-3 text-lg leading-none">&times;</button>
+        </div>
+    `;
+
+    document.body.appendChild(alertDiv);
+
+    setTimeout(() => {
+        alertDiv.style.opacity = '0';
+        setTimeout(() => alertDiv.remove(), 300);
+    }, 5000);
 }
 
 // Auto refresh setiap 30 detik untuk real-time monitoring
