@@ -81,8 +81,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     // Professional attendance management
     Route::post('/attendance/process-absence/{id}', [App\Http\Controllers\AttendanceController::class, 'processAbsence'])->name('admin.attendance.process-absence');
+    
+    // Location settings routes
+    Route::get('/attendance/location-settings', [App\Http\Controllers\AttendanceController::class, 'getLocationSettings'])->name('admin.attendance.location-settings');
+    Route::post('/attendance/location-settings', [App\Http\Controllers\AttendanceController::class, 'updateLocationSettings'])->name('admin.attendance.update-location-settings');
 });
 
-// Location settings routes (temporary without middleware for testing)
-Route::get('/admin/attendance/location-settings', [App\Http\Controllers\AttendanceController::class, 'getLocationSettings'])->name('admin.attendance.location-settings');
-Route::post('/admin/attendance/location-settings', [App\Http\Controllers\AttendanceController::class, 'updateLocationSettings'])->name('admin.attendance.update-location-settings');
+// Test page untuk location settings (temporary)
+Route::get('/test-location-settings', function () {
+    return view('test-location-settings');
+})->name('test.location.settings');

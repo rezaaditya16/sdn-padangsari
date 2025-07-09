@@ -21,21 +21,50 @@ class AttendanceController extends Controller
     const DEFAULT_MAX_DISTANCE = 2000;
 
     /**
-     * Get dynamic school location settings
+     * Get dynamic school location settings with fresh cache
      */
     private function getSchoolLatitude()
     {
+        // Force refresh config cache if needed
+        $this->refreshConfigIfNeeded();
         return env('SCHOOL_LATITUDE', self::DEFAULT_SCHOOL_LATITUDE);
     }
 
     private function getSchoolLongitude()
     {
+        $this->refreshConfigIfNeeded();
         return env('SCHOOL_LONGITUDE', self::DEFAULT_SCHOOL_LONGITUDE);
     }
 
     private function getMaxDistance()
     {
+        $this->refreshConfigIfNeeded();
         return env('SCHOOL_MAX_DISTANCE', self::DEFAULT_MAX_DISTANCE);
+    }
+
+    /**
+     * Refresh config cache if environment variables are stale
+     */
+    private function refreshConfigIfNeeded()
+    {
+        static $lastRefresh = null;
+        
+        // Only refresh once per request to avoid performance issues
+        if ($lastRefresh === null || (time() - $lastRefresh) > 5) {
+            try {
+                // Check if we're in a cached environment
+                if (app()->configurationIsCached()) {
+                    Artisan::call('config:clear');
+                    Artisan::call('config:cache');
+                } else {
+                    // Just clear cache for non-cached environments
+                    Artisan::call('config:clear');
+                }
+                $lastRefresh = time();
+            } catch (\Exception $e) {
+                Log::warning('Failed to refresh config cache: ' . $e->getMessage());
+            }
+        }
     }
 
     /**
@@ -1165,19 +1194,47 @@ class AttendanceController extends Controller
 
             Log::info('Successfully wrote to .env file');
 
-            // Clear config cache
+            // Force clear all caches and reload environment
             try {
+                // Clear all caches
                 Artisan::call('config:clear');
                 Artisan::call('cache:clear');
-                Log::info('Cache cleared successfully');
+                Artisan::call('route:clear');
+                
+                // Force reload the .env file
+                $app = app();
+                $app->loadEnvironmentFrom('.env');
+                
+                // Re-cache if in production
+                if (app()->environment('production')) {
+                    Artisan::call('config:cache');
+                }
+                
+                Log::info('Cache cleared and environment reloaded successfully');
             } catch (\Exception $e) {
-                Log::warning('Failed to clear cache: ' . $e->getMessage());
+                Log::warning('Failed to clear cache completely: ' . $e->getMessage());
                 // Don't fail the request if cache clear fails
             }
 
+            // Verify the update by reading fresh values
+            $verifyLatitude = env('SCHOOL_LATITUDE');
+            $verifyLongitude = env('SCHOOL_LONGITUDE');
+            $verifyDistance = env('SCHOOL_MAX_DISTANCE');
+            
+            Log::info('Verification after update', [
+                'latitude' => $verifyLatitude,
+                'longitude' => $verifyLongitude,
+                'max_distance' => $verifyDistance
+            ]);
+
             return response()->json([
                 'success' => true,
-                'message' => 'Pengaturan lokasi berhasil disimpan'
+                'message' => 'Pengaturan lokasi berhasil disimpan',
+                'updated_values' => [
+                    'latitude' => $verifyLatitude ?: $request->school_latitude,
+                    'longitude' => $verifyLongitude ?: $request->school_longitude,
+                    'max_distance' => $verifyDistance ?: $request->max_distance
+                ]
             ]);
 
         } catch (\Illuminate\Validation\ValidationException $e) {

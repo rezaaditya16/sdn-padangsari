@@ -441,7 +441,7 @@
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
-            
+
             <form id="locationSettingsForm" onsubmit="saveLocationSettings(event)">
                 <div class="space-y-4">
                     <!-- Current Location Display -->
@@ -463,8 +463,8 @@
                         <label for="school_latitude" class="block text-sm font-medium text-gray-700 mb-2">
                             <i class="fas fa-globe mr-1"></i>Latitude Sekolah
                         </label>
-                        <input type="number" 
-                               id="school_latitude" 
+                        <input type="number"
+                               id="school_latitude"
                                name="school_latitude"
                                step="any"
                                class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -478,8 +478,8 @@
                         <label for="school_longitude" class="block text-sm font-medium text-gray-700 mb-2">
                             <i class="fas fa-globe mr-1"></i>Longitude Sekolah
                         </label>
-                        <input type="number" 
-                               id="school_longitude" 
+                        <input type="number"
+                               id="school_longitude"
                                name="school_longitude"
                                step="any"
                                class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -493,8 +493,8 @@
                         <label for="max_distance" class="block text-sm font-medium text-gray-700 mb-2">
                             <i class="fas fa-ruler-combined mr-1"></i>Jarak Maksimal (meter)
                         </label>
-                        <input type="number" 
-                               id="max_distance" 
+                        <input type="number"
+                               id="max_distance"
                                name="max_distance"
                                min="50"
                                max="10000"
@@ -506,14 +506,14 @@
 
                     <!-- Get Current Location Button -->
                     <div class="flex space-x-2">
-                        <button type="button" 
-                                onclick="getCurrentLocation()" 
+                        <button type="button"
+                                onclick="getCurrentLocation()"
                                 class="flex-1 inline-flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors duration-200">
                             <i class="fas fa-location-arrow mr-2"></i>
                             <span>Gunakan Lokasi Saat Ini</span>
                         </button>
-                        <button type="button" 
-                                onclick="previewLocation()" 
+                        <button type="button"
+                                onclick="previewLocation()"
                                 class="inline-flex items-center px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white text-sm font-medium rounded-lg transition-colors duration-200">
                             <i class="fas fa-eye mr-2"></i>
                             <span>Preview</span>
@@ -534,12 +534,12 @@
 
                 <!-- Footer Buttons -->
                 <div class="flex justify-end space-x-3 mt-6 pt-4 border-t border-gray-200">
-                    <button type="button" 
-                            onclick="closeLocationSettings()" 
+                    <button type="button"
+                            onclick="closeLocationSettings()"
                             class="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors duration-200">
                         Batal
                     </button>
-                    <button type="submit" 
+                    <button type="submit"
                             class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition-colors duration-200">
                         <i class="fas fa-save mr-2"></i>Simpan Pengaturan
                     </button>
@@ -577,34 +577,50 @@ function closeLocationSettings() {
     document.getElementById('locationSettingsModal').classList.add('hidden');
 }
 
-function loadCurrentLocationSettings() {
-    console.log('Loading current location settings...');
-    
+function loadCurrentLocationSettings(retryCount = 0) {
+    console.log('Loading current location settings... (attempt ' + (retryCount + 1) + ')');
+
     fetch('/admin/attendance/location-settings')
         .then(response => {
             console.log('Load settings response status:', response.status);
-            
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            
+
             return response.json();
         })
         .then(data => {
             console.log('Current location settings:', data);
-            
+
+            // Validate that we have all required fields
+            if (!data.latitude || !data.longitude || !data.max_distance) {
+                throw new Error('Incomplete data received');
+            }
+
             document.getElementById('school_latitude').value = data.latitude;
             document.getElementById('school_longitude').value = data.longitude;
             document.getElementById('max_distance').value = data.max_distance;
-            
-            document.getElementById('currentLocation').textContent = 
+
+            document.getElementById('currentLocation').textContent =
                 `Lat: ${data.latitude}, Lng: ${data.longitude} (Radius: ${data.max_distance}m)`;
-            document.getElementById('currentLocationMap').href = 
+            document.getElementById('currentLocationMap').href =
                 `https://www.google.com/maps?q=${data.latitude},${data.longitude}`;
+
+            console.log('Location settings loaded successfully');
         })
         .catch(error => {
             console.error('Error loading location settings:', error);
-            showAlert('Gagal memuat pengaturan lokasi: ' + error.message, 'error');
+
+            // Retry up to 3 times with increasing delays
+            if (retryCount < 2) {
+                console.log('Retrying in ' + ((retryCount + 1) * 1000) + 'ms...');
+                setTimeout(() => {
+                    loadCurrentLocationSettings(retryCount + 1);
+                }, (retryCount + 1) * 1000);
+            } else {
+                showAlert('Gagal memuat pengaturan lokasi setelah beberapa percobaan: ' + error.message, 'error');
+            }
         });
 }
 
@@ -618,7 +634,7 @@ function getCurrentLocation() {
         navigator.geolocation.getCurrentPosition(function(position) {
             document.getElementById('school_latitude').value = position.coords.latitude;
             document.getElementById('school_longitude').value = position.coords.longitude;
-            
+
             button.innerHTML = originalText;
             button.disabled = false;
             showAlert('Lokasi berhasil diambil!', 'success');
@@ -635,7 +651,7 @@ function getCurrentLocation() {
 function previewLocation() {
     const lat = document.getElementById('school_latitude').value;
     const lng = document.getElementById('school_longitude').value;
-    
+
     if (lat && lng) {
         window.open(`https://www.google.com/maps?q=${lat},${lng}`, '_blank');
     } else {
@@ -645,17 +661,17 @@ function previewLocation() {
 
 function saveLocationSettings(event) {
     event.preventDefault();
-    
+
     const formData = new FormData(event.target);
     const submitButton = event.target.querySelector('button[type="submit"]');
     const originalText = submitButton.innerHTML;
-    
+
     // Debug: Log form data
     console.log('Form data being sent:');
     for (let [key, value] of formData.entries()) {
         console.log(key, value);
     }
-    
+
     submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menyimpan...';
     submitButton.disabled = true;
 
@@ -669,21 +685,25 @@ function saveLocationSettings(event) {
     .then(response => {
         console.log('Response status:', response.status);
         console.log('Response headers:', response.headers);
-        
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         return response.json();
     })
     .then(data => {
         console.log('Response data:', data);
-        
+
         if (data.success) {
             showAlert('Pengaturan lokasi berhasil disimpan!', 'success');
             closeLocationSettings();
-            // Reload current location settings to reflect changes
-            loadCurrentLocationSettings();
+
+            // Wait a moment then reload current settings to verify changes
+            setTimeout(() => {
+                console.log('Verifying saved settings...');
+                loadCurrentLocationSettings();
+            }, 1500);
         } else {
             showAlert(data.message || 'Gagal menyimpan pengaturan', 'error');
         }
